@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebApplication1</name>
+    </assembly>
+    <members>
+        <member name="M:WebApplication1.Controllers.LiftsController.Get">
+            <summary>
+            Get information about all lifts
+            </summary>
+            <returns>Information about all lifts</returns>
+            <response code="200" cref="!:ListOfLiftDTO">Information about all lifts</response>
+        </member>
+        <member name="M:WebApplication1.Controllers.LiftsController.GetAsync(System.String)">
+            <summary>
+            Get information about a lift by it's name
+            </summary>
+            <param name="liftName">Name of the lift</param>
+            <returns>A lift with the specified name</returns>
+            <response code="200" cref="T:WebApplication1.Models.LiftDTO">Lift with specified name</response>
+            <response code="404">Lift with specified name not found</response>
+        </member>
+        <member name="M:WebApplication1.Controllers.LiftsController.Post(System.String,System.Boolean,System.UInt32,System.UInt32)">
+            <summary>
+            Add a new lift
+            </summary>
+            <param name="liftName">Name of the new lift</param>
+            <param name="isOpen">Is the new lift currently working or not</param>
+            <param name="seatsAmount">The amount of seats in the new lift</param>
+            <param name="liftingTime">The time the new lift needs to lift from the beginning to the end</param>
+            <returns>The added lift with assigned ID</returns>
+            <response code="200" cref="T:WebApplication1.Models.LiftDTO">The added lift with assigned ID</response>
+            <response code="400">A lift with such name already exists</response>
+            /// <remarks>
+            Note that the names of lifts should be unique.
+            </remarks>
+        </member>
+        <member name="M:WebApplication1.Controllers.LiftsController.Put(System.String,System.Boolean,System.UInt32,System.UInt32)">
+            <summary>
+            Update information about an existing lift
+            </summary>
+            <param name="liftName">Name of the lift to update</param>
+            <param name="isOpen">Is the lift currently working or not</param>
+            <param name="seatsAmount">The amount of seats in the lift to update</param>
+            <param name="liftingTime">The time the lift needs to lift from the beginning to the end</param>
+            <returns></returns>
+            <response code="200">The lift was successfully updated</response>
+            <response code="404">A lift with specified name was not found</response>
+        </member>
+        <member name="M:WebApplication1.Controllers.LiftsController.Delete(System.String)">
+            <summary>
+            Delete a lift by it's name
+            </summary>
+            <param name="liftName">Name of the lift</param>
+            <returns></returns>
+            <response code="200" cref="T:WebApplication1.Models.LiftDTO">Lift was successfully deleted</response>
+            <response code="404">Lift with specified name not found</response>
+        </member>
+        <member name="T:WebApplication1.Models.LiftDTO">
+            <summary>
+            Information about a lift
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.LiftDTO.LiftID">
+            <summary>
+            Lift ID
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.LiftDTO.LiftName">
+            <summary>
+            Lift name
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.LiftDTO.IsOpen">
+            <summary>
+            Is the lift working right now or not
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.LiftDTO.SeatsAmount">
+            <summary>
+            The amount of seats in the lift
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.LiftDTO.LiftingTime">
+            <summary>
+            The time lift needs to lift from the beginning to the end
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.LiftDTO.QueueTime">
+            <summary>
+            Current time in queue to the lift
+            </summary>
+        </member>
+    </members>
+</doc>
