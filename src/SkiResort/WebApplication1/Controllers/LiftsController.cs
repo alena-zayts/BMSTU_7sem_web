@@ -31,7 +31,7 @@ namespace WebApplication1.Controllers
         public async Task<IActionResult> Get()
         {
             List<BL.Models.Lift> lifts = await _facade.GetLiftsInfoAsync(_userID);
-            List<LiftDTO> liftsDTO = Converters.LiftsConverter.ConvertLiftsToLiftsDTO(lifts);
+            List<LiftDTO> liftsDTO = Converters.LiftConverter.ConvertLiftsToLiftsDTO(lifts);
             string liftsJSON = JsonSerializer.Serialize(liftsDTO, OtherOptions.JsonOptions());
             return new ContentResult
             {
@@ -46,18 +46,18 @@ namespace WebApplication1.Controllers
         /// </summary>
         /// <param name="liftName">Name of the lift</param>
         /// <returns>A lift with the specified name</returns>
-        /// <response code="200" cref="LiftDTO">Lift with specified name</response>
+        /// <response code="200" cref="LiftWithSlopesDTO">Lift with specified name</response>
         /// <response code="404">Lift with specified name not found</response>
         [HttpGet("{liftName}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LiftDTO))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LiftWithSlopesDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAsync([FromRoute] string liftName)
         {
             try
             {
                 BL.Models.Lift lift = await _facade.GetLiftInfoAsync(_userID, liftName);
-                LiftDTO liftDTO = Converters.LiftConverter.ConvertLiftToLiftDTO(lift);
-                string liftJSON = JsonSerializer.Serialize(liftDTO, OtherOptions.JsonOptions());
+                LiftWithSlopesDTO liftWithSlopesDTO = Converters.LiftConverter.ConvertLiftToLiftWithSlopesDTO(lift);
+                string liftJSON = JsonSerializer.Serialize(liftWithSlopesDTO, OtherOptions.JsonOptions());
 
                 return new ContentResult
                 {
