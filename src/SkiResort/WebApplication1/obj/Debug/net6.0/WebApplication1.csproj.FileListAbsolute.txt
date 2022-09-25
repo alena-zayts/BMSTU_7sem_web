@@ -35,3 +35,11 @@ C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\msgpack.light.d
 C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\progaudi.tarantool.dll
 C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\AccessToDB.dll
 C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\AccessToDB.pdb
+C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\WebApplication1.staticwebassets.runtime.json
+C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll

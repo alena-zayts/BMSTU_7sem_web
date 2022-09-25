@@ -4,9 +4,9 @@ using System.Text.Json;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 
-namespace WebApplication1
+namespace WebApplication1.Options
 {
-	public static class Options
+	public static class OtherOptions
 	{
 		public static JsonSerializerOptions JsonOptions()
 		{

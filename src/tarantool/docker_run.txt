@@ -1,6 +1,9 @@
 docker-compose -f C:/BMSTU_7sem_web/src/tarantool/docker-compose.yml up -d
 docker-compose -f C:/BMSTU_7sem_web/src/tarantool/docker-compose.yml down
 
+docker-machine env
+@FOR /f "tokens=*" %i IN ('docker-machine env') DO @%i
+docker run -d -p 80:80 docker/getting-started
 
 docker-compose -f C:/BMSTU_7sem_web/src/tarantool/docker-compose.yml down && docker-compose -f C:/BMSTU_7sem_web/src/tarantool/docker-compose.yml up -d
 
@@ -8,3 +11,13 @@ docker-compose -f C:/BMSTU_7sem_web/src/tarantool/docker-compose.yml down && doc
 1266b9e029bf0dbed92e6b99db11e2bb3e51544ebbb48380d30154ad1fc4b50c
 
 docker run --name tarantool_ski_resort -d -p 3301:3301 -v c:/BMSTU_7sem_web/src/tarantool/data:/var/lib/tarantool tarantool/tarantool:1.7
+
+
+
+
+
+C:/Windows/System32/bash.exe
+docker version
+
+docker-compose -f /mnt/c/BMSTU_7sem_web/src/tarantool/docker-compose.yml up -d
+docker-compose -f /mnt/c/BMSTU_7sem_web/src/tarantool/docker-compose.yml down

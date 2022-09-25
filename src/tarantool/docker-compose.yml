@@ -8,5 +8,5 @@ services:
     ports:
       - 3301:3301
     volumes:
-      - c:/BMSTU_7sem_web/src/tarantool/app:/usr/local/share/tarantool
-      - c:/BMSTU_7sem_web/src/tarantool/data:/var/lib/tarantool
+      - /mnt/c/BMSTU_7sem_web/src/tarantool/app:/usr/local/share/tarantool
+      - /mnt/c/BMSTU_7sem_web/src/tarantool/data:/var/lib/tarantool

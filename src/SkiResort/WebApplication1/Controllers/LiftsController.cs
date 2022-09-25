@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using AccessToDB.Exceptions;
 using WebApplication1.Models;
+using WebApplication1.Options;
 
 namespace WebApplication1.Controllers
 {
@@ -15,7 +16,7 @@ namespace WebApplication1.Controllers
         private uint _userID = 1;
         public LiftsController()
         {
-            _facade = Options.createFacade();
+            _facade = OtherOptions.createFacade();
         }
 
         // GET: lifts
@@ -31,7 +32,7 @@ namespace WebApplication1.Controllers
         {
             List<BL.Models.Lift> lifts = await _facade.GetLiftsInfoAsync(_userID);
             List<LiftDTO> liftsDTO = Converters.LiftsConverter.ConvertLiftsToLiftsDTO(lifts);
-            string liftsJSON = JsonSerializer.Serialize(liftsDTO, Options.JsonOptions());
+            string liftsJSON = JsonSerializer.Serialize(liftsDTO, OtherOptions.JsonOptions());
             return new ContentResult
             {
                 Content = liftsJSON,
@@ -56,7 +57,7 @@ namespace WebApplication1.Controllers
             {
                 BL.Models.Lift lift = await _facade.GetLiftInfoAsync(_userID, liftName);
                 LiftDTO liftDTO = Converters.LiftConverter.ConvertLiftToLiftDTO(lift);
-                string liftJSON = JsonSerializer.Serialize(liftDTO, Options.JsonOptions());
+                string liftJSON = JsonSerializer.Serialize(liftDTO, OtherOptions.JsonOptions());
 
                 return new ContentResult
                 {
@@ -66,7 +67,7 @@ namespace WebApplication1.Controllers
             }
             catch (AccessToDB.Exceptions.LiftExceptions.LiftNotFoundException)
             {
-                string errorMessage = JsonSerializer.Serialize("Lift with specified name not found", Options.JsonOptions());
+                string errorMessage = JsonSerializer.Serialize("Lift with specified name not found", OtherOptions.JsonOptions());
                 return new ContentResult
                 {
                     Content = errorMessage,
@@ -98,7 +99,7 @@ namespace WebApplication1.Controllers
             {
                 uint liftID = await _facade.AdminAddAutoIncrementLiftAsync(_userID, liftName, isOpen, seatsAmount, liftingTime);
                 LiftDTO liftDTO = new LiftDTO(liftID, liftName, isOpen, seatsAmount, liftingTime);
-                string liftJSON = JsonSerializer.Serialize(liftDTO, Options.JsonOptions());
+                string liftJSON = JsonSerializer.Serialize(liftDTO, OtherOptions.JsonOptions());
 
                 return new ContentResult
                 {
@@ -108,7 +109,7 @@ namespace WebApplication1.Controllers
             }
             catch (AccessToDB.Exceptions.LiftExceptions.LiftAddAutoIncrementException)
             {
-                string errorMessage = JsonSerializer.Serialize("A lift with such name already exists", Options.JsonOptions());
+                string errorMessage = JsonSerializer.Serialize("A lift with such name already exists", OtherOptions.JsonOptions());
                 return new ContentResult
                 {
                     Content = errorMessage,
@@ -143,7 +144,7 @@ namespace WebApplication1.Controllers
             }
             catch (AccessToDB.Exceptions.LiftExceptions.LiftNotFoundException)
             {
-                string errorMessage = JsonSerializer.Serialize("Lift with specified name not found", Options.JsonOptions());
+                string errorMessage = JsonSerializer.Serialize("Lift with specified name not found", OtherOptions.JsonOptions());
                 return new ContentResult
                 {
                     Content = errorMessage,
@@ -175,7 +176,7 @@ namespace WebApplication1.Controllers
             }
             catch (AccessToDB.Exceptions.LiftExceptions.LiftNotFoundException)
             {
-                string errorMessage = JsonSerializer.Serialize("Lift with specified name not found", Options.JsonOptions());
+                string errorMessage = JsonSerializer.Serialize("Lift with specified name not found", OtherOptions.JsonOptions());
                 return new ContentResult
                 {
                     Content = errorMessage,

@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="37e3b93f-dec6-4655-8fd4-69c45ec7c196" name="Changes" comment="" />
+    <list default="true" id="37e3b93f-dec6-4655-8fd4-69c45ec7c196" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../SkiResort/.vs/SkiResort/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../SkiResort/.vs/SkiResort/v17/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/00000000000000013499.snap" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/00000000000000013499.xlog" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/00000000000000013500.xlog" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/00000000000000017521.xlog" beforeDir="false" afterPath="$PROJECT_DIR$/data/00000000000000017521.xlog" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

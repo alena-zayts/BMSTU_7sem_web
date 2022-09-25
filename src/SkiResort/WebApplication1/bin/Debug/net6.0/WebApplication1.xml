@@ -4,6 +4,17 @@
         <name>WebApplication1</name>
     </assembly>
     <members>
+        <member name="M:WebApplication1.Controllers.AccountController.LogInAsync(System.String,System.String)">
+            <summary>
+            Log in
+            </summary>
+            <param name="userEmail">User's email</param>
+            <param name="userPassword">User's password</param>
+            <returns>Token?</returns>
+            <response code="200" cref="T:Microsoft.AspNetCore.Mvc.JsonResult">Authorization went successfully</response>
+            <response code="404">User with such email wasn't found</response>
+            <response code="401">Incorrect password</response>
+        </member>
         <member name="M:WebApplication1.Controllers.LiftsController.Get">
             <summary>
             Get information about all lifts
