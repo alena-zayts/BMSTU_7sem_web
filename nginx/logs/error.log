@@ -72,3 +72,5 @@
 2022/09/26 19:22:58 [error] 27220#21116: *1 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/v1/index.html HTTP/1.1", upstream: "https://127.0.0.1:5004/api/index.html", host: "localhost"
 2022/09/26 19:23:00 [error] 27220#21116: *1 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/v1/index.html HTTP/1.1", upstream: "https://[::1]:5006/api/index.html", host: "localhost"
 2022/09/26 19:23:02 [error] 27220#21116: *1 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/v1/index.html HTTP/1.1", upstream: "https://127.0.0.1:5006/api/index.html", host: "localhost"
+2022/09/26 20:48:47 [notice] 29488#26240: signal process started
+2022/09/26 21:33:09 [notice] 27324#19596: signal process started
