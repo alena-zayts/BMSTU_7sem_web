@@ -47,10 +47,6 @@
 
 ![](docs/imgs/er/er.png)
 
-Схема БД
-
-![](docs/imgs/db/db.png)
-
 
 
 
