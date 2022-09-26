@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using WebApplication1.Options;
+using WebApplication1.Models;
 
 namespace WebApplication1
 {
@@ -25,7 +26,13 @@ namespace WebApplication1
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services
+                .AddControllers()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ContractResolver = new PatchRequestContractResolver(); // patch
+                });
+
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1",
@@ -66,6 +73,7 @@ namespace WebApplication1
                         };
                     });
             //services.AddControllersWithViews(); из мануала по JWT
+        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
