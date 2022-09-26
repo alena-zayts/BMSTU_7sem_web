@@ -11,7 +11,7 @@ using System.Text.Json;
 
 namespace WebApplication1.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [Produces("application/json")]
     [ApiController]
     public class AccountController : Controller

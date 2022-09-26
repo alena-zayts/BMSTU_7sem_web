@@ -83,7 +83,11 @@ namespace WebApplication1
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SkiResort v1"));
+                app.UseSwaggerUI(c => 
+                {
+                    //c.RoutePrefix = "api";
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "SkiResort v1");
+                });
             }
 
             app.UseHttpsRedirection();
