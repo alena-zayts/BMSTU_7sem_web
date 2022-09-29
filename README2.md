@@ -31,3 +31,12 @@ docker network connect test_network tarantool_ski_resort
 docker network connect test_network dazzling_kepler
 
 docker network inspect test_network
+
+берем ip4 tarantool_ski_resort (172.18.0.2) и используем его в качестве hostname
+
+"ski_admin:Tty454r293300@localhost:3301" -- вместо localhost
+
+вот тут админка http://172.17.0.1:8000/
+
+docker run -e TARANTOOL_CONNECTIONS=ski_admin:Tty454r293300@localhost:3301 -p 8000:80 quay.io/basis-company/tarantool-admin
+
