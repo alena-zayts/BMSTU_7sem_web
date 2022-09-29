@@ -6,9 +6,9 @@ namespace WebApplication1.Models
     /// <summary>
     /// Information about cards used in the resort
     /// </summary>
-    public class CardDTO
+    public class Card
     {
-        public CardDTO(uint cardID, DateTimeOffset activationTime, string type)
+        public Card(uint cardID, DateTimeOffset activationTime, string type)
         {
             CardID = cardID;
             ActivationTime = activationTime;

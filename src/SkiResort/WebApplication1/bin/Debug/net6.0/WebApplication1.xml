@@ -4,34 +4,51 @@
         <name>WebApplication1</name>
     </assembly>
     <members>
-        <member name="M:WebApplication1.Controllers.AccountController.LogInAsync(System.String,System.String)">
+        <member name="M:WebApplication1.Controllers.accountController.LogInAsync(System.String,System.String)">
             <summary>
             Log in
             </summary>
             <param name="userEmail">User's email</param>
             <param name="userPassword">User's password</param>
-            <returns>Token?</returns>
+            <returns>Token</returns>
             <response code="200" cref="T:Microsoft.AspNetCore.Mvc.JsonResult">Authorization went successfully</response>
             <response code="404">User with such email wasn't found</response>
             <response code="401">Incorrect password</response>
         </member>
-        <member name="M:WebApplication1.Controllers.CardReadingsController.Get">
+        <member name="M:WebApplication1.Controllers.accountController.Register(System.String,System.String)">
+            <summary>
+            Register
+            </summary>
+            <param name="userEmail">User's email</param>
+            <param name="userPassword">User's password</param>
+            <returns>Token</returns>
+            <response code="200" cref="T:Microsoft.AspNetCore.Mvc.JsonResult">Registration went successfully</response>
+            <response code="401">User with such email already exists</response>
+        </member>
+        <member name="M:WebApplication1.Controllers.accountController.ContinueWithoutAccount">
+            <summary>
+            Continue as anauthorized (just get token)
+            </summary>
+            <returns>Token</returns>
+            <response code="200" cref="T:Microsoft.AspNetCore.Mvc.JsonResult">Ok</response>
+        </member>
+        <member name="M:WebApplication1.Controllers.cardReadingsController.Get">
             <summary>
             Get information about all cardReadings
             </summary>
             <returns>Information about all cardReadings</returns>
             <response code="200" cref="!:ListOfCardReadingDTO">Information about all cardReadings</response>
         </member>
-        <member name="M:WebApplication1.Controllers.CardReadingsController.GetAsync(System.UInt32)">
+        <member name="M:WebApplication1.Controllers.cardReadingsController.GetAsync(System.UInt32)">
             <summary>
             Get information about a cardReading by it's ID
             </summary>
             <param name="recordID">CardReading ID</param>
             <returns>A cardReading with the specified ID</returns>
-            <response code="200" cref="T:WebApplication1.Models.CardReadingDTO">CardReading with specified ID</response>
+            <response code="200" cref="T:WebApplication1.Models.CardReading">CardReading with specified ID</response>
             <response code="404">CardReading with specified ID not found</response>
         </member>
-        <member name="M:WebApplication1.Controllers.CardReadingsController.Post(System.UInt32,System.UInt32,System.DateTimeOffset)">
+        <member name="M:WebApplication1.Controllers.cardReadingsController.Post(System.UInt32,System.UInt32,System.DateTimeOffset)">
             <summary>
             Add a new cardReading
             </summary>
@@ -39,9 +56,9 @@
             <param name="cardID">ID of the card that was read</param>
             <param name="readingTime">The time of the card reading</param>
             <returns>The added cardReading with assigned ID</returns>
-            <response code="200" cref="T:WebApplication1.Models.CardReadingDTO">The added cardReading with assigned ID</response>
+            <response code="201" cref="T:WebApplication1.Models.CardReading">The added cardReading with assigned ID</response>
         </member>
-        <member name="M:WebApplication1.Controllers.CardReadingsController.Put(System.UInt32,System.UInt32,System.UInt32,System.DateTimeOffset)">
+        <member name="M:WebApplication1.Controllers.cardReadingsController.Put(System.UInt32,System.UInt32,System.UInt32,System.DateTimeOffset)">
             <summary>
             Update information about an existing cardReading
             </summary>
@@ -53,41 +70,41 @@
             <response code="200">The cardReading was successfully updated</response>
             <response code="404">A cardReading with specified ID was not found</response>
         </member>
-        <member name="M:WebApplication1.Controllers.CardReadingsController.Delete(System.UInt32)">
+        <member name="M:WebApplication1.Controllers.cardReadingsController.Delete(System.UInt32)">
             <summary>
             Delete a cardReading by it's ID
             </summary>
             <param name="recordID">ID of the cardReading to delete</param>
             <returns></returns>
-            <response code="200" cref="T:WebApplication1.Models.CardReadingDTO">CardReading was successfully deleted</response>
+            <response code="200" cref="T:WebApplication1.Models.CardReading">CardReading was successfully deleted</response>
             <response code="404">CardReading with specified ID not found</response>
         </member>
-        <member name="M:WebApplication1.Controllers.CardsController.Get">
+        <member name="M:WebApplication1.Controllers.cardsController.Get">
             <summary>
             Get information about all cards
             </summary>
             <returns>Information about all cards</returns>
             <response code="200" cref="!:ListOfCardDTO">Information about all cards</response>
         </member>
-        <member name="M:WebApplication1.Controllers.CardsController.GetAsync(System.UInt32)">
+        <member name="M:WebApplication1.Controllers.cardsController.GetAsync(System.UInt32)">
             <summary>
             Get information about a card by it's ID
             </summary>
             <param name="cardID">Card ID</param>
             <returns>A card with the specified ID</returns>
-            <response code="200" cref="T:WebApplication1.Models.CardDTO">Card with specified ID</response>
+            <response code="200" cref="T:WebApplication1.Models.Card">Card with specified ID</response>
             <response code="404">Card with specified ID not found</response>
         </member>
-        <member name="M:WebApplication1.Controllers.CardsController.Post(System.DateTimeOffset,System.String)">
+        <member name="M:WebApplication1.Controllers.cardsController.Post(System.DateTimeOffset,System.String)">
             <summary>
             Add a new card
             </summary>
             <param name="activationTime">Time when the new card was activated</param>
             <param name="type">The type of the new card</param>
             <returns>The added card with assigned ID</returns>
-            <response code="200" cref="T:WebApplication1.Models.CardDTO">The added card with assigned ID</response>
+            <response code="201" cref="T:WebApplication1.Models.Card">The added card with assigned ID</response>
         </member>
-        <member name="M:WebApplication1.Controllers.CardsController.Put(System.UInt32,System.DateTimeOffset,System.String)">
+        <member name="M:WebApplication1.Controllers.cardsController.Put(System.UInt32,System.DateTimeOffset,System.String)">
             <summary>
             Update information about an existing card
             </summary>
@@ -98,32 +115,32 @@
             <response code="200">The card was successfully updated</response>
             <response code="404">A card with specified ID was not found</response>
         </member>
-        <member name="M:WebApplication1.Controllers.CardsController.Delete(System.UInt32)">
+        <member name="M:WebApplication1.Controllers.cardsController.Delete(System.UInt32)">
             <summary>
             Delete a card by it's ID
             </summary>
             <param name="cardID">ID of the card to delete</param>
             <returns></returns>
-            <response code="200" cref="T:WebApplication1.Models.CardDTO">Card was successfully deleted</response>
+            <response code="200" cref="T:WebApplication1.Models.Card">Card was successfully deleted</response>
             <response code="404">Card with specified ID not found</response>
         </member>
-        <member name="M:WebApplication1.Controllers.LiftsController.Get">
+        <member name="M:WebApplication1.Controllers.liftsController.Get">
             <summary>
             Get information about all lifts
             </summary>
             <returns>Information about all lifts</returns>
             <response code="200" cref="!:ListOfLiftDTO">Information about all lifts</response>
         </member>
-        <member name="M:WebApplication1.Controllers.LiftsController.GetAsync(System.String)">
+        <member name="M:WebApplication1.Controllers.liftsController.GetAsync(System.String)">
             <summary>
             Get information about a lift by it's name
             </summary>
             <param name="liftName">Name of the lift</param>
             <returns>A lift with the specified name</returns>
-            <response code="200" cref="T:WebApplication1.Models.LiftWithSlopesDTO">Lift with specified name</response>
+            <response code="200" cref="T:WebApplication1.Models.LiftWithSlopes">Lift with specified name</response>
             <response code="404">Lift with specified name not found</response>
         </member>
-        <member name="M:WebApplication1.Controllers.LiftsController.Post(System.String,System.Boolean,System.UInt32,System.UInt32)">
+        <member name="M:WebApplication1.Controllers.liftsController.Post(System.String,System.Boolean,System.UInt32,System.UInt32)">
             <summary>
             Add a new lift
             </summary>
@@ -132,13 +149,13 @@
             <param name="seatsAmount">The amount of seats in the new lift</param>
             <param name="liftingTime">The time the new lift needs to lift from the beginning to the end</param>
             <returns>The added lift with assigned ID</returns>
-            <response code="200" cref="T:WebApplication1.Models.LiftDTO">The added lift with assigned ID</response>
+            <response code="201" cref="T:WebApplication1.Models.Lift">The added lift with assigned ID</response>
             <response code="400">A lift with such name already exists</response>
             /// <remarks>
             Note that the names of lifts should be unique.
             </remarks>
         </member>
-        <member name="M:WebApplication1.Controllers.LiftsController.Put(System.String,WebApplication1.Models.PatchLiftDTO)">
+        <member name="M:WebApplication1.Controllers.liftsController.Put(System.String,WebApplication1.Models.PatchLift)">
             <summary>
             Update information about an existing lift
             </summary>
@@ -148,16 +165,16 @@
             <response code="200">The lift was successfully updated</response>
             <response code="404">A lift with specified name was not found</response>
         </member>
-        <member name="M:WebApplication1.Controllers.LiftsController.Delete(System.String)">
+        <member name="M:WebApplication1.Controllers.liftsController.Delete(System.String)">
             <summary>
             Delete a lift by it's name
             </summary>
             <param name="liftName">Name of the lift</param>
             <returns></returns>
-            <response code="200" cref="T:WebApplication1.Models.LiftDTO">Lift was successfully deleted</response>
+            <response code="200" cref="T:WebApplication1.Models.Lift">Lift was successfully deleted</response>
             <response code="404">Lift with specified name not found</response>
         </member>
-        <member name="M:WebApplication1.Controllers.LiftsController.AddConnectedSlope(System.String,System.String)">
+        <member name="M:WebApplication1.Controllers.liftsController.AddConnectedSlope(System.String,System.String)">
             <summary>
             Add a connected slope to the lift
             </summary>
@@ -167,23 +184,23 @@
             <response code="200">The lift was successfully updated</response>
             <response code="404">A lift or a slope with specified name was not found</response>
         </member>
-        <member name="M:WebApplication1.Controllers.SlopesController.Get">
+        <member name="M:WebApplication1.Controllers.slopesController.Get">
             <summary>
             Get information about all slopes
             </summary>
             <returns>Information about all slopes</returns>
             <response code="200" cref="!:ListOfSlopeDTO">Information about all slopes</response>
         </member>
-        <member name="M:WebApplication1.Controllers.SlopesController.GetAsync(System.String)">
+        <member name="M:WebApplication1.Controllers.slopesController.GetAsync(System.String)">
             <summary>
             Get information about a slope by it's name
             </summary>
             <param name="slopeName">Name of the slope</param>
             <returns>A slope with the specified name</returns>
-            <response code="200" cref="T:WebApplication1.Models.SlopeWithLiftsDTO">Slope with specified name</response>
+            <response code="200" cref="T:WebApplication1.Models.SlopeWithLifts">Slope with specified name</response>
             <response code="404">Slope with specified name not found</response>
         </member>
-        <member name="M:WebApplication1.Controllers.SlopesController.Post(System.String,System.Boolean,System.UInt32)">
+        <member name="M:WebApplication1.Controllers.slopesController.Post(System.String,System.Boolean,System.UInt32)">
             <summary>
             Add a new slope
             </summary>
@@ -191,13 +208,13 @@
             <param name="isOpen">Is the new slope currently working or not</param>
             <param name="difficultyLevel">The difficulty level of the new slope</param>
             <returns>The added slope with assigned ID</returns>
-            <response code="200" cref="T:WebApplication1.Models.SlopeDTO">The added slope with assigned ID</response>
+            <response code="201" cref="T:WebApplication1.Models.Slope">The added slope with assigned ID</response>
             <response code="400">A slope with such name already exists</response>
             /// <remarks>
             Note that the names of slopes should be unique.
             </remarks>
         </member>
-        <member name="M:WebApplication1.Controllers.SlopesController.Put(System.String,System.Boolean,System.UInt32)">
+        <member name="M:WebApplication1.Controllers.slopesController.Put(System.String,System.Boolean,System.UInt32)">
             <summary>
             Update information about an existing slope
             </summary>
@@ -208,41 +225,41 @@
             <response code="200">The slope was successfully updated</response>
             <response code="404">A slope with specified name was not found</response>
         </member>
-        <member name="M:WebApplication1.Controllers.SlopesController.Delete(System.String)">
+        <member name="M:WebApplication1.Controllers.slopesController.Delete(System.String)">
             <summary>
             Delete a slope by it's name
             </summary>
             <param name="slopeName">Name of the slope</param>
             <returns></returns>
-            <response code="200" cref="T:WebApplication1.Models.SlopeDTO">Slope was successfully deleted</response>
+            <response code="200" cref="T:WebApplication1.Models.Slope">Slope was successfully deleted</response>
             <response code="404">Slope with specified name not found</response>
         </member>
-        <member name="M:WebApplication1.Controllers.TurnstilesController.Get">
+        <member name="M:WebApplication1.Controllers.turnstilesController.Get">
             <summary>
             Get information about all turnstiles
             </summary>
             <returns>Information about all turnstiles</returns>
             <response code="200" cref="!:ListOfTurnstileDTO">Information about all turnstiles</response>
         </member>
-        <member name="M:WebApplication1.Controllers.TurnstilesController.GetAsync(System.UInt32)">
+        <member name="M:WebApplication1.Controllers.turnstilesController.GetAsync(System.UInt32)">
             <summary>
             Get information about a turnstile by it's ID
             </summary>
             <param name="turnstileID">Turnstile ID</param>
             <returns>A turnstile with the specified ID</returns>
-            <response code="200" cref="T:WebApplication1.Models.TurnstileDTO">Turnstile with specified ID</response>
+            <response code="200" cref="T:WebApplication1.Models.Turnstile">Turnstile with specified ID</response>
             <response code="404">Turnstile with specified ID not found</response>
         </member>
-        <member name="M:WebApplication1.Controllers.TurnstilesController.Post(System.UInt32,System.Boolean)">
+        <member name="M:WebApplication1.Controllers.turnstilesController.Post(System.UInt32,System.Boolean)">
             <summary>
             Add a new turnstile
             </summary>
             <param name="liftID">ID of the lift to which the turnstile is connected</param>
             <param name="isOpen">Is the turnstile currently working or not</param>
             <returns>The added turnstile with assigned ID</returns>
-            <response code="200" cref="T:WebApplication1.Models.TurnstileDTO">The added turnstile with assigned ID</response>
+            <response code="201" cref="T:WebApplication1.Models.Turnstile">The added turnstile with assigned ID</response>
         </member>
-        <member name="M:WebApplication1.Controllers.TurnstilesController.Put(System.UInt32,System.UInt32,System.Boolean)">
+        <member name="M:WebApplication1.Controllers.turnstilesController.Put(System.UInt32,System.UInt32,System.Boolean)">
             <summary>
             Update information about an existing turnstile
             </summary>
@@ -253,176 +270,176 @@
             <response code="200">The turnstile was successfully updated</response>
             <response code="404">A turnstile with specified ID was not found</response>
         </member>
-        <member name="M:WebApplication1.Controllers.TurnstilesController.Delete(System.UInt32)">
+        <member name="M:WebApplication1.Controllers.turnstilesController.Delete(System.UInt32)">
             <summary>
             Delete a turnstile by it's ID
             </summary>
             <param name="turnstileID">ID of the turnstile to delete</param>
             <returns></returns>
-            <response code="200" cref="T:WebApplication1.Models.TurnstileDTO">Turnstile was successfully deleted</response>
+            <response code="200" cref="T:WebApplication1.Models.Turnstile">Turnstile was successfully deleted</response>
             <response code="404">Turnstile with specified ID not found</response>
         </member>
-        <member name="T:WebApplication1.Models.CardDTO">
+        <member name="T:WebApplication1.Models.Card">
             <summary>
             Information about cards used in the resort
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.CardDTO.CardID">
+        <member name="P:WebApplication1.Models.Card.CardID">
             <summary>
             Card ID
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.CardDTO.ActivationTime">
+        <member name="P:WebApplication1.Models.Card.ActivationTime">
             <summary>
             The time when the card was activated
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.CardDTO.Type">
+        <member name="P:WebApplication1.Models.Card.Type">
             <summary>
             Type of the card
             </summary>
         </member>
-        <member name="T:WebApplication1.Models.CardReadingDTO">
+        <member name="T:WebApplication1.Models.CardReading">
             <summary>
             Information about readings of cards on turnstiles of the resort
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.CardReadingDTO.RecordID">
+        <member name="P:WebApplication1.Models.CardReading.RecordID">
             <summary>
             The ID of the record about card reading
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.CardReadingDTO.TurnstileID">
+        <member name="P:WebApplication1.Models.CardReading.TurnstileID">
             <summary>
             ID of the turnstile where the reading took place
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.CardReadingDTO.CardID">
+        <member name="P:WebApplication1.Models.CardReading.CardID">
             <summary>
             ID of the card that was read
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.CardReadingDTO.ReadingTime">
+        <member name="P:WebApplication1.Models.CardReading.ReadingTime">
             <summary>
             The time of the card reading
             </summary>
         </member>
-        <member name="T:WebApplication1.Models.LiftDTO">
+        <member name="T:WebApplication1.Models.Lift">
             <summary>
             Information about a lift
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.LiftDTO.LiftID">
+        <member name="P:WebApplication1.Models.Lift.LiftID">
             <summary>
             Lift ID
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.LiftDTO.LiftName">
+        <member name="P:WebApplication1.Models.Lift.LiftName">
             <summary>
             Lift name
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.LiftDTO.IsOpen">
+        <member name="P:WebApplication1.Models.Lift.IsOpen">
             <summary>
             Is the lift working right now or not
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.LiftDTO.SeatsAmount">
+        <member name="P:WebApplication1.Models.Lift.SeatsAmount">
             <summary>
             The amount of seats in the lift
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.LiftDTO.LiftingTime">
+        <member name="P:WebApplication1.Models.Lift.LiftingTime">
             <summary>
             The time lift needs to lift from the beginning to the end
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.LiftDTO.QueueTime">
+        <member name="P:WebApplication1.Models.Lift.QueueTime">
             <summary>
             Current time in queue to the lift
             </summary>
         </member>
-        <member name="T:WebApplication1.Models.LiftSlopeDTO">
+        <member name="T:WebApplication1.Models.LiftSlope">
             <summary>
             Information about connections between lifts and slopes
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.LiftSlopeDTO.RecordID">
+        <member name="P:WebApplication1.Models.LiftSlope.RecordID">
             <summary>
             Record ID
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.LiftSlopeDTO.LiftID">
+        <member name="P:WebApplication1.Models.LiftSlope.LiftID">
             <summary>
             Lift ID
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.LiftSlopeDTO.SlopeID">
+        <member name="P:WebApplication1.Models.LiftSlope.SlopeID">
             <summary>
             Slope ID
             </summary>
         </member>
-        <member name="T:WebApplication1.Models.LiftWithSlopesDTO">
+        <member name="T:WebApplication1.Models.LiftWithSlopes">
             <summary>
             Information about a lift
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.LiftWithSlopesDTO.LiftID">
+        <member name="P:WebApplication1.Models.LiftWithSlopes.LiftID">
             <summary>
             Lift ID
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.LiftWithSlopesDTO.LiftName">
+        <member name="P:WebApplication1.Models.LiftWithSlopes.LiftName">
             <summary>
             Lift name
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.LiftWithSlopesDTO.IsOpen">
+        <member name="P:WebApplication1.Models.LiftWithSlopes.IsOpen">
             <summary>
             Is the lift working right now or not
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.LiftWithSlopesDTO.SeatsAmount">
+        <member name="P:WebApplication1.Models.LiftWithSlopes.SeatsAmount">
             <summary>
             The amount of seats in the lift
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.LiftWithSlopesDTO.LiftingTime">
+        <member name="P:WebApplication1.Models.LiftWithSlopes.LiftingTime">
             <summary>
             The time lift needs to lift from the beginning to the end
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.LiftWithSlopesDTO.QueueTime">
+        <member name="P:WebApplication1.Models.LiftWithSlopes.QueueTime">
             <summary>
             Current time in queue to the lift
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.LiftWithSlopesDTO.ConnectedSlopes">
+        <member name="P:WebApplication1.Models.LiftWithSlopes.ConnectedSlopes">
             <summary>
             Slopes connected to the lift
             </summary>
         </member>
-        <member name="T:WebApplication1.Models.MessageDTO">
+        <member name="T:WebApplication1.Models.Message">
             <summary>
             Information about cards used in the resort
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.MessageDTO.MessageID">
+        <member name="P:WebApplication1.Models.Message.MessageID">
             <summary>
             Message ID
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.MessageDTO.SenderID">
+        <member name="P:WebApplication1.Models.Message.SenderID">
             <summary>
             Sender ID
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.MessageDTO.CheckedByID">
+        <member name="P:WebApplication1.Models.Message.CheckedByID">
             <summary>
             ID of the ski patrol worker who checked the message
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.MessageDTO.Text">
+        <member name="P:WebApplication1.Models.Message.Text">
             <summary>
             Text of the message
             </summary>
@@ -432,22 +449,22 @@
             Returns true if property was present in http request; false otherwise 
             </summary>
         </member>
-        <member name="T:WebApplication1.Models.PatchLiftDTO">
+        <member name="T:WebApplication1.Models.PatchLift">
             <summary>
             Information about a lift that is sent for update
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.PatchLiftDTO.IsOpen">
+        <member name="P:WebApplication1.Models.PatchLift.IsOpen">
             <summary>
             Is the lift working right now or not
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.PatchLiftDTO.SeatsAmount">
+        <member name="P:WebApplication1.Models.PatchLift.SeatsAmount">
             <summary>
             The amount of seats in the lift
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.PatchLiftDTO.LiftingTime">
+        <member name="P:WebApplication1.Models.PatchLift.LiftingTime">
             <summary>
             The time lift needs to lift from the beginning to the end
             </summary>
@@ -458,77 +475,77 @@
             For all properties, that are present in JSON it calls <see cref="M:WebApplication1.Models.PatchDtoBase.SetHasProperty(System.String)"/>.`
             </summary>
         </member>
-        <member name="T:WebApplication1.Models.SlopeDTO">
+        <member name="T:WebApplication1.Models.Slope">
             <summary>
             Information about a slope
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.SlopeDTO.SlopeID">
+        <member name="P:WebApplication1.Models.Slope.SlopeID">
             <summary>
             Slope ID
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.SlopeDTO.SlopeName">
+        <member name="P:WebApplication1.Models.Slope.SlopeName">
             <summary>
             Slope name
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.SlopeDTO.IsOpen">
+        <member name="P:WebApplication1.Models.Slope.IsOpen">
             <summary>
             Is the slope working right now or not
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.SlopeDTO.DifficultyLevel">
+        <member name="P:WebApplication1.Models.Slope.DifficultyLevel">
             <summary>
             The difficulty level of the slope
             </summary>
         </member>
-        <member name="T:WebApplication1.Models.SlopeWithLiftsDTO">
+        <member name="T:WebApplication1.Models.SlopeWithLifts">
             <summary>
             Information about a slope
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.SlopeWithLiftsDTO.SlopeID">
+        <member name="P:WebApplication1.Models.SlopeWithLifts.SlopeID">
             <summary>
             Slope ID
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.SlopeWithLiftsDTO.SlopeName">
+        <member name="P:WebApplication1.Models.SlopeWithLifts.SlopeName">
             <summary>
             Slope name
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.SlopeWithLiftsDTO.IsOpen">
+        <member name="P:WebApplication1.Models.SlopeWithLifts.IsOpen">
             <summary>
             Is the slope working right now or not
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.SlopeWithLiftsDTO.DifficultyLevel">
+        <member name="P:WebApplication1.Models.SlopeWithLifts.DifficultyLevel">
             <summary>
             The difficulty level of the slope
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.SlopeWithLiftsDTO.ConnectedLifts">
+        <member name="P:WebApplication1.Models.SlopeWithLifts.ConnectedLifts">
             <summary>
             Lifts connected to the slope
             </summary>
         </member>
-        <member name="T:WebApplication1.Models.TurnstileDTO">
+        <member name="T:WebApplication1.Models.Turnstile">
             <summary>
             Information about turnstiles
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.TurnstileDTO.TurnstileID">
+        <member name="P:WebApplication1.Models.Turnstile.TurnstileID">
             <summary>
             Turnstile ID
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.TurnstileDTO.LiftID">
+        <member name="P:WebApplication1.Models.Turnstile.LiftID">
             <summary>
             ID of the lift to which the turnstile is connected
             </summary>
         </member>
-        <member name="P:WebApplication1.Models.TurnstileDTO.IsOpen">
+        <member name="P:WebApplication1.Models.Turnstile.IsOpen">
             <summary>
             Is the turnstile currently working or not
             </summary>

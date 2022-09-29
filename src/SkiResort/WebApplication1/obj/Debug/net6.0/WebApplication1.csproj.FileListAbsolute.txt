@@ -47,3 +47,4 @@ C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\Microsoft.AspNe
 C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\Dapper.dll

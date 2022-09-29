@@ -1,8 +1,8 @@
 ﻿namespace WebApplication1.Models
 {
-    public class UserAccountDTO
+    public class UserAccount
     {
-        public UserAccountDTO(string userEmail, string password, string role)
+        public UserAccount(string userEmail, string password, string role)
         {
             UserEmail = userEmail;
             Password = password;

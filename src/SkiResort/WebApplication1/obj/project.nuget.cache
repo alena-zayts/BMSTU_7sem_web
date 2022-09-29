@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "dzg2SBNIYaN6hWMIAWVJGI5Jr6sIkmBJ0AYDus0ZBKxUua+OtQNZont9KmRBsG+env30TExaWbPBbd0Fmyfq5w==",
+  "dgSpecHash": "XIS9LGyutByQxvvh1Pj7ecynyp7vSRvldaBXBAcPeYhnJ9IgvzXO6gnOWChaX0L8aWQeZdmzQmQKlHt0bsn8Ow==",
   "success": true,
   "projectFilePath": "C:\\BMSTU_7sem_web\\src\\SkiResort\\WebApplication1\\WebApplication1.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\alena\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\alena\\.nuget\\packages\\jetbrains.annotations\\11.0.0\\jetbrains.annotations.11.0.0.nupkg.sha512",
     "C:\\Users\\alena\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.9\\microsoft.aspnetcore.authentication.jwtbearer.6.0.9.nupkg.sha512",
     "C:\\Users\\alena\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\6.0.9\\microsoft.aspnetcore.jsonpatch.6.0.9.nupkg.sha512",

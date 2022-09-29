@@ -4,17 +4,20 @@ using System.Text.Json;
 using AccessToDB.Exceptions;
 using WebApplication1.Models;
 using WebApplication1.Options;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Controllers
 {
-    [Route("api/[controller]")]
+    //[Authorize]
+    [Route("[controller]")]
     [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ApiController]
-    public class LiftsController : ControllerBase
+    public class liftsController : ControllerBase
     {
         private BL.Facade _facade;
         private uint _userID = 1;
-        public LiftsController()
+        public liftsController()
         {
             _facade = OtherOptions.createFacade();
         }
@@ -27,11 +30,11 @@ namespace WebApplication1.Controllers
         /// <response code="200" cref="ListOfLiftDTO">Information about all lifts</response>
         [Route("")]
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<LiftDTO>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Lift>))]
         public async Task<IActionResult> Get()
         {
             List<BL.Models.Lift> lifts = await _facade.GetLiftsInfoAsync(_userID);
-            List<LiftDTO> liftsDTO = Converters.LiftConverter.ConvertLiftsToLiftsDTO(lifts);
+            List<Lift> liftsDTO = Converters.LiftConverter.ConvertLiftsToLiftsDTO(lifts);
             string liftsJSON = JsonSerializer.Serialize(liftsDTO, OtherOptions.JsonOptions());
             return new ContentResult
             {
@@ -46,17 +49,17 @@ namespace WebApplication1.Controllers
         /// </summary>
         /// <param name="liftName">Name of the lift</param>
         /// <returns>A lift with the specified name</returns>
-        /// <response code="200" cref="LiftWithSlopesDTO">Lift with specified name</response>
+        /// <response code="200" cref="LiftWithSlopes">Lift with specified name</response>
         /// <response code="404">Lift with specified name not found</response>
         [HttpGet("{liftName}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LiftWithSlopesDTO))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LiftWithSlopes))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAsync([FromRoute] string liftName)
         {
             try
             {
                 BL.Models.Lift lift = await _facade.GetLiftInfoAsync(_userID, liftName);
-                LiftWithSlopesDTO liftWithSlopesDTO = Converters.LiftConverter.ConvertLiftToLiftWithSlopesDTO(lift);
+                LiftWithSlopes liftWithSlopesDTO = Converters.LiftConverter.ConvertLiftToLiftWithSlopesDTO(lift);
                 string liftJSON = JsonSerializer.Serialize(liftWithSlopesDTO, OtherOptions.JsonOptions());
 
                 return new ContentResult
@@ -85,26 +88,26 @@ namespace WebApplication1.Controllers
         /// <param name="seatsAmount">The amount of seats in the new lift</param>
         /// <param name="liftingTime">The time the new lift needs to lift from the beginning to the end</param>
         /// <returns>The added lift with assigned ID</returns>
-        /// <response code="200" cref="LiftDTO">The added lift with assigned ID</response>
+        /// <response code="201" cref="Lift">The added lift with assigned ID</response>
         /// <response code="400">A lift with such name already exists</response>
         /// /// <remarks>
         /// Note that the names of lifts should be unique.
         /// </remarks>
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<LiftDTO>))]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Lift))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Post([FromQuery] string liftName, [FromQuery] bool isOpen, [FromQuery] uint seatsAmount, [FromQuery] uint liftingTime)
         {
             try
             {
                 uint liftID = await _facade.AdminAddAutoIncrementLiftAsync(_userID, liftName, isOpen, seatsAmount, liftingTime);
-                LiftDTO liftDTO = new LiftDTO(liftID, liftName, isOpen, seatsAmount, liftingTime);
+                Lift liftDTO = new Lift(liftID, liftName, isOpen, seatsAmount, liftingTime);
                 string liftJSON = JsonSerializer.Serialize(liftDTO, OtherOptions.JsonOptions());
 
                 return new ContentResult
                 {
                     Content = liftJSON,
-                    StatusCode = 200
+                    StatusCode = 201
                 };
             }
             catch (AccessToDB.Exceptions.LiftExceptions.LiftAddAutoIncrementException)
@@ -130,7 +133,7 @@ namespace WebApplication1.Controllers
         [HttpPatch("{liftName}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IActionResult))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Put([FromRoute] string liftName, [FromQuery] PatchLiftDTO patchLift)
+        public async Task<IActionResult> Put([FromRoute] string liftName, [FromQuery] PatchLift patchLift)
         {
             try
             {
@@ -197,7 +200,7 @@ namespace WebApplication1.Controllers
         /// </summary>
         /// <param name="liftName">Name of the lift</param>
         /// <returns></returns>
-        /// <response code="200" cref="LiftDTO">Lift was successfully deleted</response>
+        /// <response code="200" cref="Lift">Lift was successfully deleted</response>
         /// <response code="404">Lift with specified name not found</response>
         [HttpDelete("{liftName}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IActionResult))]

@@ -6,9 +6,9 @@ namespace WebApplication1.Models
     /// <summary>
     /// Information about cards used in the resort
     /// </summary>
-    public class MessageDTO
+    public class Message
     {
-        public MessageDTO(uint messageID, uint senderID, uint checkedByID, string text)
+        public Message(uint messageID, uint senderID, uint checkedByID, string text)
         {
             MessageID = messageID;
             SenderID = senderID;

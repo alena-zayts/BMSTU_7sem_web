@@ -6,9 +6,9 @@ namespace WebApplication1.Models
     /// <summary>
     /// Information about a slope
     /// </summary>
-    public class SlopeDTO
+    public class Slope
     {
-        public SlopeDTO(uint slopeID, string slopeName, bool isOpen, uint difficultyLevel)
+        public Slope(uint slopeID, string slopeName, bool isOpen, uint difficultyLevel)
         {
             SlopeID = slopeID;
             SlopeName = slopeName;

@@ -4,17 +4,20 @@ using System.Text.Json;
 using AccessToDB.Exceptions;
 using WebApplication1.Models;
 using WebApplication1.Options;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
+    [Route("[controller]")]
     [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ApiController]
-    public class CardReadingsController : ControllerBase
+    public class cardReadingsController : ControllerBase
     {
         private BL.Facade _facade;
         private uint _userID = 1;
-        public CardReadingsController()
+        public cardReadingsController()
         {
             _facade = OtherOptions.createFacade();
         }
@@ -27,11 +30,11 @@ namespace WebApplication1.Controllers
         /// <response code="200" cref="ListOfCardReadingDTO">Information about all cardReadings</response>
         [Route("")]
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<CardReadingDTO>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<CardReading>))]
         public async Task<IActionResult> Get()
         {
             List<BL.Models.CardReading> cardReadings = await _facade.AdminGetCardReadingsAsync(_userID);
-            List<CardReadingDTO> cardReadingsDTO = Converters.CardReadingConverter.ConvertCardReadingsToCardReadingsDTO(cardReadings);
+            List<CardReading> cardReadingsDTO = Converters.CardReadingConverter.ConvertCardReadingsToCardReadingsDTO(cardReadings);
             string cardReadingsJSON = JsonSerializer.Serialize(cardReadingsDTO, OtherOptions.JsonOptions());
             return new ContentResult
             {
@@ -46,17 +49,17 @@ namespace WebApplication1.Controllers
         /// </summary>
         /// <param name="recordID">CardReading ID</param>
         /// <returns>A cardReading with the specified ID</returns>
-        /// <response code="200" cref="CardReadingDTO">CardReading with specified ID</response>
+        /// <response code="200" cref="CardReading">CardReading with specified ID</response>
         /// <response code="404">CardReading with specified ID not found</response>
         [HttpGet("{recordID}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CardReadingDTO))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CardReading))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAsync([FromRoute] uint recordID)
         {
             try
             {
                 BL.Models.CardReading cardReading = await _facade.AdminGetCardReadingAsync(_userID, recordID);
-                CardReadingDTO cardReadingWithSlopesDTO = Converters.CardReadingConverter.ConvertCardReadingToCardReadingDTO(cardReading);
+                CardReading cardReadingWithSlopesDTO = Converters.CardReadingConverter.ConvertCardReadingToCardReadingDTO(cardReading);
                 string cardReadingJSON = JsonSerializer.Serialize(cardReadingWithSlopesDTO, OtherOptions.JsonOptions());
 
                 return new ContentResult
@@ -84,19 +87,19 @@ namespace WebApplication1.Controllers
         /// <param name="cardID">ID of the card that was read</param>
         /// <param name="readingTime">The time of the card reading</param>
         /// <returns>The added cardReading with assigned ID</returns>
-        /// <response code="200" cref="CardReadingDTO">The added cardReading with assigned ID</response>
+        /// <response code="201" cref="CardReading">The added cardReading with assigned ID</response>
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<CardReadingDTO>))]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CardReading))]
         public async Task<IActionResult> Post([FromQuery] uint turnstileID, [FromQuery] uint cardID, [FromQuery] DateTimeOffset readingTime)
         {
             uint recordID = await _facade.AdminAddAutoIncrementCardReadingAsync(_userID, turnstileID, cardID, readingTime);
-            CardReadingDTO cardReadingDTO = new CardReadingDTO(recordID, turnstileID, cardID, readingTime);
+            CardReading cardReadingDTO = new CardReading(recordID, turnstileID, cardID, readingTime);
             string cardReadingJSON = JsonSerializer.Serialize(cardReadingDTO, OtherOptions.JsonOptions());
 
             return new ContentResult
             {
                 Content = cardReadingJSON,
-                StatusCode = 200
+                StatusCode = 201
             };
         }
 
@@ -141,7 +144,7 @@ namespace WebApplication1.Controllers
         /// </summary>
         /// <param name="recordID">ID of the cardReading to delete</param>
         /// <returns></returns>
-        /// <response code="200" cref="CardReadingDTO">CardReading was successfully deleted</response>
+        /// <response code="200" cref="CardReading">CardReading was successfully deleted</response>
         /// <response code="404">CardReading with specified ID not found</response>
         [HttpDelete("{recordID}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IActionResult))]

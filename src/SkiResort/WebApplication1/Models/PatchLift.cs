@@ -6,7 +6,7 @@ namespace WebApplication1.Models
     /// <summary>
     /// Information about a lift that is sent for update
     /// </summary>
-    public class PatchLiftDTO : PatchDtoBase
+    public class PatchLift : PatchDtoBase
     {
         /// <summary>
         /// Is the lift working right now or not

@@ -4,17 +4,20 @@ using System.Text.Json;
 using AccessToDB.Exceptions;
 using WebApplication1.Models;
 using WebApplication1.Options;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
+    [Route("[controller]")]
     [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ApiController]
-    public class CardsController : ControllerBase
+    public class cardsController : ControllerBase
     {
         private BL.Facade _facade;
         private uint _userID = 1;
-        public CardsController()
+        public cardsController()
         {
             _facade = OtherOptions.createFacade();
         }
@@ -27,11 +30,11 @@ namespace WebApplication1.Controllers
         /// <response code="200" cref="ListOfCardDTO">Information about all cards</response>
         [Route("")]
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<CardDTO>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Card>))]
         public async Task<IActionResult> Get()
         {
             List<BL.Models.Card> cards = await _facade.AdminGetCardsAsync(_userID);
-            List<CardDTO> cardsDTO = Converters.CardConverter.ConvertCardsToCardsDTO(cards);
+            List<Card> cardsDTO = Converters.CardConverter.ConvertCardsToCardsDTO(cards);
             string cardsJSON = JsonSerializer.Serialize(cardsDTO, OtherOptions.JsonOptions());
             return new ContentResult
             {
@@ -46,17 +49,17 @@ namespace WebApplication1.Controllers
         /// </summary>
         /// <param name="cardID">Card ID</param>
         /// <returns>A card with the specified ID</returns>
-        /// <response code="200" cref="CardDTO">Card with specified ID</response>
+        /// <response code="200" cref="Card">Card with specified ID</response>
         /// <response code="404">Card with specified ID not found</response>
         [HttpGet("{cardID}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CardDTO))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Card))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAsync([FromRoute] uint cardID)
         {
             try
             {
                 BL.Models.Card card = await _facade.AdminGetCardAsync(_userID, cardID);
-                CardDTO cardWithSlopesDTO = Converters.CardConverter.ConvertCardToCardDTO(card);
+                Card cardWithSlopesDTO = Converters.CardConverter.ConvertCardToCardDTO(card);
                 string cardJSON = JsonSerializer.Serialize(cardWithSlopesDTO, OtherOptions.JsonOptions());
 
                 return new ContentResult
@@ -83,19 +86,19 @@ namespace WebApplication1.Controllers
         /// <param name="activationTime">Time when the new card was activated</param>
         /// <param name="type">The type of the new card</param>
         /// <returns>The added card with assigned ID</returns>
-        /// <response code="200" cref="CardDTO">The added card with assigned ID</response>
+        /// <response code="201" cref="Card">The added card with assigned ID</response>
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<CardDTO>))]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Card))]
         public async Task<IActionResult> Post([FromQuery] DateTimeOffset activationTime, [FromQuery] string type)
         {
             uint cardID = await _facade.AdminAddAutoIncrementCardAsync(_userID, activationTime, type);
-            CardDTO cardDTO = new CardDTO(cardID, activationTime, type);
+            Card cardDTO = new Card(cardID, activationTime, type);
             string cardJSON = JsonSerializer.Serialize(cardDTO, OtherOptions.JsonOptions());
 
             return new ContentResult
             {
                 Content = cardJSON,
-                StatusCode = 200
+                StatusCode = 201
             };
         }
 
@@ -139,7 +142,7 @@ namespace WebApplication1.Controllers
         /// </summary>
         /// <param name="cardID">ID of the card to delete</param>
         /// <returns></returns>
-        /// <response code="200" cref="CardDTO">Card was successfully deleted</response>
+        /// <response code="200" cref="Card">Card was successfully deleted</response>
         /// <response code="404">Card with specified ID not found</response>
         [HttpDelete("{cardID}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IActionResult))]

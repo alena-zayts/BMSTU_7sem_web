@@ -6,9 +6,9 @@ namespace WebApplication1.Models
     /// <summary>
     /// Information about a slope
     /// </summary>
-    public class SlopeWithLiftsDTO
+    public class SlopeWithLifts
     {
-        public SlopeWithLiftsDTO(uint slopeID, string slopeName, bool isOpen, uint difficultyLevel, List<BL.Models.Lift> connectedLifts)
+        public SlopeWithLifts(uint slopeID, string slopeName, bool isOpen, uint difficultyLevel, List<BL.Models.Lift> connectedLifts)
         {
             SlopeID = slopeID;
             SlopeName = slopeName;
@@ -41,6 +41,6 @@ namespace WebApplication1.Models
         /// <summary>
         /// Lifts connected to the slope
         /// </summary>
-        public List<LiftDTO> ConnectedLifts { get; }
+        public List<Lift> ConnectedLifts { get; }
     }
 }

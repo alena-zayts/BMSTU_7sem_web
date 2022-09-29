@@ -1,0 +1,15 @@
+C:\BMSTU_7sem_web\src\SkiResort\Certificate\bin\Debug\net6.0\Certificate.exe
+C:\BMSTU_7sem_web\src\SkiResort\Certificate\bin\Debug\net6.0\Certificate.deps.json
+C:\BMSTU_7sem_web\src\SkiResort\Certificate\bin\Debug\net6.0\Certificate.runtimeconfig.json
+C:\BMSTU_7sem_web\src\SkiResort\Certificate\bin\Debug\net6.0\Certificate.dll
+C:\BMSTU_7sem_web\src\SkiResort\Certificate\bin\Debug\net6.0\Certificate.pdb
+C:\BMSTU_7sem_web\src\SkiResort\Certificate\obj\Debug\net6.0\Certificate.csproj.AssemblyReference.cache
+C:\BMSTU_7sem_web\src\SkiResort\Certificate\obj\Debug\net6.0\Certificate.GeneratedMSBuildEditorConfig.editorconfig
+C:\BMSTU_7sem_web\src\SkiResort\Certificate\obj\Debug\net6.0\Certificate.AssemblyInfoInputs.cache
+C:\BMSTU_7sem_web\src\SkiResort\Certificate\obj\Debug\net6.0\Certificate.AssemblyInfo.cs
+C:\BMSTU_7sem_web\src\SkiResort\Certificate\obj\Debug\net6.0\Certificate.csproj.CoreCompileInputs.cache
+C:\BMSTU_7sem_web\src\SkiResort\Certificate\obj\Debug\net6.0\Certificate.dll
+C:\BMSTU_7sem_web\src\SkiResort\Certificate\obj\Debug\net6.0\refint\Certificate.dll
+C:\BMSTU_7sem_web\src\SkiResort\Certificate\obj\Debug\net6.0\Certificate.pdb
+C:\BMSTU_7sem_web\src\SkiResort\Certificate\obj\Debug\net6.0\Certificate.genruntimeconfig.cache
+C:\BMSTU_7sem_web\src\SkiResort\Certificate\obj\Debug\net6.0\ref\Certificate.dll

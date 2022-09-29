@@ -3,7 +3,7 @@ namespace WebApplication1.Models
     /// <summary>
     /// Information about turnstiles
     /// </summary>
-    public record class TurnstileDTO
+    public record class Turnstile
     {
         /// <summary>
         /// Turnstile ID
@@ -18,7 +18,7 @@ namespace WebApplication1.Models
         /// </summary>
         public bool IsOpen { get; }
 
-        public TurnstileDTO(uint turnstileID, uint liftID, bool isOpen)
+        public Turnstile(uint turnstileID, uint liftID, bool isOpen)
         {
             this.TurnstileID = turnstileID;
             this.LiftID = liftID;

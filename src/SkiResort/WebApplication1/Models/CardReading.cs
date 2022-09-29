@@ -3,9 +3,9 @@ namespace WebApplication1.Models
     /// <summary>
     /// Information about readings of cards on turnstiles of the resort
     /// </summary>
-    public record class CardReadingDTO
+    public record class CardReading
     {
-        public CardReadingDTO(uint recordID, uint turnstileID, uint cardID, DateTimeOffset readingTime)
+        public CardReading(uint recordID, uint turnstileID, uint cardID, DateTimeOffset readingTime)
         {
             this.RecordID = recordID;
             this.TurnstileID = turnstileID;

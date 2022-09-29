@@ -4,17 +4,20 @@ using System.Text.Json;
 using AccessToDB.Exceptions;
 using WebApplication1.Models;
 using WebApplication1.Options;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
+    [Route("[controller]")]
     [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ApiController]
-    public class SlopesController : ControllerBase
+    public class slopesController : ControllerBase
     {
         private BL.Facade _facade;
         private uint _userID = 1;
-        public SlopesController()
+        public slopesController()
         {
             _facade = OtherOptions.createFacade();
         }
@@ -27,11 +30,11 @@ namespace WebApplication1.Controllers
         /// <response code="200" cref="ListOfSlopeDTO">Information about all slopes</response>
         [Route("")]
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<SlopeDTO>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Slope>))]
         public async Task<IActionResult> Get()
         {
             List<BL.Models.Slope> slopes = await _facade.GetSlopesInfoAsync(_userID);
-            List<SlopeDTO> slopesDTO = Converters.SlopeConverter.ConvertSlopesToSlopesDTO(slopes);
+            List<Slope> slopesDTO = Converters.SlopeConverter.ConvertSlopesToSlopesDTO(slopes);
             string slopesJSON = JsonSerializer.Serialize(slopesDTO, OtherOptions.JsonOptions());
             return new ContentResult
             {
@@ -46,17 +49,17 @@ namespace WebApplication1.Controllers
         /// </summary>
         /// <param name="slopeName">Name of the slope</param>
         /// <returns>A slope with the specified name</returns>
-        /// <response code="200" cref="SlopeWithLiftsDTO">Slope with specified name</response>
+        /// <response code="200" cref="SlopeWithLifts">Slope with specified name</response>
         /// <response code="404">Slope with specified name not found</response>
         [HttpGet("{slopeName}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SlopeWithLiftsDTO))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SlopeWithLifts))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAsync([FromRoute] string slopeName)
         {
             try
             {
                 BL.Models.Slope slope = await _facade.GetSlopeInfoAsync(_userID, slopeName);
-                SlopeWithLiftsDTO slopeWithLiftsDTO = Converters.SlopeConverter.ConvertSlopeToSlopeWithLiftsDTO(slope);
+                SlopeWithLifts slopeWithLiftsDTO = Converters.SlopeConverter.ConvertSlopeToSlopeWithLiftsDTO(slope);
                 string slopeJSON = JsonSerializer.Serialize(slopeWithLiftsDTO, OtherOptions.JsonOptions());
 
                 return new ContentResult
@@ -84,26 +87,26 @@ namespace WebApplication1.Controllers
         /// <param name="isOpen">Is the new slope currently working or not</param>
         /// <param name="difficultyLevel">The difficulty level of the new slope</param>
         /// <returns>The added slope with assigned ID</returns>
-        /// <response code="200" cref="SlopeDTO">The added slope with assigned ID</response>
+        /// <response code="201" cref="Slope">The added slope with assigned ID</response>
         /// <response code="400">A slope with such name already exists</response>
         /// /// <remarks>
         /// Note that the names of slopes should be unique.
         /// </remarks>
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<SlopeDTO>))]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Slope))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Post([FromQuery] string slopeName, [FromQuery] bool isOpen, [FromQuery] uint difficultyLevel)
         {
             try
             {
                 uint slopeID = await _facade.AdminAddAutoIncrementSlopeAsync(_userID, slopeName, isOpen, difficultyLevel);
-                SlopeDTO slopeDTO = new SlopeDTO(slopeID, slopeName, isOpen, difficultyLevel);
+                Slope slopeDTO = new Slope(slopeID, slopeName, isOpen, difficultyLevel);
                 string slopeJSON = JsonSerializer.Serialize(slopeDTO, OtherOptions.JsonOptions());
 
                 return new ContentResult
                 {
                     Content = slopeJSON,
-                    StatusCode = 200
+                    StatusCode = 201
                 };
             }
             catch (AccessToDB.Exceptions.SlopeExceptions.SlopeAddAutoIncrementException)
@@ -157,7 +160,7 @@ namespace WebApplication1.Controllers
         /// </summary>
         /// <param name="slopeName">Name of the slope</param>
         /// <returns></returns>
-        /// <response code="200" cref="SlopeDTO">Slope was successfully deleted</response>
+        /// <response code="200" cref="Slope">Slope was successfully deleted</response>
         /// <response code="404">Slope with specified name not found</response>
         [HttpDelete("{slopeName}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IActionResult))]

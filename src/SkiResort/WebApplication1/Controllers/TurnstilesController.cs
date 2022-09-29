@@ -4,17 +4,20 @@ using System.Text.Json;
 using AccessToDB.Exceptions;
 using WebApplication1.Models;
 using WebApplication1.Options;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
+    [Route("[controller]")]
     [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ApiController]
-    public class TurnstilesController : ControllerBase
+    public class turnstilesController : ControllerBase
     {
         private BL.Facade _facade;
         private uint _userID = 1;
-        public TurnstilesController()
+        public turnstilesController()
         {
             _facade = OtherOptions.createFacade();
         }
@@ -27,11 +30,11 @@ namespace WebApplication1.Controllers
         /// <response code="200" cref="ListOfTurnstileDTO">Information about all turnstiles</response>
         [Route("")]
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<TurnstileDTO>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Turnstile>))]
         public async Task<IActionResult> Get()
         {
             List<BL.Models.Turnstile> turnstiles = await _facade.AdminGetTurnstilesAsync(_userID);
-            List<TurnstileDTO> turnstilesDTO = Converters.TurnstileConverter.ConvertTurnstilesToTurnstilesDTO(turnstiles);
+            List<Turnstile> turnstilesDTO = Converters.TurnstileConverter.ConvertTurnstilesToTurnstilesDTO(turnstiles);
             string turnstilesJSON = JsonSerializer.Serialize(turnstilesDTO, OtherOptions.JsonOptions());
             return new ContentResult
             {
@@ -46,17 +49,17 @@ namespace WebApplication1.Controllers
         /// </summary>
         /// <param name="turnstileID">Turnstile ID</param>
         /// <returns>A turnstile with the specified ID</returns>
-        /// <response code="200" cref="TurnstileDTO">Turnstile with specified ID</response>
+        /// <response code="200" cref="Turnstile">Turnstile with specified ID</response>
         /// <response code="404">Turnstile with specified ID not found</response>
         [HttpGet("{turnstileID}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TurnstileDTO))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Turnstile))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAsync([FromRoute] uint turnstileID)
         {
             try
             {
                 BL.Models.Turnstile turnstile = await _facade.AdminGetTurnstileAsync(_userID, turnstileID);
-                TurnstileDTO turnstileWithSlopesDTO = Converters.TurnstileConverter.ConvertTurnstileToTurnstileDTO(turnstile);
+                Turnstile turnstileWithSlopesDTO = Converters.TurnstileConverter.ConvertTurnstileToTurnstileDTO(turnstile);
                 string turnstileJSON = JsonSerializer.Serialize(turnstileWithSlopesDTO, OtherOptions.JsonOptions());
 
                 return new ContentResult
@@ -83,19 +86,19 @@ namespace WebApplication1.Controllers
         /// <param name="liftID">ID of the lift to which the turnstile is connected</param>
         /// <param name="isOpen">Is the turnstile currently working or not</param>
         /// <returns>The added turnstile with assigned ID</returns>
-        /// <response code="200" cref="TurnstileDTO">The added turnstile with assigned ID</response>
+        /// <response code="201" cref="Turnstile">The added turnstile with assigned ID</response>
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<TurnstileDTO>))]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Turnstile))]
         public async Task<IActionResult> Post([FromQuery] uint liftID, [FromQuery] bool isOpen)
         {
             uint turnstileID = await _facade.AdminAddAutoIncrementTurnstileAsync(_userID, liftID, isOpen);
-            TurnstileDTO turnstileDTO = new TurnstileDTO(turnstileID, liftID, isOpen);
+            Turnstile turnstileDTO = new Turnstile(turnstileID, liftID, isOpen);
             string turnstileJSON = JsonSerializer.Serialize(turnstileDTO, OtherOptions.JsonOptions());
 
             return new ContentResult
             {
                 Content = turnstileJSON,
-                StatusCode = 200
+                StatusCode = 201
             };
         }
 
@@ -139,7 +142,7 @@ namespace WebApplication1.Controllers
         /// </summary>
         /// <param name="turnstileID">ID of the turnstile to delete</param>
         /// <returns></returns>
-        /// <response code="200" cref="TurnstileDTO">Turnstile was successfully deleted</response>
+        /// <response code="200" cref="Turnstile">Turnstile was successfully deleted</response>
         /// <response code="404">Turnstile with specified ID not found</response>
         [HttpDelete("{turnstileID}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IActionResult))]

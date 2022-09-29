@@ -4,7 +4,7 @@ namespace WebApplication1.Converters
 {
     public class UserAccountConverter
     {
-        public static WebApplication1.Models.UserAccountDTO ConvertUserToUserAccountDTO(BL.Models.User user)
+        public static WebApplication1.Models.UserAccount ConvertUserToUserAccountDTO(BL.Models.User user)
         {
             string role = "";
             switch (user.Permissions)
@@ -24,7 +24,7 @@ namespace WebApplication1.Converters
             }
             
 
-            return new WebApplication1.Models.UserAccountDTO(user.UserEmail, user.Password, role);
+            return new WebApplication1.Models.UserAccount(user.UserEmail, user.Password, role);
         }
     }
 }

@@ -6,9 +6,9 @@ namespace WebApplication1.Models
     /// <summary>
     /// Information about a lift
     /// </summary>
-    public class LiftWithSlopesDTO
+    public class Lift
     {
-        public LiftWithSlopesDTO(uint liftID, string liftName, bool isOpen, uint seatsAmount, uint liftingTime, List<BL.Models.Slope> connectedSlopes, uint queueTime=0)
+        public Lift(uint liftID, string liftName, bool isOpen, uint seatsAmount, uint liftingTime, uint queueTime=0)
         {
             LiftID = liftID;
             LiftName = liftName;
@@ -16,7 +16,6 @@ namespace WebApplication1.Models
             SeatsAmount = seatsAmount;
             LiftingTime = liftingTime;
             QueueTime = queueTime;
-            ConnectedSlopes = Converters.SlopeConverter.ConvertSlopesToSlopesDTO(connectedSlopes);
         }
 
         /// <summary>
@@ -49,9 +48,5 @@ namespace WebApplication1.Models
         /// </summary>
         [DefaultValue(0)]
         public uint QueueTime { get; }
-        /// <summary>
-        /// Slopes connected to the lift
-        /// </summary>
-        public List<SlopeDTO> ConnectedSlopes { get; }
     }
 }
