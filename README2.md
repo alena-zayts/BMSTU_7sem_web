@@ -19,3 +19,7 @@ https://github.com/ansushina/web_bmstu python
 
 https://github.com/anastasialavrova/bmstu_web python
 
+
+
+Связь между докер-контейнерами https://habr.com/ru/post/554190/
+Админка для тарантула https://github.com/basis-company/tarantool-admin
