@@ -23,3 +23,11 @@ https://github.com/anastasialavrova/bmstu_web python
 
 Связь между докер-контейнерами https://habr.com/ru/post/554190/
 Админка для тарантула https://github.com/basis-company/tarantool-admin
+
+docker network create test_network
+
+docker network connect test_network tarantool_ski_resort
+
+docker network connect test_network dazzling_kepler
+
+docker network inspect test_network
