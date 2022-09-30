@@ -23,33 +23,33 @@ Document Path:          /api/v1/lifts/A0
 Document Length:        1405 bytes
 
 Concurrency Level:      10
-Time taken for tests:   10.328 seconds
+Time taken for tests:   14.843 seconds
 Complete requests:      100
 Failed requests:        0
 Total transferred:      156000 bytes
 HTML transferred:       140500 bytes
-Requests per second:    9.68 [#/sec] (mean)
-Time per request:       1032.762 [ms] (mean)
-Time per request:       103.276 [ms] (mean, across all concurrent requests)
-Transfer rate:          14.75 [Kbytes/sec] received
+Requests per second:    6.74 [#/sec] (mean)
+Time per request:       1484.264 [ms] (mean)
+Time per request:       148.426 [ms] (mean, across all concurrent requests)
+Transfer rate:          10.26 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
 Connect:        0    0   0.1      0       1
-Processing:   649  946  80.5    946    1142
-Waiting:      649  946  80.5    945    1142
-Total:        649  947  80.5    946    1142
+Processing:   852 1372  87.0   1362    1572
+Waiting:      852 1372  87.0   1362    1572
+Total:        852 1372  87.0   1362    1573
 
 Percentage of the requests served within a certain time (ms)
-  50%    946
-  66%    971
-  75%    987
-  80%    999
-  90%   1064
-  95%   1085
-  98%   1110
-  99%   1142
- 100%   1142 (longest request)
+  50%   1362
+  66%   1413
+  75%   1427
+  80%   1430
+  90%   1482
+  95%   1515
+  98%   1562
+  99%   1573
+ 100%   1573 (longest request)
 ```
 
 
