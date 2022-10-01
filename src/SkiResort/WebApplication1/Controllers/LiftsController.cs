@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("[controller]")]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -16,7 +16,6 @@ namespace WebApplication1.Controllers
     public class liftsController : ControllerBase
     {
         private BL.Facade _facade;
-        private uint _userID = 1;
         public liftsController()
         {
             _facade = OtherOptions.createFacade();
@@ -33,14 +32,27 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Lift>))]
         public async Task<IActionResult> Get()
         {
-            List<BL.Models.Lift> lifts = await _facade.GetLiftsInfoAsync(_userID);
-            List<Lift> liftsDTO = Converters.LiftConverter.ConvertLiftsToLiftsDTO(lifts);
-            string liftsJSON = JsonSerializer.Serialize(liftsDTO, OtherOptions.JsonOptions());
-            return new ContentResult
+            try
             {
-                Content = liftsJSON,
-                StatusCode = 200
-            };
+                uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
+                List<BL.Models.Lift> lifts = await _facade.GetLiftsInfoAsync(_userID);
+                List<Lift> liftsDTO = Converters.LiftConverter.ConvertLiftsToLiftsDTO(lifts);
+                string liftsJSON = JsonSerializer.Serialize(liftsDTO, OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = liftsJSON,
+                    StatusCode = 200
+                };
+            }
+            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+            {
+                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 401
+                };
+            }
         }
 
         // GET: lifts/A0
@@ -56,6 +68,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAsync([FromRoute] string liftName)
         {
+            uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
                 BL.Models.Lift lift = await _facade.GetLiftInfoAsync(_userID, liftName);
@@ -76,7 +89,16 @@ namespace WebApplication1.Controllers
                     Content = errorMessage,
                     StatusCode = 404
                 };
-            }         
+            }
+            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+            {
+                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 401
+                };
+            }
         }
 
         // POST: lifts
@@ -98,6 +120,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Post([FromQuery] string liftName, [FromQuery] bool isOpen, [FromQuery] uint seatsAmount, [FromQuery] uint liftingTime)
         {
+            uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
                 uint liftID = await _facade.AdminAddAutoIncrementLiftAsync(_userID, liftName, isOpen, seatsAmount, liftingTime);
@@ -119,6 +142,15 @@ namespace WebApplication1.Controllers
                     StatusCode = 400
                 };
             }
+            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+            {
+                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 401
+                };
+            }
         }
 
         // PATCH: lifts/A0
@@ -135,6 +167,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Put([FromRoute] string liftName, [FromQuery] PatchLift patchLift)
         {
+            uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
                 BL.Models.Lift liftFromDB = await _facade.GetLiftInfoAsync(_userID, liftName);
@@ -156,6 +189,15 @@ namespace WebApplication1.Controllers
                 {
                     Content = errorMessage,
                     StatusCode = 404
+                };
+            }
+            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+            {
+                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 401
                 };
             }
         }
@@ -207,6 +249,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete([FromRoute] string liftName)
         {
+            uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
                 await _facade.AdminDeleteLiftAsync(_userID, liftName);
@@ -222,6 +265,15 @@ namespace WebApplication1.Controllers
                 {
                     Content = errorMessage,
                     StatusCode = 404
+                };
+            }
+            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+            {
+                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 401
                 };
             }
         }
@@ -240,6 +292,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> AddConnectedSlope([FromRoute] string liftName, [FromQuery] string slopeName)
         {
+            uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
                 uint recordID = await _facade.AdminAddAutoIncrementLiftSlopeAsync(_userID, liftName, slopeName);
@@ -264,6 +317,15 @@ namespace WebApplication1.Controllers
                 {
                     Content = errorMessage,
                     StatusCode = 404
+                };
+            }
+            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+            {
+                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 401
                 };
             }
         }

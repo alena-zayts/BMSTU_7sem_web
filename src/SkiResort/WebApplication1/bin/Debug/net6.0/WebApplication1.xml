@@ -32,6 +32,14 @@
             <returns>Token</returns>
             <response code="200" cref="T:Microsoft.AspNetCore.Mvc.JsonResult">Ok</response>
         </member>
+        <member name="M:WebApplication1.Controllers.accountController.Delete">
+            <summary>
+            Log out (and get new token to be interpreted as an unauthorized user)
+            </summary>
+            <returns>New token for unauthorized user </returns>
+            <response code="200" cref="T:Microsoft.AspNetCore.Mvc.JsonResult">User was successfully logged out</response>
+            <response code="401">User was not logged in</response>
+        </member>
         <member name="M:WebApplication1.Controllers.cardReadingsController.Get">
             <summary>
             Get information about all cardReadings
@@ -184,6 +192,61 @@
             <response code="200">The lift was successfully updated</response>
             <response code="404">A lift or a slope with specified name was not found</response>
         </member>
+        <member name="M:WebApplication1.Controllers.messagesController.Get">
+            <summary>
+            Get information about all messages
+            </summary>
+            <returns>Information about all messages</returns>
+            <response code="200" cref="!:ListOfMessageDTO">Information about all messages</response>
+        </member>
+        <member name="M:WebApplication1.Controllers.messagesController.GetAsync(System.UInt32)">
+            <summary>
+            Get information about a message by it's ID
+            </summary>
+            <param name="messageID">Message ID</param>
+            <returns>A message with the specified ID</returns>
+            <response code="200" cref="T:WebApplication1.Models.Message">Message with specified ID</response>
+            <response code="404">Message with specified ID not found</response>
+        </member>
+        <member name="M:WebApplication1.Controllers.messagesController.Post(System.String)">
+            <summary>
+            Send a message
+            </summary>
+            <param name="text">Text of the message</param>
+            <returns>The added message with assigned ID</returns>
+            <response code="201" cref="T:WebApplication1.Models.Message">The added message with assigned ID</response>
+        </member>
+        <member name="M:WebApplication1.Controllers.messagesController.Put(System.UInt32,System.UInt32,System.UInt32,System.String)">
+            <summary>
+            Update information about an existing message
+            </summary>
+            <param name="messageID">ID of the message to update</param>
+            <param name="senderID">ID of the user who sent message</param>
+            <param name="checkedByID">ID of the user who read message</param>
+            <param name="text">Text of the message</param>
+            <returns></returns>
+            <response code="200">The message was successfully updated</response>
+            <response code="404">A message with specified ID was not found</response>
+        </member>
+        <member name="M:WebApplication1.Controllers.messagesController.Put(System.UInt32)">
+            <summary>
+            Mark message read by current user
+            </summary>
+            <param name="messageID">ID of the message to update</param>
+            <returns></returns>
+            <response code="200">The message was marked read</response>
+            <response code="404">A message with specified ID was not found</response>
+            <response code="400">Couldn't mark message checked because it is alredy checked</response>
+        </member>
+        <member name="M:WebApplication1.Controllers.messagesController.Delete(System.UInt32)">
+            <summary>
+            Delete a message by it's ID
+            </summary>
+            <param name="messageID">ID of the message to delete</param>
+            <returns></returns>
+            <response code="200" cref="T:WebApplication1.Models.Message">Message was successfully deleted</response>
+            <response code="404">Message with specified ID not found</response>
+        </member>
         <member name="M:WebApplication1.Controllers.slopesController.Get">
             <summary>
             Get information about all slopes
@@ -278,6 +341,55 @@
             <returns></returns>
             <response code="200" cref="T:WebApplication1.Models.Turnstile">Turnstile was successfully deleted</response>
             <response code="404">Turnstile with specified ID not found</response>
+        </member>
+        <member name="M:WebApplication1.Controllers.usersController.Get">
+            <summary>
+            Get information about all users
+            </summary>
+            <returns>Information about all users</returns>
+            <response code="200" cref="!:ListOfUserDTO">Information about all users</response>
+        </member>
+        <member name="M:WebApplication1.Controllers.usersController.GetAsync(System.UInt32)">
+            <summary>
+            Get information about a user by it's ID
+            </summary>
+            <param name="userID">User ID</param>
+            <returns>A user with the specified ID</returns>
+            <response code="200" cref="!:User">User with specified ID</response>
+            <response code="404">User with specified ID not found</response>
+        </member>
+        <member name="M:WebApplication1.Controllers.usersController.Post(System.String,System.String,System.String,System.UInt32)">
+            <summary>
+            Add a new user
+            </summary>
+            <param name="userEmail">Email of user to add</param>
+            <param name="userPassword">Password of user to add</param>
+            <param name="role">Role of the user to add</param>
+            <param name="cardID">ID of the user's card</param>
+            <returns>The added user with assigned ID</returns>
+            <response code="201" cref="!:User">The added user with assigned ID</response>
+        </member>
+        <member name="M:WebApplication1.Controllers.usersController.Put(System.UInt32,System.String,System.String,System.String,System.UInt32)">
+            <summary>
+            Update information about an existing user
+            </summary>
+            <param name="userID">ID of the user to update</param>
+            <param name="userEmail">Email of user to add</param>
+            <param name="userPassword">Password of user to add</param>
+            <param name="role">Role of the user to add</param>
+            <param name="cardID">ID of the user's card</param>
+            <returns></returns>
+            <response code="200">The user was successfully updated</response>
+            <response code="404">A user with specified ID was not found</response>
+        </member>
+        <member name="M:WebApplication1.Controllers.usersController.Delete(System.UInt32)">
+            <summary>
+            Delete a user by it's ID
+            </summary>
+            <param name="userID">ID of the user to delete</param>
+            <returns></returns>
+            <response code="200" cref="!:User">User was successfully deleted</response>
+            <response code="404">User with specified ID not found</response>
         </member>
         <member name="T:WebApplication1.Models.Card">
             <summary>

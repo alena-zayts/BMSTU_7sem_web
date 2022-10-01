@@ -16,7 +16,6 @@ namespace WebApplication1.Controllers
     public class slopesController : ControllerBase
     {
         private BL.Facade _facade;
-        private uint _userID = 1;
         public slopesController()
         {
             _facade = OtherOptions.createFacade();
@@ -33,14 +32,27 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Slope>))]
         public async Task<IActionResult> Get()
         {
-            List<BL.Models.Slope> slopes = await _facade.GetSlopesInfoAsync(_userID);
-            List<Slope> slopesDTO = Converters.SlopeConverter.ConvertSlopesToSlopesDTO(slopes);
-            string slopesJSON = JsonSerializer.Serialize(slopesDTO, OtherOptions.JsonOptions());
-            return new ContentResult
+            try
             {
-                Content = slopesJSON,
-                StatusCode = 200
-            };
+                uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
+                List<BL.Models.Slope> slopes = await _facade.GetSlopesInfoAsync(_userID);
+                List<Slope> slopesDTO = Converters.SlopeConverter.ConvertSlopesToSlopesDTO(slopes);
+                string slopesJSON = JsonSerializer.Serialize(slopesDTO, OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = slopesJSON,
+                    StatusCode = 200
+                };
+            }
+            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+            {
+                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 401
+                };
+            }
         }
 
         // GET: slopes/A0
@@ -56,6 +68,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAsync([FromRoute] string slopeName)
         {
+            uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
                 BL.Models.Slope slope = await _facade.GetSlopeInfoAsync(_userID, slopeName);
@@ -76,7 +89,16 @@ namespace WebApplication1.Controllers
                     Content = errorMessage,
                     StatusCode = 404
                 };
-            }         
+            }
+            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+            {
+                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 401
+                };
+            }
         }
 
         // POST: slopes
@@ -97,6 +119,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Post([FromQuery] string slopeName, [FromQuery] bool isOpen, [FromQuery] uint difficultyLevel)
         {
+            uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
                 uint slopeID = await _facade.AdminAddAutoIncrementSlopeAsync(_userID, slopeName, isOpen, difficultyLevel);
@@ -118,6 +141,15 @@ namespace WebApplication1.Controllers
                     StatusCode = 400
                 };
             }
+            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+            {
+                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 401
+                };
+            }
         }
 
         // PUT: slopes/A0
@@ -135,6 +167,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Put([FromRoute] string slopeName, [FromQuery] bool isOpen, [FromQuery] uint difficultyLevel)
         {
+            uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
                 await _facade.UpdateSlopeInfoAsync(_userID, slopeName, isOpen, difficultyLevel);
@@ -152,6 +185,15 @@ namespace WebApplication1.Controllers
                     StatusCode = 404
                 };
             }
+            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+            {
+                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 401
+                };
+            }
         }
 
         // DELETE: slopes/A0
@@ -167,6 +209,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete([FromRoute] string slopeName)
         {
+            uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
                 await _facade.AdminDeleteSlopeAsync(_userID, slopeName);
@@ -182,6 +225,15 @@ namespace WebApplication1.Controllers
                 {
                     Content = errorMessage,
                     StatusCode = 404
+                };
+            }
+            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+            {
+                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 401
                 };
             }
         }

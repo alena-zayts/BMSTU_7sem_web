@@ -33,14 +33,27 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Turnstile>))]
         public async Task<IActionResult> Get()
         {
-            List<BL.Models.Turnstile> turnstiles = await _facade.AdminGetTurnstilesAsync(_userID);
-            List<Turnstile> turnstilesDTO = Converters.TurnstileConverter.ConvertTurnstilesToTurnstilesDTO(turnstiles);
-            string turnstilesJSON = JsonSerializer.Serialize(turnstilesDTO, OtherOptions.JsonOptions());
-            return new ContentResult
+            try
             {
-                Content = turnstilesJSON,
-                StatusCode = 200
-            };
+                uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
+                List<BL.Models.Turnstile> turnstiles = await _facade.AdminGetTurnstilesAsync(_userID);
+                List<Turnstile> turnstilesDTO = Converters.TurnstileConverter.ConvertTurnstilesToTurnstilesDTO(turnstiles);
+                string turnstilesJSON = JsonSerializer.Serialize(turnstilesDTO, OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = turnstilesJSON,
+                    StatusCode = 200
+                };
+            }
+            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+            {
+                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 401
+                };
+            }
         }
 
         // GET: turnstiles/1
@@ -56,6 +69,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAsync([FromRoute] uint turnstileID)
         {
+            uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
                 BL.Models.Turnstile turnstile = await _facade.AdminGetTurnstileAsync(_userID, turnstileID);
@@ -76,7 +90,16 @@ namespace WebApplication1.Controllers
                     Content = errorMessage,
                     StatusCode = 404
                 };
-            }         
+            }
+            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+            {
+                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 401
+                };
+            }
         }
 
         // POST: turnstiles
@@ -91,15 +114,28 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Turnstile))]
         public async Task<IActionResult> Post([FromQuery] uint liftID, [FromQuery] bool isOpen)
         {
-            uint turnstileID = await _facade.AdminAddAutoIncrementTurnstileAsync(_userID, liftID, isOpen);
-            Turnstile turnstileDTO = new Turnstile(turnstileID, liftID, isOpen);
-            string turnstileJSON = JsonSerializer.Serialize(turnstileDTO, OtherOptions.JsonOptions());
-
-            return new ContentResult
+            try
             {
-                Content = turnstileJSON,
-                StatusCode = 201
-            };
+                uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
+                uint turnstileID = await _facade.AdminAddAutoIncrementTurnstileAsync(_userID, liftID, isOpen);
+                Turnstile turnstileDTO = new Turnstile(turnstileID, liftID, isOpen);
+                string turnstileJSON = JsonSerializer.Serialize(turnstileDTO, OtherOptions.JsonOptions());
+
+                return new ContentResult
+                {
+                    Content = turnstileJSON,
+                    StatusCode = 201
+                };
+            }
+            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+            {
+                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 401
+                };
+            }
         }
 
         // PUT: turnstiles/1
@@ -117,6 +153,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Put([FromRoute] uint turnstileID, [FromQuery] uint liftID, [FromQuery] bool isOpen)
         {
+            uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
                 await _facade.AdminUpdateTurnstileAsync(_userID, turnstileID, liftID, isOpen);
@@ -134,6 +171,15 @@ namespace WebApplication1.Controllers
                     StatusCode = 404
                 };
             }
+            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+            {
+                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 401
+                };
+            }
         }
 
         // DELETE: turnstiles/1
@@ -149,6 +195,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete([FromRoute] uint turnstileID)
         {
+            uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
                 await _facade.AdminDeleteTurnstileAsync(_userID, turnstileID);

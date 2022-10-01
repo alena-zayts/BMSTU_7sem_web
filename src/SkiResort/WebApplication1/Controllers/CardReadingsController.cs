@@ -5,6 +5,8 @@ using AccessToDB.Exceptions;
 using WebApplication1.Models;
 using WebApplication1.Options;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Net.Http.Headers;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace WebApplication1.Controllers
 {
@@ -16,7 +18,6 @@ namespace WebApplication1.Controllers
     public class cardReadingsController : ControllerBase
     {
         private BL.Facade _facade;
-        private uint _userID = 1;
         public cardReadingsController()
         {
             _facade = OtherOptions.createFacade();
@@ -33,14 +34,27 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<CardReading>))]
         public async Task<IActionResult> Get()
         {
-            List<BL.Models.CardReading> cardReadings = await _facade.AdminGetCardReadingsAsync(_userID);
-            List<CardReading> cardReadingsDTO = Converters.CardReadingConverter.ConvertCardReadingsToCardReadingsDTO(cardReadings);
-            string cardReadingsJSON = JsonSerializer.Serialize(cardReadingsDTO, OtherOptions.JsonOptions());
-            return new ContentResult
+            uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
+            try
             {
-                Content = cardReadingsJSON,
-                StatusCode = 200
-            };
+                List<BL.Models.CardReading> cardReadings = await _facade.AdminGetCardReadingsAsync(_userID);
+                List<CardReading> cardReadingsDTO = Converters.CardReadingConverter.ConvertCardReadingsToCardReadingsDTO(cardReadings);
+                string cardReadingsJSON = JsonSerializer.Serialize(cardReadingsDTO, OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = cardReadingsJSON,
+                    StatusCode = 200
+                };
+            }
+            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+            {
+                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 401
+                };
+            }
         }
 
         // GET: cardReadings/1
@@ -56,6 +70,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAsync([FromRoute] uint recordID)
         {
+            uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
                 BL.Models.CardReading cardReading = await _facade.AdminGetCardReadingAsync(_userID, recordID);
@@ -76,7 +91,16 @@ namespace WebApplication1.Controllers
                     Content = errorMessage,
                     StatusCode = 404
                 };
-            }         
+            }
+            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+            {
+                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 401
+                };
+            }
         }
 
         // POST: cardReadings
@@ -92,15 +116,28 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CardReading))]
         public async Task<IActionResult> Post([FromQuery] uint turnstileID, [FromQuery] uint cardID, [FromQuery] DateTimeOffset readingTime)
         {
-            uint recordID = await _facade.AdminAddAutoIncrementCardReadingAsync(_userID, turnstileID, cardID, readingTime);
-            CardReading cardReadingDTO = new CardReading(recordID, turnstileID, cardID, readingTime);
-            string cardReadingJSON = JsonSerializer.Serialize(cardReadingDTO, OtherOptions.JsonOptions());
-
-            return new ContentResult
+            try
             {
-                Content = cardReadingJSON,
-                StatusCode = 201
-            };
+                uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
+                uint recordID = await _facade.AdminAddAutoIncrementCardReadingAsync(_userID, turnstileID, cardID, readingTime);
+                CardReading cardReadingDTO = new CardReading(recordID, turnstileID, cardID, readingTime);
+                string cardReadingJSON = JsonSerializer.Serialize(cardReadingDTO, OtherOptions.JsonOptions());
+
+                return new ContentResult
+                {
+                    Content = cardReadingJSON,
+                    StatusCode = 201
+                };
+            }
+            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+            {
+                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 401
+                };
+            }
         }
 
         // PUT: cardReadings/1
@@ -119,6 +156,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Put([FromRoute] uint recordID, [FromQuery] uint turnstileID, [FromQuery] uint cardID, [FromQuery] DateTimeOffset readingTime)
         {
+            uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
                 await _facade.AdminUpdateCardReadingAsync(_userID, recordID, turnstileID, cardID, readingTime);
@@ -136,6 +174,15 @@ namespace WebApplication1.Controllers
                     StatusCode = 404
                 };
             }
+            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+            {
+                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 401
+                };
+            }
         }
 
         // DELETE: cardReadings/1
@@ -151,6 +198,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete([FromRoute] uint recordID)
         {
+            uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
                 await _facade.AdminDeleteCardReadingAsync(_userID, recordID);
@@ -166,6 +214,15 @@ namespace WebApplication1.Controllers
                 {
                     Content = errorMessage,
                     StatusCode = 404
+                };
+            }
+            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+            {
+                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 401
                 };
             }
         }

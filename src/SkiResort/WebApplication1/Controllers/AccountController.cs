@@ -8,6 +8,7 @@ using System.Security.Claims;
 using WebApplication1.Models; 
 using WebApplication1.Options;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Controllers
 {
@@ -18,10 +19,9 @@ namespace WebApplication1.Controllers
     {
 
         private BL.Facade _facade;
-        private uint _userID = 1;
         public accountController()
         {
-            _facade = OtherOptions.createFacade();
+            
         }
 
         // POST: account
@@ -40,9 +40,10 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> LogInAsync([FromQuery] string userEmail, [FromQuery] string userPassword)
         {
+            _facade = OtherOptions.createFacade();
             try
             {
-                BL.Models.User foundUser = await _facade.LogInAsync(_userID, userEmail, userPassword);
+                BL.Models.User foundUser = await _facade.LogInAsync(userEmail, userPassword);
                 UserAccount userAccount = Converters.UserAccountConverter.ConvertUserToUserAccountDTO(foundUser);
 
                 var claims = new List<Claim>
@@ -65,6 +66,7 @@ namespace WebApplication1.Controllers
                         claims: identity.Claims,
                         expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
                         signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+                jwt.Payload["userID"] = foundUser.UserID;
                 var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
 
@@ -72,18 +74,10 @@ namespace WebApplication1.Controllers
                 {
                     access_token = encodedJwt,
                     username = identity.Name,
-                    userID = foundUser.UserID
                 };
 
                 return Json(response);
 
-                //string ResponseJSON = JsonSerializer.Serialize(response, OtherOptions.JsonOptions());
-
-                //return new ContentResult
-                //{
-                //    Content = ResponseJSON,
-                 //   StatusCode = 200
-                //};
             }
             catch (BL.Exceptions.UserExceptions.UserAuthorizationException ex)
             {
@@ -121,13 +115,14 @@ namespace WebApplication1.Controllers
         {
             try
             {
-                BL.Models.User newUser = await _facade.RegisterAsync(_userID, 0, userEmail, userPassword);
+                _facade = OtherOptions.createFacade();
+                BL.Models.User newUser = await _facade.RegisterAsync(0, userEmail, userPassword);
                 UserAccount userAccount = Converters.UserAccountConverter.ConvertUserToUserAccountDTO(newUser);
 
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, userAccount.UserEmail),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, userAccount.Role)
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, userAccount.Role)     
                 };
 
                 ClaimsIdentity identity =
@@ -144,6 +139,7 @@ namespace WebApplication1.Controllers
                         claims: identity.Claims,
                         expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
                         signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+                jwt.Payload["userID"] = newUser.UserID;
                 var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
 
@@ -151,18 +147,9 @@ namespace WebApplication1.Controllers
                 {
                     access_token = encodedJwt,
                     username = identity.Name,
-                    userID = newUser.UserID
                 };
 
                 return Json(response);
-
-                //string ResponseJSON = JsonSerializer.Serialize(response, OtherOptions.JsonOptions());
-
-                //return new ContentResult
-                //{
-                //    Content = ResponseJSON,
-                //   StatusCode = 200
-                //};
             }
             catch (BL.Exceptions.UserExceptions.UserRegistrationException ex)
             {
@@ -186,36 +173,55 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(JsonResult))]
         public async Task<IActionResult> ContinueWithoutAccount()
         {
+            _facade = OtherOptions.createFacade();
+            BL.Models.User newUser = await _facade.LogInAsUnauthorizedAsync();
 
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, "unathurozied")
-                };
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, "unathurozied")
+            };
 
-                ClaimsIdentity identity =
-                new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                    ClaimsIdentity.DefaultRoleClaimType);
-
-
-                var now = DateTime.UtcNow;
-                // создаем JWT-токен
-                var jwt = new JwtSecurityToken(
-                        issuer: AuthOptions.ISSUER,
-                        audience: AuthOptions.AUDIENCE,
-                        notBefore: now,
-                        claims: identity.Claims,
-                        expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-                        signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-                var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+            ClaimsIdentity identity =
+            new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
+                ClaimsIdentity.DefaultRoleClaimType);
 
 
-                var response = new
-                {
-                    access_token = encodedJwt,
-                    username = identity.Name,
-                };
+            var now = DateTime.UtcNow;
+            // создаем JWT-токен
+            var jwt = new JwtSecurityToken(
+                    issuer: AuthOptions.ISSUER,
+                    audience: AuthOptions.AUDIENCE,
+                    notBefore: now,
+                    claims: identity.Claims,
+                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+            jwt.Payload["userID"] = newUser.UserID;
+            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-                return Json(response);
+
+            var response = new
+            {
+                access_token = encodedJwt,
+                username = identity.Name,
+            };
+
+            return Json(response);
+        }
+
+        // DELETE: account
+        /// <summary>
+        /// Log out (and get new token to be interpreted as an unauthorized user)
+        /// </summary>
+        /// <returns>New token for unauthorized user </returns>
+        /// <response code="200" cref="JsonResult">User was successfully logged out</response>
+        /// <response code="401">User was not logged in</response>
+        [Authorize(Roles = "admin, authorized, ski_patrol")]
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IActionResult))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> Delete()
+        {
+            return await ContinueWithoutAccount();
         }
     }
 }

@@ -27,22 +27,18 @@ namespace WebApplication1.Models
         /// <summary>
         /// Lift name
         /// </summary>
-        [Required]
         public string LiftName { get; }
         /// <summary>
         /// Is the lift working right now or not
         /// </summary>
-        [Required]
         public bool IsOpen { get; }
         /// <summary>
         /// The amount of seats in the lift
         /// </summary>
-        [Required]
         public uint SeatsAmount { get; }
         /// <summary>
         /// The time lift needs to lift from the beginning to the end
         /// </summary>
-        [Required]
         public uint LiftingTime { get; }
         /// <summary>
         /// Current time in queue to the lift

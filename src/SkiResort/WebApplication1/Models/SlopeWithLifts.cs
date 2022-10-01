@@ -25,17 +25,14 @@ namespace WebApplication1.Models
         /// <summary>
         /// Slope name
         /// </summary>
-        [Required]
         public string SlopeName { get; }
         /// <summary>
         /// Is the slope working right now or not
         /// </summary>
-        [Required]
         public bool IsOpen { get; }
         /// <summary>
         /// The difficulty level of the slope
         /// </summary>
-        [Required]
         public uint DifficultyLevel { get; }
 
         /// <summary>

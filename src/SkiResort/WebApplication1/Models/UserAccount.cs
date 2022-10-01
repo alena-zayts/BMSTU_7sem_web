@@ -2,16 +2,18 @@
 {
     public class UserAccount
     {
-        public UserAccount(string userEmail, string password, string role)
+        public UserAccount(string userEmail, string password, string role, uint cardID)
         {
             UserEmail = userEmail;
             Password = password;
             Role = role;
+            CardID = cardID;
         }
 
         public string UserEmail { get; }
         public string Password { get; }
         public string Role { get; }
+        public uint CardID { get; }
 
     }
 }

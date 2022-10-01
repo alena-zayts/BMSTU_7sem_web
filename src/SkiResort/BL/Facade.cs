@@ -19,51 +19,43 @@ namespace BL
 
         //-----------------------------------------------------------------------------------
         //--------------------------------------------------------------------- User
-        public async Task<User> LogInAsUnauthorizedAsync(uint requesterUserID)
+        public async Task<User> LogInAsUnauthorizedAsync()
         {
             IUsersRepository usersRepository = RepositoriesFactory.CreateUsersRepository();
-
-            if (await usersRepository.CheckUserIdExistsAsync(requesterUserID))
-            {
-                throw new UserDuplicateException();
-            }
-
-            User newUser = new(requesterUserID, User.UniversalCardID, $"unauthorized_email_{requesterUserID}", $"unauthorized_password_{requesterUserID}", PermissionsEnum.UNAUTHORIZED);
-            await usersRepository.AddUserAsync(newUser.UserID, newUser.CardID, newUser.UserEmail, newUser.Password, newUser.Permissions);
-            return newUser;
+            int l = (await usersRepository.GetUsersAsync()).Count() + 1;
+            uint newUserID = await usersRepository.AddUserAutoIncrementAsync(User.UniversalCardID, $"unauthorized_email_{l}", $"unauthorized_password_{l}", PermissionsEnum.UNAUTHORIZED);
+            User unauthorizedUser = await usersRepository.GetUserByIdAsync(newUserID);
+            return unauthorizedUser;
         }
 
-        public async Task<User> RegisterAsync(uint requesterUserID, uint cardID, string email, string password)
+        public async Task<User> RegisterAsync(uint cardID, string email, string password)
         {
-            await CheckPermissionsService.CheckPermissionsAsync(RepositoriesFactory.CreateUsersRepository(), requesterUserID);
 
             if (email.Length == 0  || password.Length == 0)
             {
-                throw new UserRegistrationException($"Could't register new user {requesterUserID} because of incorrect password or email");
+                throw new UserRegistrationException($"Could't register new user because of incorrect password or email");
             }
 
             IUsersRepository usersRepository = RepositoriesFactory.CreateUsersRepository();
 
             if (await usersRepository.CheckUserEmailExistsAsync(email))
             {
-                throw new UserRegistrationException($"Could't register new user {requesterUserID} because such email already exists");
+                throw new UserRegistrationException($"Could't register new user because such email already exists");
             }
 
-            User authorizedUser = new(requesterUserID, cardID, email, password, PermissionsEnum.AUTHORIZED);
-            await usersRepository.UpdateUserByIDAsync(authorizedUser.UserID, authorizedUser.CardID, authorizedUser.UserEmail, authorizedUser.Password, authorizedUser.Permissions);
+            uint newUserID = await usersRepository.AddUserAutoIncrementAsync(cardID, email, password, PermissionsEnum.AUTHORIZED);
+            User authorizedUser = await usersRepository.GetUserByEmailAsync(email);
             return authorizedUser;
         }
 
-        public async Task<User> LogInAsync(uint requesterUserID, string email, string password)
+        public async Task<User> LogInAsync(string email, string password)
         {
-            await CheckPermissionsService.CheckPermissionsAsync(RepositoriesFactory.CreateUsersRepository(), requesterUserID);
-
             IUsersRepository usersRepository = RepositoriesFactory.CreateUsersRepository();
             User userFromDB = await usersRepository.GetUserByEmailAsync(email);
 
             if (password != userFromDB.Password)
             {
-                throw new UserAuthorizationException($"Could't authorize user {requesterUserID} because of wrong password");
+                throw new UserAuthorizationException($"Could't authorize user because of wrong password");
             }
 
             //User authorizedUser = new(userFromDB.UserID, userFromDB.CardID, userFromDB.UserEmail, userFromDB.Password, PermissionsEnum.AUTHORIZED);
