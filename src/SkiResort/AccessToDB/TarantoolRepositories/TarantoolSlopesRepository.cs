@@ -31,14 +31,14 @@ namespace AccessToDB.RepositoriesTarantool
         }
 
 
-        public async Task<List<Slope>> GetSlopesAsync(uint offset = 0u, uint limit = Facade.UNLIMITED)
+        public async Task<List<Slope>> GetSlopesAsync(uint offset = 0u, uint limit = 0)
         {
             var data = await _indexPrimary.Select<ValueTuple<uint>, SlopeDB>
                 (ValueTuple.Create(0u), new SelectOptions { Iterator = Iterator.Ge });
 
             List<Slope> result = new();
 
-            for (uint i = offset; i < (uint)data.Data.Length && (i < limit || limit == Facade.UNLIMITED); i++)
+            for (uint i = offset; i < (uint)data.Data.Length && (i < limit || limit == 0); i++)
             {
                 result.Add(SlopeConverter.DBToBL(data.Data[i]));
             }

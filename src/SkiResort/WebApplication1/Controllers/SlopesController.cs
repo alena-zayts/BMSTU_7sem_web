@@ -14,10 +14,10 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class slopesController : ControllerBase
     {
-        private BL.Facade _facade;
-        public slopesController(BL.Facade facade)
+        private BL.Services.SlopesService _slopesService;
+        public slopesController(BL.Services.SlopesService slopesService)
         {
-            _facade = facade;
+            _slopesService = slopesService;
         }
 
         // GET: slopes
@@ -34,7 +34,7 @@ namespace WebApplication1.Controllers
             try
             {
                 uint _userID = BL.Models.User.UnauthorizedUserID;
-                List<BL.Models.Slope> slopes = await _facade.GetSlopesInfoAsync(_userID);
+                List<BL.Models.Slope> slopes = await _slopesService.GetSlopesInfoAsync(_userID);
                 List<Slope> slopesDTO = Converters.SlopeConverter.ConvertSlopesToSlopesDTO(slopes);
                 string slopesJSON = JsonSerializer.Serialize(slopesDTO, OtherOptions.JsonOptions());
                 return new ContentResult
@@ -70,7 +70,7 @@ namespace WebApplication1.Controllers
             uint _userID = BL.Models.User.UnauthorizedUserID;
             try
             {
-                BL.Models.Slope slope = await _facade.GetSlopeInfoAsync(_userID, slopeName);
+                BL.Models.Slope slope = await _slopesService.GetSlopeInfoAsync(_userID, slopeName);
                 SlopeWithLifts slopeWithLiftsDTO = Converters.SlopeConverter.ConvertSlopeToSlopeWithLiftsDTO(slope);
                 string slopeJSON = JsonSerializer.Serialize(slopeWithLiftsDTO, OtherOptions.JsonOptions());
 
@@ -122,7 +122,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                uint slopeID = await _facade.AdminAddAutoIncrementSlopeAsync(_userID, slopeName, isOpen, difficultyLevel);
+                uint slopeID = await _slopesService.AdminAddAutoIncrementSlopeAsync(_userID, slopeName, isOpen, difficultyLevel);
                 Slope slopeDTO = new Slope(slopeID, slopeName, isOpen, difficultyLevel);
                 string slopeJSON = JsonSerializer.Serialize(slopeDTO, OtherOptions.JsonOptions());
 
@@ -171,7 +171,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                await _facade.UpdateSlopeInfoAsync(_userID, slopeName, isOpen, difficultyLevel);
+                await _slopesService.UpdateSlopeInfoAsync(_userID, slopeName, isOpen, difficultyLevel);
                 return new ContentResult
                 {
                     StatusCode = 200
@@ -214,7 +214,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                await _facade.AdminDeleteSlopeAsync(_userID, slopeName);
+                await _slopesService.AdminDeleteSlopeAsync(_userID, slopeName);
                 return new ContentResult
                 {
                     StatusCode = 200

@@ -15,11 +15,11 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class turnstilesController : ControllerBase
     {
-        private BL.Facade _facade;
+        private BL.Services.TurnstilesService _turnstilesService;
         private uint _userID = 1;
-        public turnstilesController(BL.Facade facade)
+        public turnstilesController(BL.Services.TurnstilesService turnstilesService)
         {
-            _facade = facade;
+            _turnstilesService = turnstilesService;
         }
 
         // GET: turnstiles
@@ -36,7 +36,7 @@ namespace WebApplication1.Controllers
             try
             {
                 uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
-                List<BL.Models.Turnstile> turnstiles = await _facade.AdminGetTurnstilesAsync(_userID);
+                List<BL.Models.Turnstile> turnstiles = await _turnstilesService.AdminGetTurnstilesAsync(_userID);
                 List<Turnstile> turnstilesDTO = Converters.TurnstileConverter.ConvertTurnstilesToTurnstilesDTO(turnstiles);
                 string turnstilesJSON = JsonSerializer.Serialize(turnstilesDTO, OtherOptions.JsonOptions());
                 return new ContentResult
@@ -72,7 +72,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                BL.Models.Turnstile turnstile = await _facade.AdminGetTurnstileAsync(_userID, turnstileID);
+                BL.Models.Turnstile turnstile = await _turnstilesService.AdminGetTurnstileAsync(_userID, turnstileID);
                 Turnstile turnstileWithSlopesDTO = Converters.TurnstileConverter.ConvertTurnstileToTurnstileDTO(turnstile);
                 string turnstileJSON = JsonSerializer.Serialize(turnstileWithSlopesDTO, OtherOptions.JsonOptions());
 
@@ -117,7 +117,7 @@ namespace WebApplication1.Controllers
             try
             {
                 uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
-                uint turnstileID = await _facade.AdminAddAutoIncrementTurnstileAsync(_userID, liftID, isOpen);
+                uint turnstileID = await _turnstilesService.AdminAddAutoIncrementTurnstileAsync(_userID, liftID, isOpen);
                 Turnstile turnstileDTO = new Turnstile(turnstileID, liftID, isOpen);
                 string turnstileJSON = JsonSerializer.Serialize(turnstileDTO, OtherOptions.JsonOptions());
 
@@ -156,7 +156,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                await _facade.AdminUpdateTurnstileAsync(_userID, turnstileID, liftID, isOpen);
+                await _turnstilesService.AdminUpdateTurnstileAsync(_userID, turnstileID, liftID, isOpen);
                 return new ContentResult
                 {
                     StatusCode = 200
@@ -198,7 +198,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                await _facade.AdminDeleteTurnstileAsync(_userID, turnstileID);
+                await _turnstilesService.AdminDeleteTurnstileAsync(_userID, turnstileID);
                 return new ContentResult
                 {
                     StatusCode = 200

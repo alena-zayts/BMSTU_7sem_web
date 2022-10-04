@@ -20,10 +20,10 @@ namespace WebApplication1.Controllers
     public class accountController : Controller
     {
 
-        private BL.Facade _facade;
-        public accountController(BL.Facade facade)
+        private BL.Services.UsersService _usersService;
+        public accountController(BL.Services.UsersService usersService)
         {
-            _facade = facade;
+            _usersService = usersService;
         }
 
         // POST: account/login
@@ -45,7 +45,7 @@ namespace WebApplication1.Controllers
         {
             try
             {
-                BL.Models.User foundUser = await _facade.LogInAsync(userEmail, userPassword);
+                BL.Models.User foundUser = await _usersService.LogInAsync(userEmail, userPassword);
                 UserAccount userAccount = Converters.UserAccountConverter.ConvertUserToUserAccountDTO(foundUser);
 
                 var claims = new List<Claim>
@@ -118,7 +118,7 @@ namespace WebApplication1.Controllers
         {
             try
             {
-                BL.Models.User newUser = await _facade.RegisterAsync(0, userEmail, userPassword);
+                BL.Models.User newUser = await _usersService.RegisterAsync(0, userEmail, userPassword);
                 UserAccount userAccount = Converters.UserAccountConverter.ConvertUserToUserAccountDTO(newUser);
 
                 var claims = new List<Claim>

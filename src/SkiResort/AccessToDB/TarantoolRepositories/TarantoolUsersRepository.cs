@@ -30,14 +30,14 @@ namespace AccessToDB.RepositoriesTarantool
             _box = context.box;
         }
 
-        public async Task<List<User>> GetUsersAsync(uint offset = 0u, uint limit = Facade.UNLIMITED)
+        public async Task<List<User>> GetUsersAsync(uint offset = 0u, uint limit = 0)
         {
             var data = await _indexPrimary.Select<ValueTuple<uint>, UserDB>
                 (ValueTuple.Create(0u), new SelectOptions { Iterator = Iterator.Ge });
 
             List<User> result = new();
 
-            for (uint i = offset; i < (uint)data.Data.Length && (i < limit || limit == Facade.UNLIMITED); i++)
+            for (uint i = offset; i < (uint)data.Data.Length && (i < limit || limit == 0); i++)
             {
                 result.Add(UserConverter.DBToBL(data.Data[i]));
             }

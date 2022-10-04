@@ -15,10 +15,10 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class cardsController : ControllerBase
     {
-        private BL.Facade _facade;
-        public cardsController(BL.Facade facade)
+        private BL.Services.CardsService _cardService;
+        public cardsController(BL.Services.CardsService cardService)
         {
-            _facade = facade;
+            _cardService = cardService;
         }
 
         // GET: cards
@@ -35,7 +35,7 @@ namespace WebApplication1.Controllers
             try
             {
                 uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
-                List<BL.Models.Card> cards = await _facade.AdminGetCardsAsync(_userID);
+                List<BL.Models.Card> cards = await _cardService.AdminGetCardsAsync(_userID);
                 List<Card> cardsDTO = Converters.CardConverter.ConvertCardsToCardsDTO(cards);
                 string cardsJSON = JsonSerializer.Serialize(cardsDTO, OtherOptions.JsonOptions());
                 return new ContentResult
@@ -71,7 +71,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                BL.Models.Card card = await _facade.AdminGetCardAsync(_userID, cardID);
+                BL.Models.Card card = await _cardService.AdminGetCardAsync(_userID, cardID);
                 Card cardWithSlopesDTO = Converters.CardConverter.ConvertCardToCardDTO(card);
                 string cardJSON = JsonSerializer.Serialize(cardWithSlopesDTO, OtherOptions.JsonOptions());
 
@@ -116,7 +116,7 @@ namespace WebApplication1.Controllers
             try
             {
                 uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
-                uint cardID = await _facade.AdminAddAutoIncrementCardAsync(_userID, activationTime, type);
+                uint cardID = await _cardService.AdminAddAutoIncrementCardAsync(_userID, activationTime, type);
                 Card cardDTO = new Card(cardID, activationTime, type);
                 string cardJSON = JsonSerializer.Serialize(cardDTO, OtherOptions.JsonOptions());
 
@@ -155,7 +155,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                await _facade.AdminUpdateCardAsync(_userID, cardID, activationTime, type);
+                await _cardService.AdminUpdateCardAsync(_userID, cardID, activationTime, type);
                 return new ContentResult
                 {
                     StatusCode = 200
@@ -197,7 +197,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                await _facade.AdminDeleteCardAsync(_userID, cardID);
+                await _cardService.AdminDeleteCardAsync(_userID, cardID);
                 return new ContentResult
                 {
                     StatusCode = 200

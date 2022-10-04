@@ -26,14 +26,14 @@ namespace AccessToDB.RepositoriesTarantool
             _indexTurnstile = context.cardReadingsIndexTurnstile;
     }
 
-        public async Task<List<CardReading>> GetCardReadingsAsync(uint offset = 0u, uint limit = Facade.UNLIMITED)
+        public async Task<List<CardReading>> GetCardReadingsAsync(uint offset = 0u, uint limit = 0)
         {
             var data = await _indexPrimary.Select<ValueTuple<uint>, CardReadingDB>
                 (ValueTuple.Create(0u), new SelectOptions { Iterator = Iterator.Ge });
 
             List<CardReading> result = new();
 
-            for (uint i = offset; i < (uint)data.Data.Length && (i < limit || limit == Facade.UNLIMITED); i++)
+            for (uint i = offset; i < (uint)data.Data.Length && (i < limit || limit == 0); i++)
             {
                 result.Add(CardReadingConverter.DBToBL(data.Data[i]));
             }

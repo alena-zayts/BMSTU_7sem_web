@@ -14,10 +14,12 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class liftsController : ControllerBase
     {
-        private BL.Facade _facade;
-        public liftsController(BL.Facade facade)
+        private BL.Services.LiftsService _liftsService;
+        private BL.Services.LiftsSlopesService _liftsSlopeService;
+        public liftsController(BL.Services.LiftsService liftsService, BL.Services.LiftsSlopesService liftsSlopesService)
         {
-            _facade = facade;
+            _liftsService = liftsService;
+            _liftsSlopeService = liftsSlopesService;
         }
 
         // GET: lifts
@@ -34,7 +36,7 @@ namespace WebApplication1.Controllers
             try
             {
                 uint _userID = BL.Models.User.UnauthorizedUserID;
-                List<BL.Models.Lift> lifts = await _facade.GetLiftsInfoAsync(_userID);
+                List<BL.Models.Lift> lifts = await _liftsService.GetLiftsInfoAsync(_userID);
                 List<Lift> liftsDTO = Converters.LiftConverter.ConvertLiftsToLiftsDTO(lifts);
                 string liftsJSON = JsonSerializer.Serialize(liftsDTO, OtherOptions.JsonOptions());
                 return new ContentResult
@@ -70,7 +72,7 @@ namespace WebApplication1.Controllers
             uint _userID = BL.Models.User.UnauthorizedUserID;
             try
             {
-                BL.Models.Lift lift = await _facade.GetLiftInfoAsync(_userID, liftName);
+                BL.Models.Lift lift = await _liftsService.GetLiftInfoAsync(_userID, liftName);
                 LiftWithSlopes liftWithSlopesDTO = Converters.LiftConverter.ConvertLiftToLiftWithSlopesDTO(lift);
                 string liftJSON = JsonSerializer.Serialize(liftWithSlopesDTO, OtherOptions.JsonOptions());
 
@@ -123,7 +125,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                uint liftID = await _facade.AdminAddAutoIncrementLiftAsync(_userID, liftName, isOpen, seatsAmount, liftingTime);
+                uint liftID = await _liftsService.AdminAddAutoIncrementLiftAsync(_userID, liftName, isOpen, seatsAmount, liftingTime);
                 Lift liftDTO = new Lift(liftID, liftName, isOpen, seatsAmount, liftingTime);
                 string liftJSON = JsonSerializer.Serialize(liftDTO, OtherOptions.JsonOptions());
 
@@ -171,13 +173,13 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                BL.Models.Lift liftFromDB = await _facade.GetLiftInfoAsync(_userID, liftName);
+                BL.Models.Lift liftFromDB = await _liftsService.GetLiftInfoAsync(_userID, liftName);
 
                 bool isOpen = patchLift.IsFieldPresent(nameof(patchLift.IsOpen)) ? patchLift.IsOpen : liftFromDB.IsOpen;
                 uint seatsAmount = patchLift.IsFieldPresent(nameof(patchLift.SeatsAmount)) ? patchLift.SeatsAmount : liftFromDB.SeatsAmount;
                 uint liftingTime = patchLift.IsFieldPresent(nameof(patchLift.LiftingTime)) ? patchLift.LiftingTime : liftFromDB.LiftingTime;
 
-                await _facade.UpdateLiftInfoAsync(_userID, liftName, isOpen, seatsAmount, liftingTime);
+                await _liftsService.UpdateLiftInfoAsync(_userID, liftName, isOpen, seatsAmount, liftingTime);
                 return new ContentResult
                 {
                     StatusCode = 200
@@ -254,7 +256,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                await _facade.AdminDeleteLiftAsync(_userID, liftName);
+                await _liftsService.AdminDeleteLiftAsync(_userID, liftName);
                 return new ContentResult
                 {
                     StatusCode = 200
@@ -298,7 +300,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                uint recordID = await _facade.AdminAddAutoIncrementLiftSlopeAsync(_userID, liftName, slopeName);
+                uint recordID = await _liftsSlopeService.AdminAddAutoIncrementLiftSlopeAsync(_userID, liftName, slopeName);
                 return new ContentResult
                 {
                     StatusCode = 200

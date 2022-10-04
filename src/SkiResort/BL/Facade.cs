@@ -31,7 +31,7 @@ namespace BL
         public async Task<User> RegisterAsync(uint cardID, string email, string password)
         {
 
-            if (email.Length == 0  || password.Length == 0)
+            if (email.Length == 0 || password.Length == 0)
             {
                 throw new UserRegistrationException($"Could't register new user because of incorrect password or email");
             }
@@ -76,7 +76,7 @@ namespace BL
             return unauthorizedUser;
         }
 
-        public async Task<List<User>> AdminGetUsersAsync(uint requesterUserID, uint offset=0, uint limit=UNLIMITED)
+        public async Task<List<User>> AdminGetUsersAsync(uint requesterUserID, uint offset = 0, uint limit = UNLIMITED)
         {
             await CheckPermissionsService.CheckPermissionsAsync(RepositoriesFactory.CreateUsersRepository(), requesterUserID);
             IUsersRepository usersRepository = RepositoriesFactory.CreateUsersRepository();
@@ -117,7 +117,7 @@ namespace BL
             await CheckPermissionsService.CheckPermissionsAsync(RepositoriesFactory.CreateUsersRepository(), requesterUserID);
             IUsersRepository usersRepository = RepositoriesFactory.CreateUsersRepository();
 
-            User userFromDB = await usersRepository.GetUserByIdAsync(userToDeleteID);  
+            User userFromDB = await usersRepository.GetUserByIdAsync(userToDeleteID);
             await usersRepository.DeleteUserByIDAsync(userFromDB.UserID);
         }
 
@@ -129,8 +129,8 @@ namespace BL
         }
 
 
-        // -------------------------------------------------------------------------------------------------------
-        // -------------------------------------------- Message
+         //-------------------------------------------------------------------------------------------------------
+         //-------------------------------------------- Message
         public async Task<Message> AdminGetMessageByIDAsync(uint requesterUserID, uint messageID)
         {
             await CheckPermissionsService.CheckPermissionsAsync(RepositoriesFactory.CreateUsersRepository(), requesterUserID);
@@ -152,7 +152,7 @@ namespace BL
             IMessagesRepository rep = RepositoriesFactory.CreateMessagesRepository();
             return await rep.GetMessageByIdAsync(messageID);
         }
-        public async Task<List<Message>> GetMessagesAsync(uint requesterUserID, uint offset=0, uint limit=UNLIMITED)
+        public async Task<List<Message>> GetMessagesAsync(uint requesterUserID, uint offset = 0, uint limit = UNLIMITED)
         {
             await CheckPermissionsService.CheckPermissionsAsync(RepositoriesFactory.CreateUsersRepository(), requesterUserID);
             IMessagesRepository rep = RepositoriesFactory.CreateMessagesRepository();
@@ -165,7 +165,7 @@ namespace BL
 
             IMessagesRepository rep = RepositoriesFactory.CreateMessagesRepository();
             Message message = await rep.GetMessageByIdAsync(messageID);
-            
+
             if (message.CheckedByID != Message.MessageCheckedByNobody)
             {
                 throw new MessageCheckingException("Couldn't mark message checked because it is alredy checked", message);
@@ -193,6 +193,11 @@ namespace BL
             await rep.DeleteMessageByIDAsync(messageID);
         }
 
+
+
+
+
+
         // -----------
         public async Task<Lift> GetLiftInfoAsync(uint requesterUserID, string LiftName)
         {
@@ -208,7 +213,7 @@ namespace BL
 
         }
 
-        public async Task<List<Lift>> GetLiftsInfoAsync(uint requesterUserID, uint offset=0, uint limit=UNLIMITED)
+        public async Task<List<Lift>> GetLiftsInfoAsync(uint requesterUserID, uint offset = 0, uint limit = UNLIMITED)
         {
             await CheckPermissionsService.CheckPermissionsAsync(RepositoriesFactory.CreateUsersRepository(), requesterUserID);
 
@@ -221,7 +226,7 @@ namespace BL
             foreach (Lift lift in lifts)
             {
                 liftsFull.Add(new(lift, await LiftsSlopesRepository.GetSlopesByLiftIdAsync(lift.LiftID)));
-                
+
             }
             return liftsFull;
         }
@@ -259,7 +264,7 @@ namespace BL
                 }
             }
 
-            
+
             await liftsRepository.DeleteLiftByIDAsync(lift.LiftID);
         }
 
@@ -298,7 +303,7 @@ namespace BL
 
         }
 
-        public async Task<List<Slope>> GetSlopesInfoAsync(uint requesterUserID, uint offset=0, uint limit=UNLIMITED)
+        public async Task<List<Slope>> GetSlopesInfoAsync(uint requesterUserID, uint offset = 0, uint limit = UNLIMITED)
         {
             await CheckPermissionsService.CheckPermissionsAsync(RepositoriesFactory.CreateUsersRepository(), requesterUserID);
 
@@ -358,8 +363,10 @@ namespace BL
             ISlopesRepository rep = RepositoriesFactory.CreateSlopesRepository();
             await rep.AddSlopeAsync(slopeID, slopeName, isOpen, difficultyLevel);
         }
-        
-        public async Task<List<LiftSlope>> GetLiftsSlopesInfoAsync(uint requesterUserID, uint offset=0, uint limit=UNLIMITED)
+
+
+
+        public async Task<List<LiftSlope>> GetLiftsSlopesInfoAsync(uint requesterUserID, uint offset = 0, uint limit = UNLIMITED)
         {
             await CheckPermissionsService.CheckPermissionsAsync(RepositoriesFactory.CreateUsersRepository(), requesterUserID);
 
@@ -432,7 +439,7 @@ namespace BL
             await CheckPermissionsService.CheckPermissionsAsync(RepositoriesFactory.CreateUsersRepository(), requesterUserID);
 
             ITurnstilesRepository rep = RepositoriesFactory.CreateTurnstilesRepository();
-            await rep.AddTurnstileAsync(turnstileID,  liftID, isOpen);
+            await rep.AddTurnstileAsync(turnstileID, liftID, isOpen);
         }
 
         public async Task<uint> AdminAddAutoIncrementTurnstileAsync(uint requesterUserID, uint liftID, bool isOpen)

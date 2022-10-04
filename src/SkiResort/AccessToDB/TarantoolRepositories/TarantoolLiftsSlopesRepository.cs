@@ -38,14 +38,14 @@ namespace AccessToDB.RepositoriesTarantool
             _box = context.box;
         }
 
-        public async Task<List<LiftSlope>> GetLiftsSlopesAsync(uint offset = 0u, uint limit = Facade.UNLIMITED)
+        public async Task<List<LiftSlope>> GetLiftsSlopesAsync(uint offset = 0u, uint limit = 0)
         {
             var data = await _indexPrimary.Select<ValueTuple<uint>, LiftSlopeDB>
                 (ValueTuple.Create(0u), new SelectOptions { Iterator = Iterator.Ge });
 
             List<LiftSlope> result = new();
 
-            for (uint i = offset; i < (uint)data.Data.Length && (i < limit || limit == Facade.UNLIMITED); i++)
+            for (uint i = offset; i < (uint)data.Data.Length && (i < limit || limit == 0); i++)
             {
                 result.Add(LiftSlopeConverter.DBToBL(data.Data[i]));
             }

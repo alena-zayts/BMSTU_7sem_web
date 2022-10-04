@@ -30,14 +30,14 @@ namespace AccessToDB.RepositoriesTarantool
             _box = context.box;
         }
 
-        public async Task<List<Turnstile>> GetTurnstilesAsync(uint offset = 0u, uint limit = Facade.UNLIMITED)
+        public async Task<List<Turnstile>> GetTurnstilesAsync(uint offset = 0u, uint limit = 0)
         {
             var data = await _indexPrimary.Select<ValueTuple<uint>, TurnstileDB>
                 (ValueTuple.Create(0u), new SelectOptions { Iterator = Iterator.Ge });
 
             List<Turnstile> result = new();
 
-            for (uint i = offset; i < (uint)data.Data.Length && (i < limit || limit == Facade.UNLIMITED); i++)
+            for (uint i = offset; i < (uint)data.Data.Length && (i < limit || limit ==0); i++)
             {
                 result.Add(TurnstileConverter.DBToBL(data.Data[i]));
             }

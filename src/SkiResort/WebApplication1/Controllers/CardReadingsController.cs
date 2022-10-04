@@ -17,10 +17,10 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class cardReadingsController : ControllerBase
     {
-        private BL.Facade _facade;
-        public cardReadingsController(BL.Facade facade)
+        private BL.Services.CardReadingsService _cardReadingsService;
+        public cardReadingsController(BL.Services.CardReadingsService cardReadingsService)
         {
-            _facade = facade;
+            _cardReadingsService = cardReadingsService;
         }
 
         // GET: cardReadings
@@ -37,7 +37,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                List<BL.Models.CardReading> cardReadings = await _facade.AdminGetCardReadingsAsync(_userID);
+                List<BL.Models.CardReading> cardReadings = await _cardReadingsService.AdminGetCardReadingsAsync(_userID);
                 List<CardReading> cardReadingsDTO = Converters.CardReadingConverter.ConvertCardReadingsToCardReadingsDTO(cardReadings);
                 string cardReadingsJSON = JsonSerializer.Serialize(cardReadingsDTO, OtherOptions.JsonOptions());
                 return new ContentResult
@@ -73,7 +73,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                BL.Models.CardReading cardReading = await _facade.AdminGetCardReadingAsync(_userID, recordID);
+                BL.Models.CardReading cardReading = await _cardReadingsService.AdminGetCardReadingAsync(_userID, recordID);
                 CardReading cardReadingWithSlopesDTO = Converters.CardReadingConverter.ConvertCardReadingToCardReadingDTO(cardReading);
                 string cardReadingJSON = JsonSerializer.Serialize(cardReadingWithSlopesDTO, OtherOptions.JsonOptions());
 
@@ -119,7 +119,7 @@ namespace WebApplication1.Controllers
             try
             {
                 uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
-                uint recordID = await _facade.AdminAddAutoIncrementCardReadingAsync(_userID, turnstileID, cardID, readingTime);
+                uint recordID = await _cardReadingsService.AdminAddAutoIncrementCardReadingAsync(_userID, turnstileID, cardID, readingTime);
                 CardReading cardReadingDTO = new CardReading(recordID, turnstileID, cardID, readingTime);
                 string cardReadingJSON = JsonSerializer.Serialize(cardReadingDTO, OtherOptions.JsonOptions());
 
@@ -159,7 +159,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                await _facade.AdminUpdateCardReadingAsync(_userID, recordID, turnstileID, cardID, readingTime);
+                await _cardReadingsService.AdminUpdateCardReadingAsync(_userID, recordID, turnstileID, cardID, readingTime);
                 return new ContentResult
                 {
                     StatusCode = 200
@@ -201,7 +201,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                await _facade.AdminDeleteCardReadingAsync(_userID, recordID);
+                await _cardReadingsService.AdminDeleteCardReadingAsync(_userID, recordID);
                 return new ContentResult
                 {
                     StatusCode = 200

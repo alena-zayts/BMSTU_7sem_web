@@ -109,9 +109,28 @@ namespace WebApplication1
                         };
                     });
 
-
+            services.AddSingleton<AccessToDB.TarantoolContext>();
             services.AddTransient<BL.IRepositoriesFactory, AccessToDB.TarantoolRepositoriesFactory>();
-            services.AddTransient<BL.Facade>();
+
+            services.AddTransient<BL.IRepositories.IUsersRepository, AccessToDB.RepositoriesTarantool.TarantoolUsersRepository>();
+            services.AddTransient<BL.IRepositories.IMessagesRepository, AccessToDB.RepositoriesTarantool.TarantoolMessagesRepository>();
+            services.AddTransient<BL.IRepositories.ILiftsRepository, AccessToDB.RepositoriesTarantool.TarantoolLiftsRepository>();
+            services.AddTransient<BL.IRepositories.ISlopesRepository, AccessToDB.RepositoriesTarantool.TarantoolSlopesRepository>();
+            services.AddTransient<BL.IRepositories.ILiftsSlopesRepository, AccessToDB.RepositoriesTarantool.TarantoolLiftsSlopesRepository>();
+            services.AddTransient<BL.IRepositories.ITurnstilesRepository, AccessToDB.RepositoriesTarantool.TarantoolTurnstilesRepository>();
+            services.AddTransient<BL.IRepositories.ICardsRepository, AccessToDB.RepositoriesTarantool.TarantoolCardsRepository>();
+            services.AddTransient<BL.IRepositories.ICardReadingsRepository, AccessToDB.RepositoriesTarantool.TarantoolCardReadingsRepository>();
+
+            //services.AddTransient<BL.Facade>();
+            services.AddTransient<BL.Services.CardsService>();
+            services.AddTransient<BL.Services.SlopesService>();
+            services.AddTransient<BL.Services.LiftsService>();
+            services.AddTransient<BL.Services.LiftsSlopesService>();
+            services.AddTransient<BL.Services.TurnstilesService>();
+            services.AddTransient<BL.Services.UsersService>();
+            services.AddTransient<BL.Services.MessagesService>();
+            services.AddTransient<BL.Services.CardReadingsService>();
+            
 
             //swaggerB
             //https://stackoverflow.com/questions/38184583/how-to-add-ihttpcontextaccessor-in-the-startup-class-in-the-di-in-asp-net-core-1

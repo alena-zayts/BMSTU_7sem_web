@@ -15,10 +15,10 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class usersController : ControllerBase
     {
-        private BL.Facade _facade;
-        public usersController(BL.Facade facade)
+        private BL.Services.UsersService _usersService;
+        public usersController(BL.Services.UsersService usersService)
         {
-            _facade = facade;
+            _usersService = usersService;
         }
 
         // GET: users
@@ -35,7 +35,7 @@ namespace WebApplication1.Controllers
             try
             {
                 uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
-                List<BL.Models.User> users = await _facade.AdminGetUsersAsync(_userID);
+                List<BL.Models.User> users = await _usersService.AdminGetUsersAsync(_userID);
                 List<UserAccount> usersDTO = Converters.UserAccountConverter.ConvertUsersToUsersDTO(users);
                 string usersJSON = JsonSerializer.Serialize(usersDTO, OtherOptions.JsonOptions());
                 return new ContentResult
@@ -71,7 +71,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                BL.Models.User user = await _facade.AdminGetUserByIDAsync(_userID, userID);
+                BL.Models.User user = await _usersService.AdminGetUserByIDAsync(_userID, userID);
                 UserAccount userWithSlopesDTO = Converters.UserAccountConverter.ConvertUserToUserAccountDTO(user);
                 string userJSON = JsonSerializer.Serialize(userWithSlopesDTO, OtherOptions.JsonOptions());
 
@@ -118,7 +118,7 @@ namespace WebApplication1.Controllers
             try
             {
                 uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
-                uint userID = await _facade.AdminAddAutoIncrementUserAsync(_userID, cardID, userEmail, userPassword, Converters.UserAccountConverter.RoleToPermissions(role));
+                uint userID = await _usersService.AdminAddAutoIncrementUserAsync(_userID, cardID, userEmail, userPassword, Converters.UserAccountConverter.RoleToPermissions(role));
                 UserAccount userDTO = new UserAccount(userEmail, userPassword, role, cardID);
                 string userJSON = JsonSerializer.Serialize(userDTO, OtherOptions.JsonOptions());
 
@@ -159,7 +159,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                await _facade.AdminUpdateUserAsync(_userID, userID, cardID, userEmail, userPassword, Converters.UserAccountConverter.RoleToPermissions(role));
+                await _usersService.AdminUpdateUserAsync(_userID, userID, cardID, userEmail, userPassword, Converters.UserAccountConverter.RoleToPermissions(role));
                 return new ContentResult
                 {
                     StatusCode = 200
@@ -201,7 +201,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                await _facade.AdminDeleteUserAsync(_userID, userID);
+                await _usersService.AdminDeleteUserAsync(_userID, userID);
                 return new ContentResult
                 {
                     StatusCode = 200

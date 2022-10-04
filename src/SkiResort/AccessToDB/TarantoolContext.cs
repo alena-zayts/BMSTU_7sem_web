@@ -1,4 +1,5 @@
 ﻿using ProGaudi.Tarantool.Client;
+using Microsoft.Extensions.Configuration;
 
 
 namespace AccessToDB
@@ -40,7 +41,7 @@ namespace AccessToDB
         public IIndex messagesIndexCheckedByID;
 
 
-        public TarantoolContext(string connection_string) => (
+        public TarantoolContext(string connection_string=null) => (
             box,
             liftsSpace, liftsIndexPrimary, liftsIndexName,
             slopesSpace, slopesIndexPrimary, slopesIndexName,
@@ -65,6 +66,15 @@ namespace AccessToDB
         ISpace, IIndex, IIndex, IIndex)> 
             Initialize(string connection_string)
         {
+            if (connection_string == null)
+            {
+                var configurationBuilder = new ConfigurationBuilder()
+                    .AddJsonFile("appsettings.json")
+                    .AddEnvironmentVariables();
+                var config = configurationBuilder.Build();
+                connection_string = config["Connections:ConnectAsAdmin"];
+            }
+
             var box = await Box.Connect(connection_string);
             var schema = box.GetSchema();
 

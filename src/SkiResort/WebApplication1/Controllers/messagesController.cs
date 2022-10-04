@@ -14,10 +14,10 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class messagesController : ControllerBase
     {
-        private BL.Facade _facade;
-        public messagesController(BL.Facade facade)
+        private BL.Services.MessagesService _messagesService;
+        public messagesController(BL.Services.MessagesService messagesService)
         {
-            _facade = facade;
+            _messagesService = messagesService;
         }
 
         // GET: messages
@@ -35,7 +35,7 @@ namespace WebApplication1.Controllers
             try
             {
                 uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
-                List<BL.Models.Message> messages = await _facade.GetMessagesAsync(_userID);
+                List<BL.Models.Message> messages = await _messagesService.GetMessagesAsync(_userID);
                 List<Message> messagesDTO = Converters.MessageConverter.ConvertMessagesToMessagesDTO(messages);
                 string messagesJSON = JsonSerializer.Serialize(messagesDTO, OtherOptions.JsonOptions());
                 return new ContentResult
@@ -72,7 +72,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                BL.Models.Message message = await _facade.GetMessageAsync(_userID, messageID);
+                BL.Models.Message message = await _messagesService.GetMessageAsync(_userID, messageID);
                 Message messageWithSlopesDTO = Converters.MessageConverter.ConvertMessageToMessageDTO(message);
                 string messageJSON = JsonSerializer.Serialize(messageWithSlopesDTO, OtherOptions.JsonOptions());
 
@@ -117,7 +117,7 @@ namespace WebApplication1.Controllers
             try
             {
                 uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
-                uint messageID = await _facade.SendMessageAsync(_userID, text);
+                uint messageID = await _messagesService.SendMessageAsync(_userID, text);
                 Message messageDTO = new Message(messageID, _userID, BL.Models.Message.MessageCheckedByNobody, text);
                 string messageJSON = JsonSerializer.Serialize(messageDTO, OtherOptions.JsonOptions());
 
@@ -158,7 +158,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                await _facade.AdminUpdateMessageAsync(_userID, messageID, senderID, checkedByID, text);
+                await _messagesService.AdminUpdateMessageAsync(_userID, messageID, senderID, checkedByID, text);
                 return new ContentResult
                 {
                     StatusCode = 200
@@ -203,7 +203,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                await _facade.MarkMessageReadByUserAsync(_userID, messageID);
+                await _messagesService.MarkMessageReadByUserAsync(_userID, messageID);
                 return new ContentResult
                 {
                     StatusCode = 200
@@ -255,7 +255,7 @@ namespace WebApplication1.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                await _facade.AdminDeleteMessageAsync(_userID, messageID);
+                await _messagesService.AdminDeleteMessageAsync(_userID, messageID);
                 return new ContentResult
                 {
                     StatusCode = 200

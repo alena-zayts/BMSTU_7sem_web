@@ -30,14 +30,14 @@ namespace AccessToDB.RepositoriesTarantool
             _box = context.box;
         }
 
-        public async Task<List<Lift>> GetLiftsAsync(uint offset = 0u, uint limit = Facade.UNLIMITED)
+        public async Task<List<Lift>> GetLiftsAsync(uint offset = 0u, uint limit = 0)
         {
             var data = await _indexPrimary.Select<ValueTuple<uint>, LiftDB>
                 (ValueTuple.Create(0u), new SelectOptions { Iterator = Iterator.Ge });
 
             List<Lift> result = new();
 
-            for (uint i = offset; i < (uint)data.Data.Length && (i < limit || limit == Facade.UNLIMITED); i++)
+            for (uint i = offset; i < (uint)data.Data.Length && (i < limit || limit == 0); i++)
             {
                 result.Add(LiftConverter.DBToBL(data.Data[i]));
             }
