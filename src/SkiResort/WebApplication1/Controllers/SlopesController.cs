@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Controllers
 {
-    [Authorize]
     [Route("[controller]")]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -16,9 +15,9 @@ namespace WebApplication1.Controllers
     public class slopesController : ControllerBase
     {
         private BL.Facade _facade;
-        public slopesController()
+        public slopesController(BL.Facade facade)
         {
-            _facade = OtherOptions.createFacade();
+            _facade = facade;
         }
 
         // GET: slopes
@@ -34,7 +33,7 @@ namespace WebApplication1.Controllers
         {
             try
             {
-                uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
+                uint _userID = BL.Models.User.UnauthorizedUserID;
                 List<BL.Models.Slope> slopes = await _facade.GetSlopesInfoAsync(_userID);
                 List<Slope> slopesDTO = Converters.SlopeConverter.ConvertSlopesToSlopesDTO(slopes);
                 string slopesJSON = JsonSerializer.Serialize(slopesDTO, OtherOptions.JsonOptions());
@@ -68,7 +67,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAsync([FromRoute] string slopeName)
         {
-            uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
+            uint _userID = BL.Models.User.UnauthorizedUserID;
             try
             {
                 BL.Models.Slope slope = await _facade.GetSlopeInfoAsync(_userID, slopeName);
@@ -115,6 +114,7 @@ namespace WebApplication1.Controllers
         /// Note that the names of slopes should be unique.
         /// </remarks>
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Slope))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Post([FromQuery] string slopeName, [FromQuery] bool isOpen, [FromQuery] uint difficultyLevel)
@@ -163,6 +163,7 @@ namespace WebApplication1.Controllers
         /// <response code="200">The slope was successfully updated</response>
         /// <response code="404">A slope with specified name was not found</response>
         [HttpPut("{slopeName}")]
+        [Authorize(Roles = "admin, ski_patrol")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IActionResult))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Put([FromRoute] string slopeName, [FromQuery] bool isOpen, [FromQuery] uint difficultyLevel)
@@ -205,6 +206,7 @@ namespace WebApplication1.Controllers
         /// <response code="200" cref="Slope">Slope was successfully deleted</response>
         /// <response code="404">Slope with specified name not found</response>
         [HttpDelete("{slopeName}")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IActionResult))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete([FromRoute] string slopeName)

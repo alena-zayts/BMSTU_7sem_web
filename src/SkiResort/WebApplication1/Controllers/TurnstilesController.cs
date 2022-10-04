@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     [Route("[controller]")]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -17,9 +17,9 @@ namespace WebApplication1.Controllers
     {
         private BL.Facade _facade;
         private uint _userID = 1;
-        public turnstilesController()
+        public turnstilesController(BL.Facade facade)
         {
-            _facade = OtherOptions.createFacade();
+            _facade = facade;
         }
 
         // GET: turnstiles

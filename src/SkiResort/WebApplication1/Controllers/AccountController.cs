@@ -9,6 +9,8 @@ using WebApplication1.Models;
 using WebApplication1.Options;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Net.Http.Headers;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace WebApplication1.Controllers
 {
@@ -19,12 +21,12 @@ namespace WebApplication1.Controllers
     {
 
         private BL.Facade _facade;
-        public accountController()
+        public accountController(BL.Facade facade)
         {
-            
+            _facade = facade;
         }
 
-        // POST: account
+        // POST: account/login
         /// <summary>
         /// Log in
         /// </summary>
@@ -35,12 +37,12 @@ namespace WebApplication1.Controllers
         /// <response code="404">User with such email wasn't found</response>
         /// <response code="401">Incorrect password</response>
         [HttpPost]
+        [Route("login")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(JsonResult))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> LogInAsync([FromQuery] string userEmail, [FromQuery] string userPassword)
         {
-            _facade = OtherOptions.createFacade();
             try
             {
                 BL.Models.User foundUser = await _facade.LogInAsync(userEmail, userPassword);
@@ -99,7 +101,7 @@ namespace WebApplication1.Controllers
             }
         }
 
-        // Put: account
+        // POST: account/register
         /// <summary>
         /// Register
         /// </summary>
@@ -108,14 +110,14 @@ namespace WebApplication1.Controllers
         /// <returns>Token</returns>
         /// <response code="200" cref="JsonResult">Registration went successfully</response>
         /// <response code="401">User with such email already exists</response>
-        [HttpPut]
+        [HttpPost]
+        [Route("register")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(JsonResult))]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Register([FromQuery] string userEmail, [FromQuery] string userPassword)
         {
             try
             {
-                _facade = OtherOptions.createFacade();
                 BL.Models.User newUser = await _facade.RegisterAsync(0, userEmail, userPassword);
                 UserAccount userAccount = Converters.UserAccountConverter.ConvertUserToUserAccountDTO(newUser);
 
@@ -162,55 +164,54 @@ namespace WebApplication1.Controllers
             }
         }
 
-        // Get: account
-        /// <summary>
-        /// Continue as anauthorized (just get token)
-        /// </summary>
-        /// <returns>Token</returns>
-        /// <response code="200" cref="JsonResult">Ok</response>
-        [Route("")]
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(JsonResult))]
-        public async Task<IActionResult> ContinueWithoutAccount()
-        {
-            _facade = OtherOptions.createFacade();
-            BL.Models.User newUser = await _facade.LogInAsUnauthorizedAsync();
+        //// Get: account
+        ///// <summary>
+        ///// Continue as anauthorized (just get token)
+        ///// </summary>
+        ///// <returns>Token</returns>
+        ///// <response code="200" cref="JsonResult">Ok</response>
+        //[Route("")]
+        //[HttpGet]
+        //[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(JsonResult))]
+        //public async Task<IActionResult> ContinueWithoutAccount()
+        //{
+        //    BL.Models.User newUser = await _facade.LogInAsUnauthorizedAsync();
 
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, "unathurozied")
-            };
+        //    var claims = new List<Claim>
+        //    {
+        //        new Claim(ClaimsIdentity.DefaultRoleClaimType, "unathurozied")
+        //    };
 
-            ClaimsIdentity identity =
-            new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                ClaimsIdentity.DefaultRoleClaimType);
-
-
-            var now = DateTime.UtcNow;
-            // создаем JWT-токен
-            var jwt = new JwtSecurityToken(
-                    issuer: AuthOptions.ISSUER,
-                    audience: AuthOptions.AUDIENCE,
-                    notBefore: now,
-                    claims: identity.Claims,
-                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-            jwt.Payload["userID"] = newUser.UserID;
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+        //    ClaimsIdentity identity =
+        //    new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
+        //        ClaimsIdentity.DefaultRoleClaimType);
 
 
-            var response = new
-            {
-                access_token = encodedJwt,
-                username = identity.Name,
-            };
+        //    var now = DateTime.UtcNow;
+        //    // создаем JWT-токен
+        //    var jwt = new JwtSecurityToken(
+        //            issuer: AuthOptions.ISSUER,
+        //            audience: AuthOptions.AUDIENCE,
+        //            notBefore: now,
+        //            claims: identity.Claims,
+        //            expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+        //            signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+        //    jwt.Payload["userID"] = newUser.UserID;
+        //    var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            return Json(response);
-        }
+
+        //    var response = new
+        //    {
+        //        access_token = encodedJwt,
+        //        username = identity.Name,
+        //    };
+
+        //    return Json(response);
+        //}
 
         // DELETE: account
         /// <summary>
-        /// Log out (and get new token to be interpreted as an unauthorized user)
+        /// Log out
         /// </summary>
         /// <returns>New token for unauthorized user </returns>
         /// <response code="200" cref="JsonResult">User was successfully logged out</response>
@@ -221,7 +222,15 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Delete()
         {
-            return await ContinueWithoutAccount();
+            var _bearer_token = Request.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", "");
+
+            var response = new
+            {
+                delete_access_token = _bearer_token,
+            };
+
+            return Json(response);
+            return Json("");
         }
     }
 }

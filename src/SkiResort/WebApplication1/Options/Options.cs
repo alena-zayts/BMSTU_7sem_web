@@ -21,17 +21,17 @@ namespace WebApplication1.Options
 			return options;
 		}
 
-		public static BL.Facade createFacade()
-        {
-			BL.IRepositoriesFactory repositoriesFactory = new AccessToDB.TarantoolRepositoriesFactory();
-			BL.Facade facade = new BL.Facade(repositoriesFactory);
-			return facade;
-        }
+		//public static BL.Facade createFacade()
+  //      {
+		//	BL.IRepositoriesFactory repositoriesFactory = new AccessToDB.TarantoolRepositoriesFactory();
+		//	BL.Facade facade = new BL.Facade(repositoriesFactory);
+		//	return facade;
+  //      }
 
 		public static uint getUserIDFromToken(HttpRequest request)
         {
 			var _bearer_token = request.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", "");
-			var token = new JwtSecurityTokenHandler().ReadJwtToken(_bearer_token);
+			JwtSecurityToken token = new JwtSecurityTokenHandler().ReadJwtToken(_bearer_token);
 			uint userID = (uint)(long)token.Payload["userID"];
 			return userID;
 		}

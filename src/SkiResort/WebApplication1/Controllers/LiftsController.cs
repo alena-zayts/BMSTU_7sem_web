@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Controllers
 {
-    [Authorize]
     [Route("[controller]")]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -16,9 +15,9 @@ namespace WebApplication1.Controllers
     public class liftsController : ControllerBase
     {
         private BL.Facade _facade;
-        public liftsController()
+        public liftsController(BL.Facade facade)
         {
-            _facade = OtherOptions.createFacade();
+            _facade = facade;
         }
 
         // GET: lifts
@@ -34,7 +33,7 @@ namespace WebApplication1.Controllers
         {
             try
             {
-                uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
+                uint _userID = BL.Models.User.UnauthorizedUserID;
                 List<BL.Models.Lift> lifts = await _facade.GetLiftsInfoAsync(_userID);
                 List<Lift> liftsDTO = Converters.LiftConverter.ConvertLiftsToLiftsDTO(lifts);
                 string liftsJSON = JsonSerializer.Serialize(liftsDTO, OtherOptions.JsonOptions());
@@ -68,7 +67,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAsync([FromRoute] string liftName)
         {
-            uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
+            uint _userID = BL.Models.User.UnauthorizedUserID;
             try
             {
                 BL.Models.Lift lift = await _facade.GetLiftInfoAsync(_userID, liftName);
@@ -116,6 +115,7 @@ namespace WebApplication1.Controllers
         /// Note that the names of lifts should be unique.
         /// </remarks>
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Lift))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Post([FromQuery] string liftName, [FromQuery] bool isOpen, [FromQuery] uint seatsAmount, [FromQuery] uint liftingTime)
@@ -163,6 +163,7 @@ namespace WebApplication1.Controllers
         /// <response code="200">The lift was successfully updated</response>
         /// <response code="404">A lift with specified name was not found</response>
         [HttpPatch("{liftName}")]
+        [Authorize(Roles = "admin, ski_patrol")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IActionResult))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Put([FromRoute] string liftName, [FromQuery] PatchLift patchLift)
@@ -245,6 +246,7 @@ namespace WebApplication1.Controllers
         /// <response code="200" cref="Lift">Lift was successfully deleted</response>
         /// <response code="404">Lift with specified name not found</response>
         [HttpDelete("{liftName}")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IActionResult))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete([FromRoute] string liftName)
@@ -288,6 +290,7 @@ namespace WebApplication1.Controllers
         /// <response code="200">The lift was successfully updated</response>
         /// <response code="404">A lift or a slope with specified name was not found</response>
         [HttpPut("{liftName}")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IActionResult))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> AddConnectedSlope([FromRoute] string liftName, [FromQuery] string slopeName)

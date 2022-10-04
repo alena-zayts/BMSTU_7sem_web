@@ -1147,13 +1147,3 @@ components:
           description: Is the turnstile currently working or not
       additionalProperties: false
       description: Information about turnstiles
-  securitySchemes:
-    Bearer:
-      type: apiKey
-      description: "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter
-        'Bearer' [space] and then your token in the text input below.\r\n\r\nExample:
-        \"Bearer 1safsfsdfdfd\""
-      name: Authorization
-      in: header
-security:
-- Bearer: []

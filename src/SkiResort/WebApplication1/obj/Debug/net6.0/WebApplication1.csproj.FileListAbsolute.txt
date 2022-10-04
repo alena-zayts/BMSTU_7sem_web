@@ -48,3 +48,6 @@ C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\Microsoft.AspNe
 C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
 C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\Dapper.dll
+C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\System.Web.Http.dll
+C:\BMSTU_7sem_web\src\SkiResort\WebApplication1\bin\Debug\net6.0\Swashbuckle.Core.dll

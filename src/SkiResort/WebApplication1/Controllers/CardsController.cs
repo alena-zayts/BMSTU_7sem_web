@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     [Route("[controller]")]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -16,9 +16,9 @@ namespace WebApplication1.Controllers
     public class cardsController : ControllerBase
     {
         private BL.Facade _facade;
-        public cardsController()
+        public cardsController(BL.Facade facade)
         {
-            _facade = OtherOptions.createFacade();
+            _facade = facade;
         }
 
         // GET: cards

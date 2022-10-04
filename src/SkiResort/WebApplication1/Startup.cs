@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using WebApplication1.Options;
 using WebApplication1.Models;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace WebApplication1
 {
@@ -50,31 +51,34 @@ namespace WebApplication1
 
 
                 //
-                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
-                {
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer",
-                    BearerFormat = "JWT",
-                    In = ParameterLocation.Header,
-                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n " +
-                    "Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\n" +
-                    "Example: \"Bearer 1safsfsdfdfd\"",
-                });
-                options.AddSecurityRequirement(new OpenApiSecurityRequirement
- {
-     {
-           new OpenApiSecurityScheme
-             {
-                 Reference = new OpenApiReference
-                 {
-                     Type = ReferenceType.SecurityScheme,
-                     Id = "Bearer"
-                 }
-             },
-             new string[] {}
-     }
- });
+                //options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                //{
+                //    Name = "Authorization",
+                //    Type = SecuritySchemeType.ApiKey,
+                //    Scheme = "Bearer",
+                //    BearerFormat = "JWT",
+                //    In = ParameterLocation.Header,
+                //    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n " +
+                //    "Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\n" +
+                //    "Example: \"Bearer 1safsfsdfdfd\"",
+                //});
+                //options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                // {
+                //     {
+                //           new OpenApiSecurityScheme
+                //             {
+                //                 Reference = new OpenApiReference
+                //                 {
+                //                     Type = ReferenceType.SecurityScheme,
+                //                     Id = "Bearer"
+                //                 }
+                //             },
+                //             new string[] {}
+                //     }
+                // });
+
+                //swaggerB
+                options.DocumentFilter<SwaggerIgnoreFilter>(); 
 
             });
 
@@ -83,7 +87,7 @@ namespace WebApplication1
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                     {
-                        options.RequireHttpsMetadata = false;
+                        //options.RequireHttpsMetadata = false;
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
                             // укзывает, будет ли валидироваться издатель при валидации токена
@@ -104,26 +108,21 @@ namespace WebApplication1
                             ValidateIssuerSigningKey = true,
                         };
                     });
-            //services.AddControllersWithViews(); из мануала по JWT
-        
+
+
+            services.AddTransient<BL.IRepositoriesFactory, AccessToDB.TarantoolRepositoriesFactory>();
+            services.AddTransient<BL.Facade>();
+
+            //swaggerB
+            //https://stackoverflow.com/questions/38184583/how-to-add-ihttpcontextaccessor-in-the-startup-class-in-the-di-in-asp-net-core-1
+            services.AddHttpContextAccessor();
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-
-                app.UseSwaggerUI(c => 
-                {
-                    //c.RoutePrefix = "api";
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "SkiResort v1");
-                    c.SwaggerEndpoint("../swagger/v1/swagger.json", "SkiResort v1");
-                });
-            }
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -138,6 +137,29 @@ namespace WebApplication1
             {
                 endpoints.MapControllers();
             });
+
+            //This is authentification in swagger 1
+            //app.UseMiddleware<SwaggerUrlProtectorMiddleware>();
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SkiResort v1");
+                c.DefaultModelsExpandDepth(-1);
+                //Here goes your oAuth setup
+                //This is authentification in swagger 2 (AB)
+                c.UseResponseInterceptor("function (res) {if (res.ok && res.body){if (res.body.access_token) {sessionStorage.setItem('authKey', res.body.access_token);location.reload();}if (res.body.delete_access_token) {sessionStorage.removeItem('authKey');location.reload();}}return res;}");
+                c.UseRequestInterceptor("function (req) {var key = sessionStorage.getItem('authKey');if (key && key.trim() !== ''){req.headers.Authorization = 'Bearer ' + key;} return req;}");
+                
+
+            });
+
         }
     }
 }

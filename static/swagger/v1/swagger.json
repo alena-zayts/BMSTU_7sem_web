@@ -126,6 +126,34 @@
             }
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "account"
+        ],
+        "summary": "Log out (and get new token to be interpreted as an unauthorized user)",
+        "responses": {
+          "200": {
+            "description": "User was successfully logged out",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IActionResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User was not logged in",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/cardReadings": {
@@ -986,6 +1014,315 @@
         }
       }
     },
+    "/messages": {
+      "get": {
+        "tags": [
+          "messages"
+        ],
+        "summary": "Get information about all messages",
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Information about all messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Message"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "messages"
+        ],
+        "summary": "Send a message",
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Text of the message",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "The added message with assigned ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/messages/{messageID}": {
+      "get": {
+        "tags": [
+          "messages"
+        ],
+        "summary": "Get information about a message by it's ID",
+        "parameters": [
+          {
+            "name": "messageID",
+            "in": "path",
+            "description": "Message ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Message with specified ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Message with specified ID not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "messages"
+        ],
+        "summary": "Update information about an existing message",
+        "parameters": [
+          {
+            "name": "messageID",
+            "in": "path",
+            "description": "ID of the message to update",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "senderID",
+            "in": "query",
+            "description": "ID of the user who sent message",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "checkedByID",
+            "in": "query",
+            "description": "ID of the user who read message",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Text of the message",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "The message was successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IActionResult"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "A message with specified ID was not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "messages"
+        ],
+        "summary": "Mark message read by current user",
+        "parameters": [
+          {
+            "name": "messageID",
+            "in": "path",
+            "description": "ID of the message to update",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "The message was marked read",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IActionResult"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "A message with specified ID was not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Couldn't mark message checked because it is alredy checked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "messages"
+        ],
+        "summary": "Delete a message by it's ID",
+        "parameters": [
+          {
+            "name": "messageID",
+            "in": "path",
+            "description": "ID of the message to delete",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Message was successfully deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IActionResult"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Message with specified ID not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/slopes": {
       "get": {
         "tags": [
@@ -1499,6 +1836,287 @@
           }
         }
       }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Get information about all users",
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Information about all users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserAccount"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Add a new user",
+        "parameters": [
+          {
+            "name": "userEmail",
+            "in": "query",
+            "description": "Email of user to add",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userPassword",
+            "in": "query",
+            "description": "Password of user to add",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "description": "Role of the user to add",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cardID",
+            "in": "query",
+            "description": "ID of the user's card",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "The added user with assigned ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserAccount"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{userID}": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Get information about a user by it's ID",
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "User with specified ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserAccount"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User with specified ID not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Update information about an existing user",
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "path",
+            "description": "ID of the user to update",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "userEmail",
+            "in": "query",
+            "description": "Email of user to add",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userPassword",
+            "in": "query",
+            "description": "Password of user to add",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "description": "Role of the user to add",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cardID",
+            "in": "query",
+            "description": "ID of the user's card",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "The user was successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IActionResult"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "A user with specified ID was not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Delete a user by it's ID",
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "path",
+            "description": "ID of the user to delete",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "User was successfully deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IActionResult"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User with specified ID not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1578,12 +2196,6 @@
         "additionalProperties": false
       },
       "Lift": {
-        "required": [
-          "isOpen",
-          "liftingTime",
-          "liftName",
-          "seatsAmount"
-        ],
         "type": "object",
         "properties": {
           "liftID": {
@@ -1593,7 +2205,8 @@
           },
           "liftName": {
             "type": "string",
-            "description": "Lift name"
+            "description": "Lift name",
+            "nullable": true
           },
           "isOpen": {
             "type": "boolean",
@@ -1620,12 +2233,6 @@
         "description": "Information about a lift"
       },
       "LiftWithSlopes": {
-        "required": [
-          "isOpen",
-          "liftingTime",
-          "liftName",
-          "seatsAmount"
-        ],
         "type": "object",
         "properties": {
           "liftID": {
@@ -1635,7 +2242,8 @@
           },
           "liftName": {
             "type": "string",
-            "description": "Lift name"
+            "description": "Lift name",
+            "nullable": true
           },
           "isOpen": {
             "type": "boolean",
@@ -1669,6 +2277,33 @@
         "additionalProperties": false,
         "description": "Information about a lift"
       },
+      "Message": {
+        "type": "object",
+        "properties": {
+          "messageID": {
+            "type": "integer",
+            "description": "Message ID",
+            "format": "int32"
+          },
+          "senderID": {
+            "type": "integer",
+            "description": "Sender ID",
+            "format": "int32"
+          },
+          "checkedByID": {
+            "type": "integer",
+            "description": "ID of the ski patrol worker who checked the message",
+            "format": "int32"
+          },
+          "text": {
+            "type": "string",
+            "description": "Text of the message",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Information about cards used in the resort"
+      },
       "ProblemDetails": {
         "type": "object",
         "properties": {
@@ -1694,14 +2329,9 @@
             "nullable": true
           }
         },
-        "additionalProperties": { }
+        "additionalProperties": {}
       },
       "Slope": {
-        "required": [
-          "difficultyLevel",
-          "isOpen",
-          "slopeName"
-        ],
         "type": "object",
         "properties": {
           "slopeID": {
@@ -1711,7 +2341,8 @@
           },
           "slopeName": {
             "type": "string",
-            "description": "Slope name"
+            "description": "Slope name",
+            "nullable": true
           },
           "isOpen": {
             "type": "boolean",
@@ -1727,11 +2358,6 @@
         "description": "Information about a slope"
       },
       "SlopeWithLifts": {
-        "required": [
-          "difficultyLevel",
-          "isOpen",
-          "slopeName"
-        ],
         "type": "object",
         "properties": {
           "slopeID": {
@@ -1741,7 +2367,8 @@
           },
           "slopeName": {
             "type": "string",
-            "description": "Slope name"
+            "description": "Slope name",
+            "nullable": true
           },
           "isOpen": {
             "type": "boolean",
@@ -1784,6 +2411,28 @@
         },
         "additionalProperties": false,
         "description": "Information about turnstiles"
+      },
+      "UserAccount": {
+        "type": "object",
+        "properties": {
+          "userEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "nullable": true
+          },
+          "cardID": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
       }
     },
     "securitySchemes": {
@@ -1797,7 +2446,7 @@
   },
   "security": [
     {
-      "Bearer": [ ]
+      "Bearer": []
     }
   ]
 }

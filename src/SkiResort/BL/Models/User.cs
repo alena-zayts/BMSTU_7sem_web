@@ -13,6 +13,8 @@ namespace BL.Models
         public const uint UniversalCardID = 0;
 
         public const uint UniversalUserID = 0;
+
+        public const uint UnauthorizedUserID = 9999;
         public uint UserID { get; }
         public uint CardID { get; }
         public string UserEmail { get; }

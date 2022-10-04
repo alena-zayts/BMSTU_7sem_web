@@ -25,16 +25,9 @@
             <response code="200" cref="T:Microsoft.AspNetCore.Mvc.JsonResult">Registration went successfully</response>
             <response code="401">User with such email already exists</response>
         </member>
-        <member name="M:WebApplication1.Controllers.accountController.ContinueWithoutAccount">
-            <summary>
-            Continue as anauthorized (just get token)
-            </summary>
-            <returns>Token</returns>
-            <response code="200" cref="T:Microsoft.AspNetCore.Mvc.JsonResult">Ok</response>
-        </member>
         <member name="M:WebApplication1.Controllers.accountController.Delete">
             <summary>
-            Log out (and get new token to be interpreted as an unauthorized user)
+            Log out
             </summary>
             <returns>New token for unauthorized user </returns>
             <response code="200" cref="T:Microsoft.AspNetCore.Mvc.JsonResult">User was successfully logged out</response>

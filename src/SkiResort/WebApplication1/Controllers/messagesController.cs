@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Controllers
 {
-    [Authorize]
     [Route("[controller]")]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -16,9 +15,9 @@ namespace WebApplication1.Controllers
     public class messagesController : ControllerBase
     {
         private BL.Facade _facade;
-        public messagesController()
+        public messagesController(BL.Facade facade)
         {
-            _facade = OtherOptions.createFacade();
+            _facade = facade;
         }
 
         // GET: messages
@@ -28,6 +27,7 @@ namespace WebApplication1.Controllers
         /// <returns>Information about all messages</returns>
         /// <response code="200" cref="ListOfMessageDTO">Information about all messages</response>
         [Route("")]
+        [Authorize(Roles = "admin, ski_patrol")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Message>))]
         public async Task<IActionResult> Get()
@@ -64,6 +64,7 @@ namespace WebApplication1.Controllers
         /// <response code="200" cref="Message">Message with specified ID</response>
         /// <response code="404">Message with specified ID not found</response>
         [HttpGet("{messageID}")]
+        [Authorize(Roles = "admin, ski_patrol")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Message))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAsync([FromRoute] uint messageID)
@@ -109,6 +110,7 @@ namespace WebApplication1.Controllers
         /// <returns>The added message with assigned ID</returns>
         /// <response code="201" cref="Message">The added message with assigned ID</response>
         [HttpPost]
+        [Authorize(Roles = "admin, ski_patrol, authorized")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Message))]
         public async Task<IActionResult> Post([FromQuery] string text)
         {
@@ -148,6 +150,7 @@ namespace WebApplication1.Controllers
         /// <response code="200">The message was successfully updated</response>
         /// <response code="404">A message with specified ID was not found</response>
         [HttpPut("{messageID}")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IActionResult))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Put([FromRoute] uint messageID, [FromQuery] uint senderID, [FromQuery] uint checkedByID, [FromQuery] string text)
@@ -191,6 +194,7 @@ namespace WebApplication1.Controllers
         /// <response code="404">A message with specified ID was not found</response>
         /// <response code="400">Couldn't mark message checked because it is alredy checked</response>
         [HttpPatch("{messageID}")]
+        [Authorize(Roles = "admin, ski_patrol")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IActionResult))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -243,6 +247,7 @@ namespace WebApplication1.Controllers
         /// <response code="200" cref="Message">Message was successfully deleted</response>
         /// <response code="404">Message with specified ID not found</response>
         [HttpDelete("{messageID}")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IActionResult))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete([FromRoute] uint messageID)

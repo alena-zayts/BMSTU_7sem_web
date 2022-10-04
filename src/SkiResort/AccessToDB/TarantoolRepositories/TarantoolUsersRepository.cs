@@ -47,6 +47,11 @@ namespace AccessToDB.RepositoriesTarantool
 
         public async Task<User> GetUserByIdAsync(uint UserID)
         {
+            if (UserID == BL.Models.User.UnauthorizedUserID)
+            {
+                return new User(UserID, 0, $"{UserID}", $"{UserID}", PermissionsEnum.UNAUTHORIZED);
+            }
+
             var data = await _indexPrimary.Select<ValueTuple<uint>,UserDB>
                 (ValueTuple.Create(UserID));
 
