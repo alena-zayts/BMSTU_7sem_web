@@ -42,6 +42,9 @@
 ![](docs/imgs/er/er.png)
 
 
+## Figma 
+
+[Исследование](https://www.figma.com/file/bw5WSTiraT4L7ij0rP0mFV/fig1?node-id=0%3A1)
 
 
 
