@@ -21,3 +21,9 @@ docker version
 
 docker-compose -f /mnt/c/BMSTU_7sem_web/src/tarantool/docker-compose.yml up -d
 docker-compose -f /mnt/c/BMSTU_7sem_web/src/tarantool/docker-compose.yml down
+
+Users\alena\Desktop\7_sem\testing_and_debugging\SkiResort\tarantool
+docker-compose -f /mnt/c/Users/alena/Desktop/7_sem/testing_and_debugging/SkiResort/tarantool/docker-compose.yml up -d
+docker-compose -f /mnt/c/Users/alena/Desktop/7_sem/testing_and_debugging/SkiResort/tarantool/docker-compose.yml down
+
+

@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "dgSpecHash": "mlsjvs8VuTD2JSYl0lxsxePzvsFId5h5sNIhdGj+48bf0/kiMW6AmdRNtJrHtkQc5/JPxwVqTfLJPHB07uGYoQ==",
+  "success": true,
+  "projectFilePath": "C:\\BMSTU_7sem_web\\src\\SkiResort\\WebApplication3\\WebApplication3.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\alena\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
+    "C:\\Users\\alena\\.nuget\\packages\\microsoft.aspnetcore.nodeservices\\3.1.29\\microsoft.aspnetcore.nodeservices.3.1.29.nupkg.sha512",
+    "C:\\Users\\alena\\.nuget\\packages\\microsoft.aspnetcore.spaservices\\3.1.29\\microsoft.aspnetcore.spaservices.3.1.29.nupkg.sha512",
+    "C:\\Users\\alena\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\alena\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.29\\microsoft.extensions.configuration.3.1.29.nupkg.sha512",
+    "C:\\Users\\alena\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.29\\microsoft.extensions.configuration.abstractions.3.1.29.nupkg.sha512",
+    "C:\\Users\\alena\\.nuget\\packages\\microsoft.extensions.configuration.binder\\3.1.29\\microsoft.extensions.configuration.binder.3.1.29.nupkg.sha512",
+    "C:\\Users\\alena\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.1.29\\microsoft.extensions.dependencyinjection.3.1.29.nupkg.sha512",
+    "C:\\Users\\alena\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.29\\microsoft.extensions.dependencyinjection.abstractions.3.1.29.nupkg.sha512",
+    "C:\\Users\\alena\\.nuget\\packages\\microsoft.extensions.logging\\3.1.29\\microsoft.extensions.logging.3.1.29.nupkg.sha512",
+    "C:\\Users\\alena\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.29\\microsoft.extensions.logging.abstractions.3.1.29.nupkg.sha512",
+    "C:\\Users\\alena\\.nuget\\packages\\microsoft.extensions.logging.configuration\\3.1.29\\microsoft.extensions.logging.configuration.3.1.29.nupkg.sha512",
+    "C:\\Users\\alena\\.nuget\\packages\\microsoft.extensions.logging.console\\3.1.29\\microsoft.extensions.logging.console.3.1.29.nupkg.sha512",
+    "C:\\Users\\alena\\.nuget\\packages\\microsoft.extensions.options\\3.1.29\\microsoft.extensions.options.3.1.29.nupkg.sha512",
+    "C:\\Users\\alena\\.nuget\\packages\\microsoft.extensions.options.configurationextensions\\3.1.29\\microsoft.extensions.options.configurationextensions.3.1.29.nupkg.sha512",
+    "C:\\Users\\alena\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.29\\microsoft.extensions.primitives.3.1.29.nupkg.sha512",
+    "C:\\Users\\alena\\.nuget\\packages\\microsoft.typescript.msbuild\\4.8.4\\microsoft.typescript.msbuild.4.8.4.nupkg.sha512",
+    "C:\\Users\\alena\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
