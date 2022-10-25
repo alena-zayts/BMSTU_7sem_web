@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a2e5f047-e871-4121-b62c-59990402c758" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../.vs/SkiResort/DesignTimeBuild/.dtbcache.v2" beforeDir="false" afterPath="$PROJECT_DIR$/../.vs/SkiResort/DesignTimeBuild/.dtbcache.v2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.vs/SkiResort/v17/.futdcache.v1" beforeDir="false" afterPath="$PROJECT_DIR$/../.vs/SkiResort/v17/.futdcache.v1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.vs/SkiResort/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../.vs/SkiResort/v17/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.vs/SkiResort/v17/TestStore/1/066.testlog" beforeDir="false" afterPath="$PROJECT_DIR$/../.vs/SkiResort/v17/TestStore/1/066.testlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.vs/SkiResort/v17/fileList.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../.vs/SkiResort/v17/fileList.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/AccessToDB2.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/Connection.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/Converters/CardConverter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/Converters/CardReadingConverter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/Converters/LiftConverter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/Converters/LiftSlopeConverter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/Converters/MessageConverter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/Converters/SlopeConverter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/Converters/TurnstileConverter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/Converters/UserConverter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/DBContext.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/Models/Card.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/Models/CardReading.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/Models/Lift.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/Models/LiftsSlope.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/Models/Message.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/Models/Slope.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/Models/Turnstile.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/Models/User.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/PostgresRepositories/PostgresCardReadingsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/PostgresRepositories/PostgresCardsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/PostgresRepositories/PostgresLiftsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/PostgresRepositories/PostgresLiftsSlopesRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/PostgresRepositories/PostgresMessagesRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/PostgresRepositories/PostgresSlopesRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/PostgresRepositories/PostgresTurnstilesRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/PostgresRepositories/PostgresUsersRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/PostgresRepositoriesFactrory.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/bin/Debug/net6.0/AccessToDB2.deps.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/bin/Debug/net6.0/AccessToDB2.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/bin/Debug/net6.0/AccessToDB2.runtimeconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/bin/Debug/net6.0/BL.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/obj/AccessToDB2.csproj.nuget.dgspec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/obj/AccessToDB2.csproj.nuget.g.props" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/obj/AccessToDB2.csproj.nuget.g.targets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/obj/Debug/net6.0/.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/obj/Debug/net6.0/AccessToDB2.AssemblyInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/obj/Debug/net6.0/AccessToDB2.AssemblyInfoInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/obj/Debug/net6.0/AccessToDB2.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/obj/Debug/net6.0/AccessToDB2.GlobalUsings.g.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/obj/Debug/net6.0/AccessToDB2.assets.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/obj/Debug/net6.0/AccessToDB2.csproj.AssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/obj/Debug/net6.0/AccessToDB2.csproj.BuildWithSkipAnalyzers" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/obj/Debug/net6.0/AccessToDB2.csproj.CopyComplete" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/obj/Debug/net6.0/AccessToDB2.csproj.CoreCompileInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/obj/Debug/net6.0/AccessToDB2.csproj.FileListAbsolute.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/obj/Debug/net6.0/AccessToDB2.genruntimeconfig.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/obj/Debug/net6.0/AccessToDB2.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/obj/project.assets.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccessToDB2/obj/project.nuget.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/Certificate.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/Program.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/bin/Debug/net6.0/Certificate.deps.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/bin/Debug/net6.0/Certificate.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/bin/Debug/net6.0/Certificate.runtimeconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/bin/Debug/net6.0/certificateForClientAuthorization.pfx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/obj/Certificate.csproj.nuget.dgspec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/obj/Certificate.csproj.nuget.g.props" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/obj/Certificate.csproj.nuget.g.targets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/obj/Debug/net6.0/.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/obj/Debug/net6.0/Certificate.AssemblyInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/obj/Debug/net6.0/Certificate.AssemblyInfoInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/obj/Debug/net6.0/Certificate.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/obj/Debug/net6.0/Certificate.GlobalUsings.g.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/obj/Debug/net6.0/Certificate.assets.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/obj/Debug/net6.0/Certificate.csproj.AssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/obj/Debug/net6.0/Certificate.csproj.BuildWithSkipAnalyzers" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/obj/Debug/net6.0/Certificate.csproj.CoreCompileInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/obj/Debug/net6.0/Certificate.csproj.FileListAbsolute.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/obj/Debug/net6.0/Certificate.genruntimeconfig.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/obj/Debug/net6.0/Certificate.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/obj/project.assets.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Certificate/obj/project.nuget.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/Experiment.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/N.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/Program.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/add.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Debug/net6.0/AccessToDB.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Debug/net6.0/BL.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Debug/net6.0/BenchmarkDotNet.Artifacts/MyBenchmarks.Md5VsSha256-20220518-131845.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Debug/net6.0/Experiment.deps.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Debug/net6.0/Experiment.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Debug/net6.0/Experiment.runtimeconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Debug/net6.0/adding.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Debug/net6.0/updating.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Release/net6.0/AccessToDB.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Release/net6.0/BL.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Release/net6.0/BenchmarkDotNet.Artifacts/MyBenchmarks.Md5VsSha256-20220518-131924.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Release/net6.0/BenchmarkDotNet.Artifacts/benchmarkdotnetdemo.FibonacciBenchmark-20220518-162204.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Release/net6.0/BenchmarkDotNet.Artifacts/benchmarkdotnetdemo.SimpleBenchmark-20220518-161035.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Release/net6.0/BenchmarkDotNet.Artifacts/benchmarkdotnetdemo.SimpleBenchmark-20220518-161739.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Release/net6.0/BenchmarkDotNet.Artifacts/results/MyBenchmarks.Md5VsSha256-report-github.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Release/net6.0/BenchmarkDotNet.Artifacts/results/MyBenchmarks.Md5VsSha256-report.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Release/net6.0/BenchmarkDotNet.Artifacts/results/MyBenchmarks.Md5VsSha256-report.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Release/net6.0/BenchmarkDotNet.Artifacts/results/benchmarkdotnetdemo.SimpleBenchmark-measurements.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Release/net6.0/BenchmarkDotNet.Artifacts/results/benchmarkdotnetdemo.SimpleBenchmark-report-full.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Release/net6.0/BenchmarkDotNet.Artifacts/results/benchmarkdotnetdemo.SimpleBenchmark-report-github.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Release/net6.0/BenchmarkDotNet.Artifacts/results/benchmarkdotnetdemo.SimpleBenchmark-report.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Release/net6.0/BenchmarkDotNet.Artifacts/results/benchmarkdotnetdemo.SimpleBenchmark-report.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Release/net6.0/Experiment.deps.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Release/net6.0/Experiment.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/bin/Release/net6.0/Experiment.runtimeconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Debug/net6.0/.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Debug/net6.0/Experiment.AssemblyInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Debug/net6.0/Experiment.AssemblyInfoInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Debug/net6.0/Experiment.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Debug/net6.0/Experiment.GlobalUsings.g.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Debug/net6.0/Experiment.assets.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Debug/net6.0/Experiment.csproj.AssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Debug/net6.0/Experiment.csproj.BuildWithSkipAnalyzers" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Debug/net6.0/Experiment.csproj.CopyComplete" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Debug/net6.0/Experiment.csproj.CoreCompileInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Debug/net6.0/Experiment.csproj.FileListAbsolute.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Debug/net6.0/Experiment.genruntimeconfig.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Debug/net6.0/Experiment.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Experiment.csproj.nuget.dgspec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Experiment.csproj.nuget.g.props" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Experiment.csproj.nuget.g.targets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Release/net6.0/.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Release/net6.0/Experiment.AssemblyInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Release/net6.0/Experiment.AssemblyInfoInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Release/net6.0/Experiment.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Release/net6.0/Experiment.GlobalUsings.g.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Release/net6.0/Experiment.assets.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Release/net6.0/Experiment.csproj.AssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Release/net6.0/Experiment.csproj.BuildWithSkipAnalyzers" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Release/net6.0/Experiment.csproj.CopyComplete" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Release/net6.0/Experiment.csproj.CoreCompileInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Release/net6.0/Experiment.csproj.FileListAbsolute.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Release/net6.0/Experiment.genruntimeconfig.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/Release/net6.0/Experiment.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/project.assets.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/obj/project.nuget.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Experiment/update.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SkiResort.sln" beforeDir="false" afterPath="$PROJECT_DIR$/../SkiResort.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/IViews/ICardReadingView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/IViews/ICardView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/IViews/IExceptionView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/IViews/ILiftView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/IViews/IMainView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/IViews/IMessageView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/IViews/IProfileView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/IViews/ISlopeView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/IViews/ITurnstileView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/IViews/IUserView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/IViewsFactory.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/Presenter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/Program.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/TechUI2.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/TechViews/ExceptionViewTech.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/TechViews/LiftViewTech.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/TechViews/MainViewTech.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/TechViews/MessageViewTech.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/TechViews/ProfileViewTech.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/TechViews/SlopeViewTech.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/TechViewsFactory.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/obj/Debug/net6.0/.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/obj/Debug/net6.0/TechUI2.AssemblyInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/obj/Debug/net6.0/TechUI2.AssemblyInfoInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/obj/Debug/net6.0/TechUI2.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/obj/Debug/net6.0/TechUI2.GlobalUsings.g.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/obj/Debug/net6.0/TechUI2.assets.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/obj/Debug/net6.0/TechUI2.csproj.AssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/obj/TechUI2.csproj.nuget.dgspec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/obj/TechUI2.csproj.nuget.g.props" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/obj/TechUI2.csproj.nuget.g.targets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/obj/project.assets.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TechUI2/obj/project.nuget.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/CardReadingsDbTest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/CardsDbTest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/LiftsDbTest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/LiftsSlopesDbTest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/MessagesDbTest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/SlopesDbTest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/TestsAccessToDB.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/TurnstilesDbTest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/UsersDbTest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/bin/Debug/net6.0/AccessToDB.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/bin/Debug/net6.0/BL.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/bin/Debug/net6.0/CoverletSourceRootsMapping" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/bin/Debug/net6.0/TestsAccessToDB.deps.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/bin/Debug/net6.0/TestsAccessToDB.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/bin/Debug/net6.0/TestsAccessToDB.runtimeconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/obj/Debug/net6.0/.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/obj/Debug/net6.0/TestsAccessToDB.AssemblyInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/obj/Debug/net6.0/TestsAccessToDB.AssemblyInfoInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/obj/Debug/net6.0/TestsAccessToDB.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/obj/Debug/net6.0/TestsAccessToDB.assets.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/obj/Debug/net6.0/TestsAccessToDB.csproj.AssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/obj/Debug/net6.0/TestsAccessToDB.csproj.BuildWithSkipAnalyzers" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/obj/Debug/net6.0/TestsAccessToDB.csproj.CopyComplete" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/obj/Debug/net6.0/TestsAccessToDB.csproj.CoreCompileInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/obj/Debug/net6.0/TestsAccessToDB.csproj.FileListAbsolute.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/obj/Debug/net6.0/TestsAccessToDB.genruntimeconfig.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/obj/Debug/net6.0/TestsAccessToDB.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/obj/TestsAccessToDB.csproj.nuget.dgspec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/obj/TestsAccessToDB.csproj.nuget.g.props" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/obj/TestsAccessToDB.csproj.nuget.g.targets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/obj/project.assets.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsAccessToDB/obj/project.nuget.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/IoCRepositories/IoCCardReadingsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/IoCRepositories/IoCCardsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/IoCRepositories/IoCLiftsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/IoCRepositories/IoCLiftsSlopesRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/IoCRepositories/IoCMessagesRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/IoCRepositories/IoCSlopesRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/IoCRepositories/IoCTurnstilesRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/IoCRepositories/IoCUsersRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/IoCRepositoriesFactory.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/TestCardReadings.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/TestLiftsAndSlopes.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/TestMessages.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/TestUsers.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/TestUsersCreator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/TestsBL.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/bin/Debug/net6.0/CoverletSourceRootsMapping" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/obj/Debug/net6.0/.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/obj/Debug/net6.0/TestsBL.AssemblyInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/obj/Debug/net6.0/TestsBL.AssemblyInfoInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/obj/Debug/net6.0/TestsBL.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/obj/Debug/net6.0/TestsBL.assets.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/obj/Debug/net6.0/TestsBL.csproj.AssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/obj/TestsBL.csproj.nuget.dgspec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/obj/TestsBL.csproj.nuget.g.props" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/obj/TestsBL.csproj.nuget.g.targets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/obj/project.assets.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestsBL/obj/project.nuget.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UI/UI.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../UI/UI.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UI/obj/Debug/net6.0-windows/UI.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UI/obj/Debug/net6.0-windows/UI.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UI/obj/Debug/net6.0-windows/UI.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UI/obj/Debug/net6.0-windows/UI.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UI/obj/UI.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../UI/obj/UI.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UI/obj/UI.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/../UI/obj/UI.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UI/obj/UI.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/../UI/obj/UI.csproj.nuget.g.targets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UI/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/../UI/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UI/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UI/obj/project.nuget.cache" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="ProjectId" id="2GVGDyAylrufxzJiAlBmfJiUCUM" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a2e5f047-e871-4121-b62c-59990402c758" name="Default Changelist" comment="" />
+      <created>1666466221518</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1666466221518</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>

@@ -1,0 +1,12 @@
+C:\BMSTU_7sem_web\src\SkiResort\BL5\obj\Debug\net5.0\BL5.csproj.AssemblyReference.cache
+C:\BMSTU_7sem_web\src\SkiResort\BL5\obj\Debug\net5.0\BL5.GeneratedMSBuildEditorConfig.editorconfig
+C:\BMSTU_7sem_web\src\SkiResort\BL5\obj\Debug\net5.0\BL5.AssemblyInfoInputs.cache
+C:\BMSTU_7sem_web\src\SkiResort\BL5\obj\Debug\net5.0\BL5.AssemblyInfo.cs
+C:\BMSTU_7sem_web\src\SkiResort\BL5\obj\Debug\net5.0\BL5.csproj.CoreCompileInputs.cache
+C:\BMSTU_7sem_web\src\SkiResort\BL5\bin\Debug\net5.0\BL5.deps.json
+C:\BMSTU_7sem_web\src\SkiResort\BL5\bin\Debug\net5.0\BL5.dll
+C:\BMSTU_7sem_web\src\SkiResort\BL5\bin\Debug\net5.0\BL5.pdb
+C:\BMSTU_7sem_web\src\SkiResort\BL5\obj\Debug\net5.0\BL5.dll
+C:\BMSTU_7sem_web\src\SkiResort\BL5\obj\Debug\net5.0\refint\BL5.dll
+C:\BMSTU_7sem_web\src\SkiResort\BL5\obj\Debug\net5.0\BL5.pdb
+C:\BMSTU_7sem_web\src\SkiResort\BL5\obj\Debug\net5.0\ref\BL5.dll

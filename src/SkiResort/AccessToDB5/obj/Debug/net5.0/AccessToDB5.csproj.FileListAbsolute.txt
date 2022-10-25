@@ -1,0 +1,15 @@
+C:\BMSTU_7sem_web\src\SkiResort\AccessToDB5\obj\Debug\net5.0\AccessToDB5.csproj.AssemblyReference.cache
+C:\BMSTU_7sem_web\src\SkiResort\AccessToDB5\obj\Debug\net5.0\AccessToDB5.GeneratedMSBuildEditorConfig.editorconfig
+C:\BMSTU_7sem_web\src\SkiResort\AccessToDB5\obj\Debug\net5.0\AccessToDB5.AssemblyInfoInputs.cache
+C:\BMSTU_7sem_web\src\SkiResort\AccessToDB5\obj\Debug\net5.0\AccessToDB5.AssemblyInfo.cs
+C:\BMSTU_7sem_web\src\SkiResort\AccessToDB5\obj\Debug\net5.0\AccessToDB5.csproj.CoreCompileInputs.cache
+C:\BMSTU_7sem_web\src\SkiResort\AccessToDB5\bin\Debug\net5.0\AccessToDB5.deps.json
+C:\BMSTU_7sem_web\src\SkiResort\AccessToDB5\bin\Debug\net5.0\AccessToDB5.dll
+C:\BMSTU_7sem_web\src\SkiResort\AccessToDB5\bin\Debug\net5.0\AccessToDB5.pdb
+C:\BMSTU_7sem_web\src\SkiResort\AccessToDB5\bin\Debug\net5.0\BL5.dll
+C:\BMSTU_7sem_web\src\SkiResort\AccessToDB5\bin\Debug\net5.0\BL5.pdb
+C:\BMSTU_7sem_web\src\SkiResort\AccessToDB5\obj\Debug\net5.0\AccessToDB5.csproj.CopyComplete
+C:\BMSTU_7sem_web\src\SkiResort\AccessToDB5\obj\Debug\net5.0\AccessToDB5.dll
+C:\BMSTU_7sem_web\src\SkiResort\AccessToDB5\obj\Debug\net5.0\refint\AccessToDB5.dll
+C:\BMSTU_7sem_web\src\SkiResort\AccessToDB5\obj\Debug\net5.0\AccessToDB5.pdb
+C:\BMSTU_7sem_web\src\SkiResort\AccessToDB5\obj\Debug\net5.0\ref\AccessToDB5.dll

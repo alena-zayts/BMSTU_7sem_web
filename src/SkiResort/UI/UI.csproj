@@ -30,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AccessToDB2\AccessToDB2.csproj" />
     <ProjectReference Include="..\AccessToDB\AccessToDB.csproj" />
     <ProjectReference Include="..\BL\BL.csproj" />
     <ProjectReference Include="..\Workers\Workers.csproj" />

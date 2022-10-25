@@ -15,8 +15,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Extensions.Configuration;
 using System.IO;
-using AccessToDB2;
-using AccessToDB2.Models;
 
 using Microsoft.EntityFrameworkCore;
 namespace UI
