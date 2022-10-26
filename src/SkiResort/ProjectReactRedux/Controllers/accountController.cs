@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace ProjectReactRedux.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [Produces("application/json")]
     [ApiController]
     public class accountController : Controller

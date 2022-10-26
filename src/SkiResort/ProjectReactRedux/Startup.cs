@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+
+
 namespace ProjectReactRedux
 {
     public class Startup
@@ -22,6 +24,46 @@ namespace ProjectReactRedux
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+
+
+
+
+
+
+
+        //    services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        //.AddJwtBearer(options =>
+        //{
+        //                //options.RequireHttpsMetadata = false;
+        //                options.TokenValidationParameters = new TokenValidationParameters
+        //    {
+        //                    // укзывает, будет ли валидироваться издатель при валидации токена
+        //                    ValidateIssuer = true,
+        //                    // строка, представляющая издателя
+        //                    ValidIssuer = AuthOptions.ISSUER,
+
+        //                    // будет ли валидироваться потребитель токена
+        //                    ValidateAudience = true,
+        //                    // установка потребителя токена
+        //                    ValidAudience = AuthOptions.AUDIENCE,
+        //                    // будет ли валидироваться время существования
+        //                    ValidateLifetime = true,
+
+        //                    // установка ключа безопасности
+        //                    IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+        //                    // валидация ключа безопасности
+        //                    ValidateIssuerSigningKey = true,
+        //    };
+        //});
+
+
+
+
+
+
+
+
 
 
 
@@ -80,6 +122,18 @@ namespace ProjectReactRedux
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+
+
+
+
+            app.UseDefaultFiles(); //JWT 
+            app.UseStaticFiles(); //JWT
+            app.UseAuthentication(); //JWT
+            app.UseAuthorization();
+
+
+
+
 
             app.UseEndpoints(endpoints =>
             {

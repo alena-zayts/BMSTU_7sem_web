@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ProjectReactRedux.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ApiController]

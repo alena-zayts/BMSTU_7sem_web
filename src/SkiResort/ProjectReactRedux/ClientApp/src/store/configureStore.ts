@@ -5,6 +5,7 @@ import { History } from 'history';
 import { ApplicationState, reducers } from './';
 
 export default function configureStore(history: History, initialState?: ApplicationState) {
+
     const middleware = [
         thunk,
         routerMiddleware(history)
@@ -27,3 +28,6 @@ export default function configureStore(history: History, initialState?: Applicat
         compose(applyMiddleware(...middleware), ...enhancers)
     );
 }
+
+
+

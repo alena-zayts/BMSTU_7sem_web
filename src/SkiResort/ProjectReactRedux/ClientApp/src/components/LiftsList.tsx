@@ -3,16 +3,17 @@ import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 import { ApplicationState } from '../store';
-import * as LiftsStore from '../store/Lifts';
+import * as LiftsListStore from '../store/LiftsList';
+import MyButton from './UI/button/MyButton';
 
 // At runtime, Redux will merge together...
-type LiftsProps =
-    LiftsStore.LiftsState // ... state we've requested from the Redux store
-    & typeof LiftsStore.actionCreators // ... plus action creators we've requested
+type LiftsListProps =
+    LiftsListStore.LiftsListState // ... state we've requested from the Redux store
+    & typeof LiftsListStore.actionCreators // ... plus action creators we've requested
   & RouteComponentProps<{}>; // ... plus incoming routing parameters
 
 
-class Lifts extends React.PureComponent<LiftsProps> {
+class LiftsList extends React.PureComponent<LiftsListProps> {
   // This method is called when the component is first added to the document
   public componentDidMount() {
     this.ensureDataFetched();
@@ -33,7 +34,7 @@ class Lifts extends React.PureComponent<LiftsProps> {
   }
 
   private ensureDataFetched() {
-    this.props.requestLifts();
+    this.props.requestLiftsList();
   }
 
     private renderLiftsTable() {
@@ -42,22 +43,25 @@ class Lifts extends React.PureComponent<LiftsProps> {
         <thead>
           <tr>
             <th>liftID</th>
-            <th>liftName(C)</th>
-            <th>isOpen(F)</th>
+            <th>liftName</th>
+            <th>isOpen</th>
             <th>seatsAmount</th>
             <th>liftingTime</th>
             <th>queueTime</th>
           </tr>
         </thead>
             <tbody>
-                {this.props.lifts.map((lift: LiftsStore.Lift) =>
-            <tr key={lift.liftID}>
-                        <td>{lift.liftID}</td>
-                        <td>{lift.liftName}</td>
-                        <td>{lift.isOpen}</td>
-                        <td>{lift.seatsAmount}</td>
-                        <td>{lift.liftingTime}</td>
-                        <td>{lift.queueTime}</td>
+                {this.props.liftsList.map((lift: LiftsListStore.Lift) =>
+                    <tr key={lift.LiftID}>
+                        <td>{lift.LiftID}</td>
+                        <td>{lift.LiftName}</td>
+                        <td>{lift.IsOpen}</td>
+                        <td>{lift.SeatsAmount}</td>
+                        <td>{lift.LiftingTime}</td>
+                        <td>{lift.QueueTime}</td>
+                        <MyButton onClick={() => this.props.deleteLiftByName(lift.LiftName)}>
+                            Удалить
+                        </MyButton>
             </tr>
           )}
         </tbody>
@@ -80,6 +84,6 @@ class Lifts extends React.PureComponent<LiftsProps> {
 }
 
 export default connect(
-  (state: ApplicationState) => state.lifts, // Selects which state properties are merged into the component's props
-  LiftsStore.actionCreators // Selects which action creators are merged into the component's props
-)(Lifts as any); // eslint-disable-line @typescript-eslint/no-explicit-any
+  (state: ApplicationState) => state.liftsList, // Selects which state properties are merged into the component's props
+  LiftsListStore.actionCreators // Selects which action creators are merged into the component's props
+)(LiftsList as any); // eslint-disable-line @typescript-eslint/no-explicit-any
