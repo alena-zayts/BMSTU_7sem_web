@@ -6,7 +6,10 @@ import { ApplicationState } from '../../store';
 import * as UserStore from '../../store/User';
 import MyButton from '../UI/button/MyButton';
 import { useSelector } from 'react-redux'
-import { NavLink} from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+
+import * as Styles from '../../styles/components'
+import { UnauthorizedAccount } from './UnauthorizedAccount';
 
 // At runtime, Redux will merge together...
 type AccountProps =
@@ -27,17 +30,13 @@ class Account extends React.PureComponent<AccountProps> {
         if (this.props.userInfo == null || this.props.userInfo.Role == "unathurozied") //admin, ski_patrol, authorized
         {
             return (
-                <div className='unauthorized'>
-                    <h1>Unauthorized :(</h1>
-                    <span>
-                        <NavLink to='/login'>Login</NavLink> to gain access
-                    </span>
-                </div>
+
+                <UnauthorizedAccount />
             )
         }
     return (
       <React.Fragment>
-            <h1>Account</h1>
+            <Styles.HeaderText> Profile (default) </Styles.HeaderText>
             <p> {this.props.userToken} </p>
       </React.Fragment>
     );

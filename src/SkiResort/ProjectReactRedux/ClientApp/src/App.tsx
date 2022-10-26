@@ -8,13 +8,20 @@ import LiftsList from './components/LiftsList';
 
 import './custom.css'
 import Account from './components/Account/Account';
+import { ThemeProvider } from 'styled-components';
+import GlobalStyles from './styles/global'
+import { baseTheme } from './styles/theme';
 
 export default () => (
-    <Layout>
+    <ThemeProvider theme={baseTheme}>
+
+        <Layout>
+
         <Route exact path='/' component={Home} />
         <Route path='/counter' component={Counter} />
         <Route path='/fetch-data/:startDateIndex?' component={FetchData} />
         <Route path='/lifts' component={LiftsList} />
         <Route path='/account' component={Account} />
-    </Layout>
+        </Layout>
+    </ThemeProvider>
 );

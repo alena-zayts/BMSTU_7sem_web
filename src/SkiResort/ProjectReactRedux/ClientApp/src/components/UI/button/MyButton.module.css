@@ -1,8 +1,31 @@
-﻿.myBtn {
-    padding: 5px 15px;
+﻿/*/@import url('../../styles/components');*/
+
+.myBtn {
+    /*    padding: 5px 15px;
     color: teal;
     font-size: 14px;
     background: transparent;
     border: 1px solid teal;
-    cursor: pointer;
+    cursor: pointer;*/
+
+
+    box-sizing: border-box;
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 50px;
+    gap: 10px;
+    position: relative;
+    width: 196px;
+    height: 72px;
+    /* ButtonColor */
+
+    background: #3A8EEF;
+    /* TextColor */
+
+    border: 1px solid #212526;
+    border-radius: 10px;
 }
