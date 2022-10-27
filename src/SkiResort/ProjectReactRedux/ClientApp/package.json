@@ -30,7 +30,6 @@
     "@types/react-router": "5.1.2",
     "@types/react-router-dom": "5.1.0",
     "@types/reactstrap": "8.0.6",
-    "@types/styled-components": "^5.1.26",
     "cross-env": "6.0.3",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "nan": "^2.14.1",
