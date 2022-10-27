@@ -51,7 +51,8 @@ export const actionCreators = {
         fetch('api/account/login' + '?userEmail=' + userEmail + '&userPassword=' + userPassword, { method: 'POST', })
             .then(response => response.json() as Promise<TokenRespones>)
             .then(data => {
-                console.log(data)
+                console.log('from action logIn')
+                console.log(data.access_token)
                 dispatch({ type: 'RECEIVE_TOKEN', userToken: data.access_token});
             });
     }
@@ -81,6 +82,8 @@ export const reducer: Reducer<UserState> = (state: UserState | undefined, incomi
                 success: false
             };
         case 'RECEIVE_TOKEN':
+            console.log('from RECEIVE_TOKEN')
+            console.log(action.userToken)
             return {
                 loading: false,
                 success: true,

@@ -29,6 +29,9 @@ class Account extends React.PureComponent<AccountProps> {
     //}
 
     public render() {
+        console.log('rendering');
+        console.log(this.props.userToken);
+        console.log(this.props.userInfo);
         // show unauthorized screen if no user is found in redux store
         if (this.props.userInfo == null || this.props.userInfo.Role == "unathurozied") //admin, ski_patrol, authorized
         {
@@ -75,20 +78,14 @@ class NameForm extends React.Component<AccountProps, { userEmail: string, userPa
                 this.setState({ userPassword: value })
                 break;
         }
-        alert('Info: ' + value + name);
-
-        //this.setState({
-        //    [name]: value
-        //});
+        //alert('Info: ' + value + name);
     }
 
     handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-        alert('Info: ' + this.state.userEmail + this.state.userPassword);
         try {
-            
             this.props.logIn(this.state.userEmail, this.state.userPassword);
-            //const dispatch = useDispatch();
-            //dispatch(this.props.logIn(this.state.userEmail, this.state.userPassword))
+            console.log('here');
+            console.log(this.props.userToken);
         }
         catch (e)
         {
@@ -101,7 +98,6 @@ class NameForm extends React.Component<AccountProps, { userEmail: string, userPa
             console.log(result)
         }
         event.preventDefault();
-        //event.preventDefault();
     }
 
     render() {
