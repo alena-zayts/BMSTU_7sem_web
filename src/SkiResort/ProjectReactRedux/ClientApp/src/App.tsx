@@ -7,7 +7,7 @@ import FetchData from './components/FetchData';
 import LiftsList from './components/LiftsList';
 
 import './custom.css'
-import Account from './components/Account/Account';
+import Account from './components/Account/AccountLogIn';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyles from './styles/global'
 import { baseTheme } from './styles/theme';
@@ -21,7 +21,7 @@ export default () => (
         <Route path='/counter' component={Counter} />
         <Route path='/fetch-data/:startDateIndex?' component={FetchData} />
         <Route path='/lifts' component={LiftsList} />
-        <Route path='/account' component={Account} />
+        <Route path='/account/login' component={Account} />
         </Layout>
     </ThemeProvider>
 );

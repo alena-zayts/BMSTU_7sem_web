@@ -1,0 +1,14 @@
+﻿.cell {
+    display: inline-block; /*Задаем блочно-строчное отображение*/
+    width: 180px; /*задаем ширину блока*/
+    background: dodgerblue;
+}
+
+.string {
+    text-align: left; /*Равняем текст по-горизонтали*/
+}
+
+.input_cell {
+    display: block;
+    width: max-content;
+}
