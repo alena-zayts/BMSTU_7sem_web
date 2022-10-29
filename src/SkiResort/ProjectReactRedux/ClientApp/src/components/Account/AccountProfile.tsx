@@ -16,30 +16,30 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react'
 import { AccountProps } from './AccountProps'
 import { getUserInfoByTocken } from '../../actions/UserActions';
-import { dispatch } from '../../../store';
+//import { dispatch } from '../../../store';
 import { getUser } from './action/user';
 
 
 
 class AccountProfile extends React.PureComponent<AccountProps, {}> {
-    loadData() {
-        // from here, store's state should be { fetching: true, data: [] }
-        dispatch(getUserInfoByTocken())
-            .then((userData) => {
-                console.log('userData in AccountProfile')
-                console.log(userData)
-                // now from here, you can get the value from parameter or you can get it from store or component props if super component passing it by redux provider.
-                // store state should be { fetching: false: data [..., ...] }
-                // do something with received data
-            })
-            .catch((error) => {
-                console.log('error in AccountProfile')
-                console.log(error)
-            })
-    };
+    //loadData() {
+    //    // from here, store's state should be { fetching: true, data: [] }
+    //    dispatch(getUserInfoByTocken())
+    //        .then((userData) => {
+    //            console.log('userData in AccountProfile')
+    //            console.log(userData)
+    //            // now from here, you can get the value from parameter or you can get it from store or component props if super component passing it by redux provider.
+    //            // store state should be { fetching: false: data [..., ...] }
+    //            // do something with received data
+    //        })
+    //        .catch((error) => {
+    //            console.log('error in AccountProfile')
+    //            console.log(error)
+    //        })
+    //};
 
     render() {
-        this.loadData()
+        //this.loadData()
         if (this.props.userInfo == null) {
             console.log(this.props.userToken)
             return (<Styles.HeaderText> Profile (2) not log in </Styles.HeaderText>)

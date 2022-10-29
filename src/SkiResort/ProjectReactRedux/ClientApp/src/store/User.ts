@@ -58,8 +58,32 @@ export const actionCreators = {
             .then(data => {
                 console.log('from action logIn')
                 console.log(data.access_token)
+                sessionStorage.setItem('jwtToken', data.access_token); ////
                 dispatch({ type: 'RECEIVE_TOKEN', userToken: data.access_token});
             });
+
+        //dispatch(signUpUser(values))
+        //    .then((response) => {
+        //        let data = response.payload.data;
+        //        //if any one of these exist, then there is a field error 
+        //        if (response.payload.status != 200) {
+        //            //let other components know
+        //            dispatch(signUpUserFailure(response.payload));
+        //            reject(data); //this is for redux-form itself
+        //        } else {
+        //            //store JWT Token to browser session storage 
+        //            //If you use localStorage instead of sessionStorage, then this w/   
+        //            //persisted across tabs and new windows.
+        //            //sessionStorage = persisted only in current tab
+
+        //            sessionStorage.setItem(‘jwtToken’, response.payload.data.token);
+
+        //            //let other components know that we got user and things are fine
+        //            dispatch(signUpUserSuccess(response.payload));
+        //            resolve();//this is for redux-form itself
+        //        }
+        //    });
+
     },
     getUserInfo: (): AppThunkAction<KnownAction> => (dispatch, getState) => {
         fetch('api/account/', { method: 'GET', })
@@ -91,6 +115,7 @@ export const reducer: Reducer<UserState> = (state: UserState | undefined, incomi
     const action = incomingAction as KnownAction;
     switch (action.type) {
         case 'USER_LOG_IN':
+            console.log('from USER_LOG_IN')
             return {
                 loading: true,
                 success: false

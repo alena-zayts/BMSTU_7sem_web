@@ -52,9 +52,13 @@ class AccountLogIn extends React.PureComponent<AccountProps, { userEmail: string
     }
 
     render() {
-        //console.log('rendering');
-        //console.log(this.props.userToken);
-        //console.log(this.props.userInfo);
+        console.log('rendering');
+        console.log(this.props)
+        console.log(this.props.userToken);
+        console.log(this.props.userInfo);
+        if (this.props.userToken) {
+            return <Styles.HeaderText> Account LogIn with token </Styles.HeaderText>
+        }
         return (
             <Container>
                 <Styles.HeaderText> Profile </Styles.HeaderText>

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 import { ApplicationState } from '../store';
-import * as LiftsListStore from '../store/__LiftsList';
+import * as LiftsListStore from '../store/LiftsList';
 import MyButton from './UI/button/MyButton';
 
 // At runtime, Redux will merge together...
