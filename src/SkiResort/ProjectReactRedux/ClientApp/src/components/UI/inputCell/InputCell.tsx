@@ -5,9 +5,9 @@ import PropTypes, { InferProps } from "prop-types";
 
 const InputCell: any = ({ children, ...props }: InferProps<typeof InputCell.propTypes>) => {
     return (
-        <label >
+        <label className={classes.input_cell}>
             <Styles.UsualText className={classes.cell} > {props.whatToInput} </Styles.UsualText>
-            <input type={props.type} value={props.value} onChange={props.onChange} />
+            <input className={classes.input_cell_text} type={props.type} value={props.value} onChange={props.onChange} />
         </label>
     );
 };

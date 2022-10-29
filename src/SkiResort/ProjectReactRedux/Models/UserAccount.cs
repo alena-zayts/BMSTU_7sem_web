@@ -10,6 +10,8 @@
             CardID = cardID;
         }
 
+
+        public uint UserID { get; set; }
         public string UserEmail { get; }
         public string Password { get; }
         public string Role { get; }

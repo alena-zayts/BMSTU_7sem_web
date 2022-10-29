@@ -38,9 +38,14 @@ interface RecieveTokenAction {
     userToken: string
 }
 
+interface RecieveUserInfoAction {
+    type: 'RECIEVE_USER_INFO_ACTION';
+    userInfo: UserInfo;
+}
+
 // Declare a 'discriminated union' type. This guarantees that all references to 'type' properties contain one of the
 // declared type strings (and not any other arbitrary string).
-type KnownAction = UserLogInAction | RecieveTokenAction;
+type KnownAction = UserLogInAction | RecieveTokenAction | RecieveUserInfoAction;
 
 // ----------------
 // ACTION CREATORS - These are functions exposed to UI components that will trigger a state transition.
@@ -54,6 +59,15 @@ export const actionCreators = {
                 console.log('from action logIn')
                 console.log(data.access_token)
                 dispatch({ type: 'RECEIVE_TOKEN', userToken: data.access_token});
+            });
+    },
+    getUserInfo: (): AppThunkAction<KnownAction> => (dispatch, getState) => {
+        fetch('api/account/', { method: 'GET', })
+            .then(response => response.json() as Promise<UserInfo>)
+            .then(data => {
+                console.log('from action getUserInfo')
+                console.log(data)
+                dispatch({ type: 'RECIEVE_USER_INFO_ACTION', userInfo: data });
             });
     }
 };
@@ -88,6 +102,12 @@ export const reducer: Reducer<UserState> = (state: UserState | undefined, incomi
                 loading: false,
                 success: true,
                 userToken: action.userToken
+            };
+        case 'RECIEVE_USER_INFO_ACTION':
+            return {
+                loading: false,
+                success: true,
+                userInfo: action.userInfo
             };
         break;
     }

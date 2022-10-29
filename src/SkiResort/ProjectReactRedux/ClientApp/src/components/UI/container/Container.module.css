@@ -1,0 +1,7 @@
+﻿@import url(../../App.module.css);
+
+.container {
+    background: var(--backgroundBrightColor);
+    width: 100%;
+    height: 100%;
+}

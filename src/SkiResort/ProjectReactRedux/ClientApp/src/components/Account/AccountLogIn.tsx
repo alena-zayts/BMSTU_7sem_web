@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { ApplicationState } from '../../store';
 import * as UserStore from '../../store/User';
 import MyButton from '../UI/button/MyButton';
+import Container from '../UI/container/Container';
 import InputCell from '../UI/inputCell/InputCell';
 import { NavLink } from 'react-router-dom'
 import * as Styles from '../../styles/components'
@@ -55,7 +56,7 @@ class AccountLogIn extends React.PureComponent<AccountProps, { userEmail: string
         //console.log(this.props.userToken);
         //console.log(this.props.userInfo);
         return (
-            <React.Fragment>
+            <Container>
                 <Styles.HeaderText> Profile </Styles.HeaderText>
                 <InputCell
                     whatToInput="Email:"
@@ -72,14 +73,7 @@ class AccountLogIn extends React.PureComponent<AccountProps, { userEmail: string
                 <MyButton onClick={(event: React.FormEvent<HTMLFormElement>) => this.handleSubmit(event)}>
                     LogIn
                 </MyButton>
-                
-
-                <form onSubmit={this.handleSubmit}>
-                    
-                    <input type="submit" value="LogIn" />
-                
-                </form>
-            </React.Fragment>
+            </Container>
         );
     }
 

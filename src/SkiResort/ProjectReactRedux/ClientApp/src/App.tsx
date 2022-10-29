@@ -7,7 +7,8 @@ import FetchData from './components/FetchData';
 import LiftsList from './components/LiftsList';
 
 import './custom.css'
-import Account from './components/Account/AccountLogIn';
+import AccountLogIn from './components/Account/AccountLogIn';
+import AccountProfile from './components/Account/AccountProfile';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyles from './styles/global'
 import { baseTheme } from './styles/theme';
@@ -17,11 +18,12 @@ export default () => (
 
         <Layout>
 
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data/:startDateIndex?' component={FetchData} />
-        <Route path='/lifts' component={LiftsList} />
-        <Route path='/account/login' component={Account} />
+            <Route exact path='/' component={Home} />
+            <Route path='/counter' component={Counter} />
+            <Route path='/fetch-data/:startDateIndex?' component={FetchData} />
+            <Route path='/lifts' component={LiftsList} />
+            <Route path='/account/login' component={AccountLogIn} />
+            <Route path='/account/profile' component={AccountProfile} />
         </Layout>
     </ThemeProvider>
 );

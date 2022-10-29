@@ -1,0 +1,41 @@
+﻿:root {
+    --panelBackgroundColor: #F5BF97; /*светоло-коричневый : */
+    --panelButtonColor: #965437; /*коричневый  */
+    --backgroundLightColor: #DDEAFD; /* чистый бледно-голубой  */
+    --backgroundPaleColor: #CBD8E8; /*серый бледно-голубой  */
+    --backgroundBrightColor: #AFE7FF; /* ярко-голубой  */
+    --buttonColor: #3A8EEF; /*синий  */
+    --textColor: #212526; /* черный  */
+    --buttonTextColor: #FCFCFC; /*белый  */
+    --strokeColor: #178B93;
+/*    --headerText: `{
+        font-family: 'Cambay';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 64px;
+        line-height: 104px;
+        text-align: center;
+        color: var(--textColor);
+        }`*/
+
+    /*--headerText: 'Cambay' 64px #212526;*/
+    /*        --headerText: {
+        font-family: 'Cambay';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 64px;
+        line-height: 104px;
+        text-align: center;
+        color: var(--textColor);
+        }*/
+}
+
+/*.headerText {
+    font-family: 'Cambay';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 104px;
+    text-align: center;
+    color: var(--textColor);
+}*/

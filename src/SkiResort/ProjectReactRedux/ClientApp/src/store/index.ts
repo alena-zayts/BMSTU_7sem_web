@@ -1,6 +1,6 @@
-import * as WeatherForecasts from './WeatherForecasts';
-import * as Counter from './Counter';
-import * as Lifts from './LiftsList';
+import * as WeatherForecasts from './__WeatherForecasts';
+import * as Counter from './__Counter';
+import * as Lifts from './__LiftsList';
 import * as User from './User';
 
 

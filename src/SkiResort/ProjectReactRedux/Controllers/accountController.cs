@@ -235,5 +235,51 @@ namespace ProjectReactRedux.Controllers
             return Json(response);
             return Json("");
         }
+
+       // TODO
+        // GET: account
+        /// <summary>
+        /// Get information about a user by his token
+        /// </summary>
+        [HttpGet("")]
+        [Authorize(Roles = "admin, authorized, ski_patrol")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserAccount))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetAsync()
+        {
+            uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
+            try
+            {
+                //
+                BL.Models.User user = await _usersService.AdminGetUserByIDAsync(0, _userID);
+                UserAccount userAccount = Converters.UserAccountConverter.ConvertUserToUserAccountDTO(user);
+                userAccount.UserID = _userID;
+                string userJSON = JsonSerializer.Serialize(userAccount, OtherOptions.JsonOptions());
+
+                return new ContentResult
+                {
+                    Content = userJSON,
+                    StatusCode = 200
+                };
+            }
+            catch (AccessToDB.Exceptions.UserExceptions.UserNotFoundException)
+            {
+                string errorMessage = JsonSerializer.Serialize("User with specified ID not found", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 404
+                };
+            }
+            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+            {
+                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 401
+                };
+            }
+        }
     }
 }

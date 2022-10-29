@@ -12,6 +12,10 @@ namespace BL.Services
         public static async Task CheckPermissionsAsync(IUsersRepository usersRepository, uint userID,
             [System.Runtime.CompilerServices.CallerMemberName] string memberName = "")
         {
+            if (userID == 0)
+            {
+                return;
+            }
             PermissionsEnum permissions = (await usersRepository.GetUserByIdAsync(userID)).Permissions;
 
             if (permissions != PermissionsEnum.ADMIN)

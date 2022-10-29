@@ -1,6 +1,6 @@
 ﻿@import url(../../App.module.css);
 
-.input_cell {
+.output_cell {
     width: 100%;
     display: flex;
     align-items: center;
@@ -13,8 +13,8 @@
     align-content: center;*/
 }
 
-.input_cell_text {
-    background: var(--backgroundLightColor);
+.output_cell_text {
+    background: var(--backgroundPaleColor);
 }
 
 .cell {
