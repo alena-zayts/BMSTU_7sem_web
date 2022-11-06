@@ -57,7 +57,7 @@ class User(Table):
         self.permissions = permissions
 
     @classmethod
-    def generate_data(cls, n_unauthorized=490, n_authorized=500, n_ski_patrol=10):
+    def generate_data(cls, n_unauthorized=10, n_authorized=10, n_ski_patrol=3):
         data = []
 
         data.append(User(1, 0, 'q', 'q',
@@ -91,7 +91,7 @@ class Slope(Table):
         self.difficulty_level = difficulty_level
 
     @classmethod
-    def generate_data(cls, n_slopes_bunches=10, slopes_per_bunch=(8, 11), difficulty_levels=(1, 10)):
+    def generate_data(cls, n_slopes_bunches=3, slopes_per_bunch=(2, 5), difficulty_levels=(1, 10)):
         data = []
         alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
@@ -119,7 +119,7 @@ class Lift(Table):
 
     @classmethod
     def generate_data(cls,
-                      n_lifts_bunches=10, lifts_per_bunch=(8, 11),
+                      n_lifts_bunches=3, lifts_per_bunch=(3, 5),
                       #n_lifts_bunches=1, lifts_per_bunch=(1, 1),
                       lifting_times=(30, 300), seats_amounts=(10, 100)):
         data = []
@@ -194,7 +194,7 @@ class Turnstile(Table):
         self.is_open = is_open
 
     @classmethod
-    def generate_data(cls, turnstiles_per_lift=(1, 5), lifts=None):
+    def generate_data(cls, turnstiles_per_lift=(1, 2), lifts=None):
         if lifts is None:
             with open(Lift.json_filename, 'r') as f:
                 lifts = [Lift(*lift_dict.values()) for lift_dict in json.load(f)]
@@ -224,7 +224,7 @@ class Card(Table):
         self.type = card_type
 
     @classmethod
-    def generate_data(cls, n_cards=1000, date_limits=(1585575897, 1648647930),  # 30.03.20-30.03.2022
+    def generate_data(cls, n_cards=30, date_limits=(1585575897, 1648647930),  # 30.03.20-30.03.2022
                       types=['child', 'adult']):
         data = []
 
@@ -245,7 +245,7 @@ class CardReading(Table):
         self.reading_time = reading_time
 
     @classmethod
-    def generate_data(cls, n_readings=10000, date_limits=(1585575897, 1648647930),  # 30.03.20-30.03.2022
+    def generate_data(cls, n_readings=30, date_limits=(1585575897, 1648647930),  # 30.03.20-30.03.2022
                       ):
         with open(Turnstile.json_filename, 'r') as f:
             turnstiles = [Turnstile(*(list(turnstile_dict.values()))) for turnstile_dict in json.load(f)]
@@ -275,7 +275,7 @@ class Message(Table):
         self.text = text
 
     @classmethod
-    def generate_data(cls, n=1000):
+    def generate_data(cls, n=20):
         with open(User.json_filename, 'r') as f:
             users = [User(*(list(user_dict.values()))) for user_dict in json.load(f)]
 

@@ -73,7 +73,7 @@ type KnownAction = UserLogInSuccessAction | UserLogInFailedAction | GetUserInfoS
 
 export const actionCreators = {
     logIn: (userEmail: string, userPassword: string): AppThunkAction<KnownAction> => (dispatch, getState) => {
-        fetch('api/account/login' + '?userEmail=' + userEmail + '&userPassword=' + userPassword, { method: 'POST', })
+        fetch(`api/account/login?userEmail=${userEmail}&userPassword=${userPassword}`, { method: 'POST', })
             .then(response => {
                 if (!response.ok) { throw response }
                 return response.json() as Promise<TokenRespones>

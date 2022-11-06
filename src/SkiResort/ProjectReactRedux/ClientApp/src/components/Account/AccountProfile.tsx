@@ -17,6 +17,9 @@ class AccountProfile extends React.PureComponent<AccountProps, { isDataLoading: 
         this.state = { isDataLoading: false };
         this.loadUserInfo = this.loadUserInfo.bind(this);
     }
+    public componentDidMount() {
+        this.loadUserInfo();
+    }
 
     loadUserInfo() {
         if (this.props.userToken != undefined) {
@@ -33,10 +36,15 @@ class AccountProfile extends React.PureComponent<AccountProps, { isDataLoading: 
         }
 
         if (this.props.userInfo == undefined) {
-            if (this.state.isDataLoading == false) {
-                this.loadUserInfo()
-            }
             return <LoadingScreen />
+            //if (this.state.isDataLoading) {
+            //    return <LoadingScreen />
+            //}
+            //else {
+            //    alert('There is no userInfo and it is not loading')
+            //    return null
+            //}
+            
         }
         return (
             <Container>

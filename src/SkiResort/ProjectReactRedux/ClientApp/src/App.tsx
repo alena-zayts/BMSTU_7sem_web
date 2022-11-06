@@ -14,6 +14,7 @@ import Account from './components/Account/Account';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyles from './styles/global'
 import { baseTheme } from './styles/theme';
+import Lifts from './components/Lifts/Lifts';
 
 export default () => (
     <ThemeProvider theme={baseTheme}>
@@ -23,7 +24,7 @@ export default () => (
             <Route exact path='/' component={Home} />
             <Route path='/counter' component={Counter} />
             <Route path='/fetch-data/:startDateIndex?' component={FetchData} />
-            <Route path='/lifts' component={LiftsList} />
+            <Route path='/lifts' component={Lifts} />
 
             <Route path='/account' component={Account} />
             <Route path='/account/login' component={AccountLogIn} />
