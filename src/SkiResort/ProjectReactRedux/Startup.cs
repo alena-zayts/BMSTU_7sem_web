@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using ProjectReactRedux.Options;
 
 
 
@@ -32,30 +35,30 @@ namespace ProjectReactRedux
 
 
 
-        //    services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        //.AddJwtBearer(options =>
-        //{
-        //                //options.RequireHttpsMetadata = false;
-        //                options.TokenValidationParameters = new TokenValidationParameters
-        //    {
-        //                    // укзывает, будет ли валидироваться издатель при валидации токена
-        //                    ValidateIssuer = true,
-        //                    // строка, представляющая издателя
-        //                    ValidIssuer = AuthOptions.ISSUER,
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            //options.RequireHttpsMetadata = false;
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                // укзывает, будет ли валидироваться издатель при валидации токена
+                ValidateIssuer = true,
+                // строка, представляющая издателя
+                ValidIssuer = AuthOptions.ISSUER,
 
-        //                    // будет ли валидироваться потребитель токена
-        //                    ValidateAudience = true,
-        //                    // установка потребителя токена
-        //                    ValidAudience = AuthOptions.AUDIENCE,
-        //                    // будет ли валидироваться время существования
-        //                    ValidateLifetime = true,
+                // будет ли валидироваться потребитель токена
+                ValidateAudience = true,
+                // установка потребителя токена
+                ValidAudience = AuthOptions.AUDIENCE,
+                // будет ли валидироваться время существования
+                ValidateLifetime = true,
 
-        //                    // установка ключа безопасности
-        //                    IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-        //                    // валидация ключа безопасности
-        //                    ValidateIssuerSigningKey = true,
-        //    };
-        //});
+                // установка ключа безопасности
+                IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                // валидация ключа безопасности
+                ValidateIssuerSigningKey = true,
+            };
+        });
 
 
 
@@ -100,6 +103,7 @@ namespace ProjectReactRedux
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
+                //configuration.RootPath = "NewApp/my-app/build";
             });
         }
 
@@ -144,6 +148,7 @@ namespace ProjectReactRedux
 
             app.UseSpa(spa =>
             {
+                //spa.Options.SourcePath = "NewApp/my-app";
                 spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())

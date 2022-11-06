@@ -1,0 +1,32 @@
+﻿@import url(../../App.module.css);
+
+.myLink {
+    box-sizing: border-box;
+    /*width: 100%;*/
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    flex-direction: row;
+    padding: 10px 50px;
+    gap: 10px;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+    /*position: relative;*/
+    /*    width: auto;
+    height: auto;*/
+    /* ButtonColor */
+
+    background: var(--buttonColor);
+    /* TextColor */
+
+    border: 1px solid var(--textColor);
+    border-radius: 10px;
+    font-family: 'Cambay';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 52px;
+    color: var(--textColor);
+}

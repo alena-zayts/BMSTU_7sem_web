@@ -1,15 +1,14 @@
 import { Action, Reducer } from 'redux';
 import { AppThunkAction } from '.';
+import authHeader from '../helpers/auth-header';
 
 // -----------------
 // STATE - This defines the type of data maintained in the Redux store.
 
 export interface UserState {
-    loading: boolean,
     userInfo?: UserInfo,
     userToken?: string,
     error?: string,
-    success: boolean,
 }
 
 export interface UserInfo {
@@ -29,23 +28,44 @@ interface TokenRespones {
 // ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
 // They do not themselves have any side-effects; they just describe something that is going to happen.
 
-interface UserLogInAction {
-    type: 'USER_LOG_IN';
-}
-
-interface RecieveTokenAction {
-    type: 'RECEIVE_TOKEN';
+interface UserLogInSuccessAction {
+    type: 'USER_LOG_IN_SUCCESS';
     userToken: string
 }
 
-interface RecieveUserInfoAction {
-    type: 'RECIEVE_USER_INFO_ACTION';
+interface UserLogInFailedAction {
+    type: 'USER_LOG_IN_FAILED';
+    error: string
+}
+
+interface UserRegisterSuccessAction {
+    type: 'USER_REGISTER_SUCCESS';
+    userToken: string
+}
+
+interface UserRegisterFailedAction {
+    type: 'USER_REGISTER_FAILED';
+    error: string
+}
+
+interface UserLogOutAction {
+    type: 'USER_LOG_OUT';
+}
+
+interface GetUserInfoSuccessAction {
+    type: 'GET_USER_INFO_SUCCESS';
     userInfo: UserInfo;
+}
+
+interface GetUserInfoFailedAction {
+    type: 'GET_USER_INFO_FAILED';
+    error: string
 }
 
 // Declare a 'discriminated union' type. This guarantees that all references to 'type' properties contain one of the
 // declared type strings (and not any other arbitrary string).
-type KnownAction = UserLogInAction | RecieveTokenAction | RecieveUserInfoAction;
+type KnownAction = UserLogInSuccessAction | UserLogInFailedAction | GetUserInfoSuccessAction | GetUserInfoFailedAction | UserLogOutAction
+    | UserRegisterFailedAction | UserRegisterSuccessAction;
 
 // ----------------
 // ACTION CREATORS - These are functions exposed to UI components that will trigger a state transition.
@@ -54,57 +74,108 @@ type KnownAction = UserLogInAction | RecieveTokenAction | RecieveUserInfoAction;
 export const actionCreators = {
     logIn: (userEmail: string, userPassword: string): AppThunkAction<KnownAction> => (dispatch, getState) => {
         fetch('api/account/login' + '?userEmail=' + userEmail + '&userPassword=' + userPassword, { method: 'POST', })
-            .then(response => response.json() as Promise<TokenRespones>)
+            .then(response => {
+                if (!response.ok) { throw response }
+                return response.json() as Promise<TokenRespones>
+            })
             .then(data => {
-                console.log('from action logIn')
-                console.log(data.access_token)
-                sessionStorage.setItem('jwtToken', data.access_token); ////
-                dispatch({ type: 'RECEIVE_TOKEN', userToken: data.access_token});
-            });
-
-        //dispatch(signUpUser(values))
-        //    .then((response) => {
-        //        let data = response.payload.data;
-        //        //if any one of these exist, then there is a field error 
-        //        if (response.payload.status != 200) {
-        //            //let other components know
-        //            dispatch(signUpUserFailure(response.payload));
-        //            reject(data); //this is for redux-form itself
-        //        } else {
-        //            //store JWT Token to browser session storage 
-        //            //If you use localStorage instead of sessionStorage, then this w/   
-        //            //persisted across tabs and new windows.
-        //            //sessionStorage = persisted only in current tab
-
-        //            sessionStorage.setItem(‘jwtToken’, response.payload.data.token);
-
-        //            //let other components know that we got user and things are fine
-        //            dispatch(signUpUserSuccess(response.payload));
-        //            resolve();//this is for redux-form itself
-        //        }
-        //    });
+                localStorage.setItem("userToken", JSON.stringify(data.access_token));
+                dispatch({ type: 'USER_LOG_IN_SUCCESS', userToken: data.access_token });
+            })
+            .catch(err => {
+                err.text().then((errorMessage: string) => {
+                    alert("Incorrect email or password")
+                    console.log('error from func', errorMessage)
+                    dispatch({ type: 'USER_LOG_IN_FAILED', error: errorMessage })
+                })
+            })
 
     },
     getUserInfo: (): AppThunkAction<KnownAction> => (dispatch, getState) => {
-        fetch('api/account/', { method: 'GET', })
-            .then(response => response.json() as Promise<UserInfo>)
+        const appState = getState();
+        if (appState && appState.user.userInfo == undefined) {
+            fetch('api/account', { method: 'GET', headers: authHeader() })
+                .then(response => {
+                    if (!response.ok) { throw response }
+                    return response.json() as Promise<UserInfo>
+                })
+                .then(data => {
+                    dispatch({ type: 'GET_USER_INFO_SUCCESS', userInfo: data });
+                })
+                .catch(err => {
+                    err.text().then((errorMessage: string) => {
+                        alert("Couldn't get userInfo")
+                        console.log('error from func', errorMessage)
+                        dispatch({ type: 'GET_USER_INFO_FAILED', error: errorMessage })
+                    })
+                })
+
+            //fetch('api/account', { method: 'GET', headers: authHeader() })
+            //    .then(response => response.json() as Promise<UserInfo>)
+            //    .then(data => {
+            //        dispatch({ type: 'RECIEVE_USER_INFO', userInfo: data });
+            //    });
+        }
+    },
+    logOut: (): AppThunkAction<KnownAction> => (dispatch) => {
+        if (localStorage.getItem('userToken')) {
+            localStorage.removeItem('userToken')
+        }
+        dispatch({ type: 'USER_LOG_OUT' })
+    },
+
+    register: (userEmail: string, userPassword: string, cardID: number): AppThunkAction<KnownAction> => (dispatch, getState) => {
+        fetch(`api/account/register?userEmail=${userEmail}&userPassword=${userPassword}&cardID=${cardID}`, { method: 'POST', })
+            .then(response => {
+                if (!response.ok) { throw response }
+                return response.json() as Promise<TokenRespones>
+            })
             .then(data => {
-                console.log('from action getUserInfo')
-                console.log(data)
-                dispatch({ type: 'RECIEVE_USER_INFO_ACTION', userInfo: data });
-            });
-    }
+                localStorage.setItem("userToken", JSON.stringify(data.access_token));
+                dispatch({ type: 'USER_REGISTER_SUCCESS', userToken: data.access_token });
+            })
+            .catch(err => {
+                err.text().then((errorMessage: string) => {
+                    alert("Repeated email i guess")
+                    console.log('error from func', errorMessage)
+                    dispatch({ type: 'USER_REGISTER_FAILED', error: errorMessage })
+                })
+            })
+
+    },
 };
 
 // ----------------
 // REDUCER - For a given state and action, returns the new state. To support time travel, this must not mutate the old state.
 
+const parseJwt = (token: string) => {
+    try {
+        return JSON.parse(atob(token.split('.')[1]));
+    } catch (e) {
+        return null;
+    }
+};
+
+
+const userTokenUnparsed: string | null = localStorage.getItem('userToken');
+let userTokenFromStorage: string | undefined = undefined;
+if (userTokenUnparsed != undefined && userTokenUnparsed != "undefined") {
+    userTokenFromStorage = JSON.parse(userTokenUnparsed);
+    if (userTokenFromStorage) {
+        const decodedJwt = parseJwt(userTokenFromStorage);
+        if (decodedJwt.exp * 1000 < Date.now()) {
+            userTokenFromStorage = undefined;
+            localStorage.removeItem('userToken')
+        }
+    }
+}
+console.log('userTokenFromStorage from defaultState')
+console.log(userTokenFromStorage)
+
 const defaultState: UserState = {
-    loading: false,
     userInfo: undefined,
-    userToken: undefined,
+    userToken: userTokenFromStorage,
     error: undefined,
-    success: false,
 };
 
 export const reducer: Reducer<UserState> = (state: UserState | undefined, incomingAction: Action): UserState => {
@@ -114,26 +185,50 @@ export const reducer: Reducer<UserState> = (state: UserState | undefined, incomi
 
     const action = incomingAction as KnownAction;
     switch (action.type) {
-        case 'USER_LOG_IN':
-            console.log('from USER_LOG_IN')
+        case 'USER_LOG_IN_SUCCESS':
             return {
-                loading: true,
-                success: false
+                userInfo: undefined,
+                userToken: action.userToken,
+                error: undefined
             };
-        case 'RECEIVE_TOKEN':
-            console.log('from RECEIVE_TOKEN')
-            console.log(action.userToken)
+        case 'USER_LOG_IN_FAILED':
             return {
-                loading: false,
-                success: true,
-                userToken: action.userToken
+                userInfo: undefined,
+                userToken: undefined,
+                error: action.error
             };
-        case 'RECIEVE_USER_INFO_ACTION':
+        case 'USER_LOG_OUT':
             return {
-                loading: false,
-                success: true,
+                userToken: undefined,
+                error: undefined,
+                userInfo: undefined
+            };
+        case 'GET_USER_INFO_SUCCESS':
+            return {
+                error: undefined,
+                userToken: state.userToken,
                 userInfo: action.userInfo
             };
+        case 'GET_USER_INFO_FAILED':
+            return {
+                userToken: state.userToken,
+                error: action.error,
+                userInfo: undefined
+            };
+
+        case 'USER_REGISTER_SUCCESS':
+            return {
+                userInfo: undefined,
+                userToken: action.userToken,
+                error: undefined
+            };
+        case 'USER_REGISTER_FAILED':
+            return {
+                userInfo: undefined,
+                userToken: undefined,
+                error: action.error
+            };
+
         break;
     }
 

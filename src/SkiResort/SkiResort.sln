@@ -11,10 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Workers", "Workers\Workers.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{49D19A8F-6D7F-413E-B58C-0A8F9C3CC7DE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication6", "WebApplication6\WebApplication6.csproj", "{4DCB75D1-370B-486F-8E33-30312009EED6}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication7", "WebApplication7\WebApplication7.csproj", "{6E256DB4-15E5-4989-902F-9CCC8B8201E2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectReactRedux", "ProjectReactRedux\ProjectReactRedux.csproj", "{3A406BA8-C0DE-4EAD-B52E-EC8AA0DD29C1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccessToDB5", "AccessToDB5\AccessToDB5.csproj", "{4F64D17F-0AEE-4784-B41E-37084D16E50F}"
@@ -43,14 +39,6 @@ Global
 		{49D19A8F-6D7F-413E-B58C-0A8F9C3CC7DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49D19A8F-6D7F-413E-B58C-0A8F9C3CC7DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49D19A8F-6D7F-413E-B58C-0A8F9C3CC7DE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4DCB75D1-370B-486F-8E33-30312009EED6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4DCB75D1-370B-486F-8E33-30312009EED6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4DCB75D1-370B-486F-8E33-30312009EED6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4DCB75D1-370B-486F-8E33-30312009EED6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6E256DB4-15E5-4989-902F-9CCC8B8201E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6E256DB4-15E5-4989-902F-9CCC8B8201E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E256DB4-15E5-4989-902F-9CCC8B8201E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6E256DB4-15E5-4989-902F-9CCC8B8201E2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3A406BA8-C0DE-4EAD-B52E-EC8AA0DD29C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3A406BA8-C0DE-4EAD-B52E-EC8AA0DD29C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A406BA8-C0DE-4EAD-B52E-EC8AA0DD29C1}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -1,30 +1,17 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { ApplicationState } from '../../store';
 import * as UserStore from '../../store/User';
 import MyButton from '../UI/button/MyButton';
 import Container from '../UI/container/Container';
 import InputCell from '../UI/inputCell/InputCell';
-import { NavLink } from 'react-router-dom'
 import * as Styles from '../../styles/components'
-import { useForm } from 'react-hook-form'
-//import { useNavigate } from 'react-router-dom'
-//import { Redirect } from "react-router-dom";
-import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react'
 import { AccountProps } from './AccountProps'
-
+import { Redirect } from 'react-router-dom'
+import MyLink from '../UI/link/MyLink';
 
 
 class AccountLogIn extends React.PureComponent<AccountProps, { userEmail: string, userPassword: string }> {
-
-    //// This method is called when the component is first added to the document
-    //public componentDidMount() {
-    //    this.props.logIn("q", "q");
-    //}
-
     constructor(props: AccountProps) {
         super(props);
         this.state = { userEmail: '', userPassword: '' };
@@ -33,35 +20,16 @@ class AccountLogIn extends React.PureComponent<AccountProps, { userEmail: string
 
 
     handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-        try {
-            this.props.logIn(this.state.userEmail, this.state.userPassword);
-            console.log('here');
-            console.log(this.props.userToken);
-        }
-        catch (e) {
-            
-            const result = e.message; // error under useUnknownInCatchVariables 
-            if (typeof e === "string") {
-                e.toUpperCase() // works, `e` narrowed to string
-            } else if (e instanceof Error) {
-                e.message // works, `e` narrowed to Error
-            }
-            alert(result)
-        }
-        event.preventDefault();
+        this.props.logIn(this.state.userEmail, this.state.userPassword);
     }
 
     render() {
-        console.log('rendering');
-        console.log(this.props)
-        console.log(this.props.userToken);
-        console.log(this.props.userInfo);
-        if (this.props.userToken) {
-            return <Styles.HeaderText> Account LogIn with token </Styles.HeaderText>
+        if (this.props.userToken != undefined) {
+            return <Redirect to='/account/profile' />
         }
         return (
             <Container>
-                <Styles.HeaderText> Profile </Styles.HeaderText>
+                <Styles.HeaderText> LogIn </Styles.HeaderText>
                 <InputCell
                     whatToInput="Email:"
                     value={this.state.userEmail}
@@ -77,21 +45,15 @@ class AccountLogIn extends React.PureComponent<AccountProps, { userEmail: string
                 <MyButton onClick={(event: React.FormEvent<HTMLFormElement>) => this.handleSubmit(event)}>
                     LogIn
                 </MyButton>
+                <Styles.UsualText> Don't have account yet? </Styles.UsualText>
+                <MyLink whereToNavigate={'/account/register'} linkText='Go to registration page' />
+                {/*<MyButton onClick={(event: React.FormEvent<HTMLFormElement>) => this.redirectToRegster(event)}>*/}
+                {/*    Go to registration page*/}
+                {/*</MyButton>*/}
+                {/*<Link className='btn btn-outline-secondary btn-sm' to={`/account/register`}>Register</Link>*/}
             </Container>
         );
     }
-
-        //const navigate = useNavigate()
-    //const history = UseHistory();
-
-    // redirect authenticated user to profile screen
-    //useEffect(() => {
-    //    if (userInfo) {
-    //        //return new Redirect("/account");
-    //        //history.pushState('/your-component')
-    //        navigate('/account')
-    //    }
-    //}, [navigate, userInfo])
 }
 
 export default connect(

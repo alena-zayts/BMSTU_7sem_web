@@ -110,6 +110,7 @@ namespace ProjectReactRedux.Controllers
         /// </summary>
         /// <param name="userEmail">User's email</param>
         /// <param name="userPassword">User's password</param>
+        /// <param name="cardID">User's cardID</param>
         /// <returns>Token</returns>
         /// <response code="200" cref="JsonResult">Registration went successfully</response>
         /// <response code="401">User with such email already exists</response>
@@ -117,11 +118,11 @@ namespace ProjectReactRedux.Controllers
         [Route("register")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(JsonResult))]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> Register([FromQuery] string userEmail, [FromQuery] string userPassword)
+        public async Task<IActionResult> Register([FromQuery] string userEmail, [FromQuery] string userPassword, [FromQuery] uint cardID)
         {
             try
             {
-                BL.Models.User newUser = await _usersService.RegisterAsync(0, userEmail, userPassword);
+                BL.Models.User newUser = await _usersService.RegisterAsync(cardID, userEmail, userPassword);
                 UserAccount userAccount = Converters.UserAccountConverter.ConvertUserToUserAccountDTO(newUser);
 
                 var claims = new List<Claim>
@@ -236,12 +237,13 @@ namespace ProjectReactRedux.Controllers
             return Json("");
         }
 
-       // TODO
+        // TODO
         // GET: account
         /// <summary>
         /// Get information about a user by his token
         /// </summary>
-        [HttpGet("")]
+        [Route("")]
+        [HttpGet]
         [Authorize(Roles = "admin, authorized, ski_patrol")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserAccount))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

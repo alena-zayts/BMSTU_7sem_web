@@ -27,6 +27,23 @@ export default function configureStore(history: History, initialState?: Applicat
         initialState,
         compose(applyMiddleware(...middleware), ...enhancers)
     );
+
+    //const startState = {
+    //    ...initialState,
+    //    token: localStorage.getItem('TOKEN')
+    //}
+
+    //const store =  createStore(
+    //    rootReducer,
+    //    startState,
+    //    compose(applyMiddleware(...middleware), ...enhancers)
+    //);
+
+    //store.subscribe(() =>
+    //    localStorage.setItem('TOKEN', store.getState().token);
+
+
+    //return store
 }
 
 

@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿import React, { ReactNode } from 'react';
 import classes from './InputCell.module.css';
 import * as Styles from '../../../styles/components'
 import PropTypes, { InferProps } from "prop-types";
