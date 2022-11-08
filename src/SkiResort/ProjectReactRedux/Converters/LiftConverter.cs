@@ -5,7 +5,10 @@ namespace ProjectReactRedux.Converters
     {
         public static ProjectReactRedux.Models.Lift ConvertLiftToLiftDTO(BL.Models.Lift lift)
         {
-            return new ProjectReactRedux.Models.Lift(lift.LiftID, lift.LiftName, lift.IsOpen, lift.SeatsAmount, lift.LiftingTime, lift.QueueTime);
+            List<string> connectedSlopeNames = new List<string>();
+            foreach (BL.Models.Slope slope in lift.ConnectedSlopes)
+                connectedSlopeNames.Add(slope.SlopeName);
+            return new ProjectReactRedux.Models.Lift(lift.LiftID, lift.LiftName, lift.IsOpen, lift.SeatsAmount, lift.LiftingTime, lift.QueueTime, connectedSlopeNames);
         }
         public static List<ProjectReactRedux.Models.Lift> ConvertLiftsToLiftsDTO(List<BL.Models.Lift> lifts)
         {
@@ -15,10 +18,6 @@ namespace ProjectReactRedux.Converters
                 resultList.Add(ConvertLiftToLiftDTO(lift));
             }
             return resultList;
-        }
-        public static ProjectReactRedux.Models.LiftWithSlopes ConvertLiftToLiftWithSlopesDTO(BL.Models.Lift lift)
-        {
-            return new ProjectReactRedux.Models.LiftWithSlopes(lift.LiftID, lift.LiftName, lift.IsOpen, lift.SeatsAmount, lift.LiftingTime, lift.ConnectedSlopes, lift.QueueTime);
         }
 
     }

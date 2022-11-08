@@ -14,23 +14,43 @@ import * as UserStore from '../../store/User';
 import { ApplicationState } from '../../store';
 import * as LiftsStore from '../../store/Lifts';
 
+interface LiftFormProps {
+    liftName: string,
+    isOpen: boolean,
+    seatsAmount: number,
+    liftingTime: number,
+    connectedSlopeNames: string,
+    formTitle: string,
+    buttonText: string,
+    buttonAction: (
+        liftName: string,
+        isOpen: boolean,
+        seatsAmount: number,
+        liftingTime: number,
+        connectedSlopeNames: string,
+    ) => void
+}
 
 
-class LiftForm extends React.PureComponent<LiftsProps, { liftName: string, isOpen: boolean, seatsAmount: number, liftingTime: number }> {
-    constructor(props: LiftsProps) {
+
+
+class LiftForm extends React.PureComponent<LiftFormProps, { liftName: string, isOpen: boolean, seatsAmount: number, liftingTime: number, connectedSlopeNames: string}> {
+    //constructor(props: LiftsProps, other: { buttonText: string, buttonHandler: Function, isOpen: boolean = true, liftName: string = "123", seatsAmount: number = 0, liftingTime: number = 0, connectedSlopeNames: string[] = [] }) {
+    constructor(props: LiftFormProps) {
         super(props);
-        this.state = { liftName: '', isOpen: false, seatsAmount: 0, liftingTime: 0 };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = { liftName: props.liftName.valueOf(), isOpen: props.isOpen, seatsAmount: props.seatsAmount, liftingTime: props.liftingTime, connectedSlopeNames: props.connectedSlopeNames };
+
     }
 
     handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-        this.props.addLift(this.state.liftName, this.state.isOpen, this.state.seatsAmount, this.state.liftingTime);
+        this.props.buttonAction(this.state.liftName, this.state.isOpen, this.state.seatsAmount, this.state.liftingTime, this.state.connectedSlopeNames);
     }
 
     render() {
         return (
             <Container>
-                <Styles.HeaderText> Add Lift </Styles.HeaderText>
+                <Styles.HeaderText> {this.props.formTitle} </Styles.HeaderText>
                 <InputCell
                     whatToInput="liftName:"
                     value={this.state.liftName}
@@ -55,8 +75,14 @@ class LiftForm extends React.PureComponent<LiftsProps, { liftName: string, isOpe
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ ...this.state, liftingTime: e.target.value })}
                     type="number"
                 />
+                <InputCell
+                    whatToInput="slopes:"
+                    value={this.state.connectedSlopeNames}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ ...this.state, connectedSlopeNames: e.target.value })}
+                    type="text"
+                />
                 <MyButton onClick={(event: React.FormEvent<HTMLFormElement>) => this.handleSubmit(event)}>
-                    Add
+                    {this.props.buttonText}
                 </MyButton>
             </Container>
         );
@@ -67,29 +93,3 @@ export default connect(
     (state: ApplicationState) => state.lifts,
     LiftsStore.actionCreators
 )(LiftForm as any);
-
-
-
-
-//const LiftForm: any = ({ children, ...props }: InferProps<typeof LiftForm.propTypes>) => {
-//    return (
-//        <button {...props} className={classes.myBtn}>
-//            {children}
-//        </button>
-//    );
-//};
-
-//LiftForm.propTypes = {
-//    children: PropTypes.oneOfType([
-//        PropTypes.arrayOf(PropTypes.node),
-//        PropTypes.node
-//    ]),
-
-//    props: PropTypes.shape(
-//        {
-//            onChange: PropTypes.func.isRequired,
-//        }
-//    )
-//};
-
-//export default LiftForm;

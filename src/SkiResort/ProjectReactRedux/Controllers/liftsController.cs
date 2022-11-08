@@ -67,7 +67,7 @@ namespace ProjectReactRedux.Controllers
         /// <response code="200" cref="LiftWithSlopes">Lift with specified name</response>
         /// <response code="404">Lift with specified name not found</response>
         [HttpGet("{liftName}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LiftWithSlopes))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Lift))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAsync([FromRoute] string liftName)
         {
@@ -75,7 +75,7 @@ namespace ProjectReactRedux.Controllers
             try
             {
                 BL.Models.Lift lift = await _liftsService.GetLiftInfoAsync(_userID, liftName);
-                LiftWithSlopes liftWithSlopesDTO = Converters.LiftConverter.ConvertLiftToLiftWithSlopesDTO(lift);
+                Lift liftWithSlopesDTO = Converters.LiftConverter.ConvertLiftToLiftDTO(lift);
                 string liftJSON = JsonSerializer.Serialize(liftWithSlopesDTO, OtherOptions.JsonOptions());
 
                 return new ContentResult
@@ -122,12 +122,17 @@ namespace ProjectReactRedux.Controllers
         [Authorize(Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Lift))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Post([FromQuery] string liftName, [FromQuery] bool isOpen, [FromQuery] uint seatsAmount, [FromQuery] uint liftingTime)
+        public async Task<IActionResult> Post([FromQuery] string liftName, [FromQuery] bool isOpen, [FromQuery] uint seatsAmount, [FromQuery] uint liftingTime, [FromQuery] List<string> connectedSlopeNames)
         {
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
                 uint liftID = await _liftsService.AdminAddAutoIncrementLiftAsync(_userID, liftName, isOpen, seatsAmount, liftingTime);
+                foreach (string slopeName in connectedSlopeNames)
+                {
+                    await _liftsSlopeService.AdminAddAutoIncrementLiftSlopeAsync(_userID, liftName, slopeName);
+                }
+                BL.Models.Lift liftBL = await _liftsService.GetLiftInfoAsync(_userID, liftName);
                 Lift liftDTO = new Lift(liftID, liftName, isOpen, seatsAmount, liftingTime);
                 string liftJSON = JsonSerializer.Serialize(liftDTO, OtherOptions.JsonOptions());
 
@@ -136,6 +141,8 @@ namespace ProjectReactRedux.Controllers
                     Content = liftJSON,
                     StatusCode = 201
                 };
+
+
             }
             catch (AccessToDB.Exceptions.LiftExceptions.LiftAddAutoIncrementException)
             {
@@ -157,74 +164,31 @@ namespace ProjectReactRedux.Controllers
             }
         }
 
-        // PATCH: lifts/A0
-        /// <summary>
-        /// Update information about an existing lift
-        /// </summary>
-        /// <param name="liftName">Name of the lift to update</param>
-        /// <param name="patchLift">Infromation about lift to be updated</param>
-        /// <returns></returns>
-        /// <response code="200">The lift was successfully updated</response>
-        /// <response code="404">A lift with specified name was not found</response>
-        [HttpPatch("{liftName}")]
-        [Authorize(Roles = "admin, ski_patrol")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IActionResult))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Put([FromRoute] string liftName, [FromQuery] PatchLift patchLift)
-        {
-            uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
-            try
-            {
-                BL.Models.Lift liftFromDB = await _liftsService.GetLiftInfoAsync(_userID, liftName);
-
-                bool isOpen = patchLift.IsFieldPresent(nameof(patchLift.IsOpen)) ? patchLift.IsOpen : liftFromDB.IsOpen;
-                uint seatsAmount = patchLift.IsFieldPresent(nameof(patchLift.SeatsAmount)) ? patchLift.SeatsAmount : liftFromDB.SeatsAmount;
-                uint liftingTime = patchLift.IsFieldPresent(nameof(patchLift.LiftingTime)) ? patchLift.LiftingTime : liftFromDB.LiftingTime;
-
-                await _liftsService.UpdateLiftInfoAsync(_userID, liftName, isOpen, seatsAmount, liftingTime);
-                return new ContentResult
-                {
-                    StatusCode = 200
-                };
-            }
-            catch (AccessToDB.Exceptions.LiftExceptions.LiftNotFoundException)
-            {
-                string errorMessage = JsonSerializer.Serialize("Lift with specified name not found", OtherOptions.JsonOptions());
-                return new ContentResult
-                {
-                    Content = errorMessage,
-                    StatusCode = 404
-                };
-            }
-            catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
-            {
-                string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
-                return new ContentResult
-                {
-                    Content = errorMessage,
-                    StatusCode = 401
-                };
-            }
-        }
         //// PATCH: lifts/A0
         ///// <summary>
         ///// Update information about an existing lift
         ///// </summary>
         ///// <param name="liftName">Name of the lift to update</param>
-        ///// <param name="isOpen">Is the lift currently working or not</param>
-        ///// <param name="seatsAmount">The amount of seats in the lift to update</param>
-        ///// <param name="liftingTime">The time the lift needs to lift from the beginning to the end</param>
+        ///// <param name="patchLift">Infromation about lift to be updated</param>
         ///// <returns></returns>
         ///// <response code="200">The lift was successfully updated</response>
         ///// <response code="404">A lift with specified name was not found</response>
         //[HttpPatch("{liftName}")]
+        //[Authorize(Roles = "admin, ski_patrol")]
         //[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IActionResult))]
         //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //public async Task<IActionResult> Put([FromRoute] string liftName, [FromQuery] bool isOpen, [FromQuery] uint seatsAmount, [FromQuery] uint liftingTime)
+        //public async Task<IActionResult> Put([FromRoute] string liftName, [FromQuery] PatchLift patchLift)
         //{
+        //    uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
         //    try
         //    {
-        //        await _facade.UpdateLiftInfoAsync(_userID, liftName, isOpen, seatsAmount, liftingTime);
+        //        BL.Models.Lift liftFromDB = await _liftsService.GetLiftInfoAsync(_userID, liftName);
+
+        //        bool isOpen = patchLift.IsFieldPresent(nameof(patchLift.IsOpen)) ? patchLift.IsOpen : liftFromDB.IsOpen;
+        //        uint seatsAmount = patchLift.IsFieldPresent(nameof(patchLift.SeatsAmount)) ? patchLift.SeatsAmount : liftFromDB.SeatsAmount;
+        //        uint liftingTime = patchLift.IsFieldPresent(nameof(patchLift.LiftingTime)) ? patchLift.LiftingTime : liftFromDB.LiftingTime;
+
+        //        await _liftsService.UpdateLiftInfoAsync(_userID, liftName, isOpen, seatsAmount, liftingTime);
         //        return new ContentResult
         //        {
         //            StatusCode = 200
@@ -239,7 +203,72 @@ namespace ProjectReactRedux.Controllers
         //            StatusCode = 404
         //        };
         //    }
+        //    catch (BL.Exceptions.PermissionExceptions.PermissionException ex)
+        //    {
+        //        string errorMessage = JsonSerializer.Serialize("You are not authorized for this option", OtherOptions.JsonOptions());
+        //        return new ContentResult
+        //        {
+        //            Content = errorMessage,
+        //            StatusCode = 401
+        //        };
+        //    }
         //}
+
+        // PATCH: lifts/A0
+        /// <summary>
+        /// Update information about an existing lift
+        /// </summary>
+        /// <param name="liftName">Name of the lift to update</param>
+        /// <param name="isOpen">Is the lift currently working or not</param>
+        /// <param name="seatsAmount">The amount of seats in the lift to update</param>
+        /// <param name="liftingTime">The time the lift needs to lift from the beginning to the end</param>
+        /// <returns></returns>
+        /// <response code="200">The lift was successfully updated</response>
+        /// <response code="404">A lift with specified name was not found</response>
+        [HttpPatch("{liftName}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IActionResult))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Put([FromRoute] string liftName, [FromQuery] bool isOpen, [FromQuery] uint seatsAmount, [FromQuery] uint liftingTime, [FromQuery] List<string> connectedSlopeNames)
+        {
+            uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
+            try
+            {
+                await _liftsService.UpdateLiftInfoAsync(_userID, liftName, isOpen, seatsAmount, liftingTime);
+                BL.Models.Lift lift = await _liftsService.GetLiftInfoAsync(_userID, liftName);
+                List<string> existingSlopeNames = new List<string>();
+
+                foreach (BL.Models.Slope slope in lift.ConnectedSlopes)
+                {
+                    if (!connectedSlopeNames.Contains(slope.SlopeName))
+                        await _liftsSlopeService.AdminDeleteLiftSlopeAsync(_userID, lift.LiftName, slope.SlopeName);
+                    else
+                        existingSlopeNames.Add(slope.SlopeName);
+                }
+
+                
+                foreach (string slopeName in connectedSlopeNames)
+                {
+                    if (!existingSlopeNames.Contains(slopeName))
+                    {
+                        await _liftsSlopeService.AdminAddAutoIncrementLiftSlopeAsync(_userID, lift.LiftName, slopeName);
+                    }
+                }
+                return new ContentResult
+                {
+                    StatusCode = 200
+                };
+
+            }
+            catch (AccessToDB.Exceptions.LiftExceptions.LiftNotFoundException)
+            {
+                string errorMessage = JsonSerializer.Serialize("Lift with specified name not found", OtherOptions.JsonOptions());
+                return new ContentResult
+                {
+                    Content = errorMessage,
+                    StatusCode = 404
+                };
+            }
+        }
 
         // DELETE: lifts/A0
         /// <summary>

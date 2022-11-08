@@ -8,10 +8,12 @@
     align-content: center;
     justify-content: center;
     flex-direction: row;
-    padding: 10px 50px;
+    /*padding: 10px 50px;*/
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
     gap: 10px;
-
-
     position: relative;
     left: 50%;
     transform: translate(-50%, 0);
@@ -31,4 +33,7 @@
     font-size: 32px;
     line-height: 52px;
     color: var(--textColor);
+}
+btn:active + .content {
+    background: blue;
 }

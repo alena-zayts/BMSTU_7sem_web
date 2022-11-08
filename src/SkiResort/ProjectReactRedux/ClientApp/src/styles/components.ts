@@ -35,13 +35,3 @@ line-height: 52px;
 
 color: #000000;
 `
-
-// Пример заголовков разного уровня
-//interface TitleProps {
-//    weight?: 200 | 300 | 400 | 500 | 600 | 700
-//}
-
-//export const Title2 = styled.h2<TitleProps>`
-//  font-size: 18px;
-//  font-weight: ${({ weight = 700 }) => weight};
-//`

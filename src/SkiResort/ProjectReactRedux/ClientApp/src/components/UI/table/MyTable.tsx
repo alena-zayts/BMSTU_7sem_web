@@ -1,24 +1,25 @@
 ﻿import React, { ReactNode } from 'react';
 import * as Styles from '../../../styles/components'
 import PropTypes, { InferProps } from "prop-types";
-//import classes from './MyButton.module.css';
+import classes from './MyTable.module.css';
 
 
 const MyTable: any = ({ children, ...props }: InferProps<typeof MyTable.propTypes>) => {
     return (
-        <table className='table table-striped' aria-labelledby="tabelLabel">
+        //<table className='table table-striped' aria-labelledby="tabelLabel">
+        <table className={classes.myTable}>
             <thead>
                 <tr>
                     {props.headNames.map((headName: string) =>
-                        <th>{headName}</th>
+                        <th className={classes.myTh}>{headName}</th>
                     )}
                 </tr>
             </thead>
             <tbody>
                 {props.rows.map((row: Array<any>) =>
-                    <tr key={row[0]}>
+                    <tr className={classes.MyTr} key={row[0]}>
                         {row.map((data: any) =>
-                            <td>{data}</td>
+                            <td className={classes.myTd}>{data}</td>
                         )}
                     </tr>
                 )}

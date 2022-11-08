@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace ProjectReactRedux.Models
@@ -8,7 +10,7 @@ namespace ProjectReactRedux.Models
     /// </summary>
     public class Lift
     {
-        public Lift(uint liftID, string liftName, bool isOpen, uint seatsAmount, uint liftingTime, uint queueTime=0)
+        public Lift(uint liftID, string liftName, bool isOpen, uint seatsAmount, uint liftingTime, uint queueTime=0, List<string> connectedSlopeNames=null)
         {
             LiftID = liftID;
             LiftName = liftName;
@@ -16,6 +18,7 @@ namespace ProjectReactRedux.Models
             SeatsAmount = seatsAmount;
             LiftingTime = liftingTime;
             QueueTime = queueTime;
+            ConnectedSlopeNames = connectedSlopeNames;
         }
 
         /// <summary>
@@ -44,5 +47,7 @@ namespace ProjectReactRedux.Models
         /// </summary>
         [DefaultValue(0)]
         public uint QueueTime { get; }
+
+        public List<string> ConnectedSlopeNames { get; }    
     }
 }

@@ -156,12 +156,14 @@
             Note that the names of lifts should be unique.
             </remarks>
         </member>
-        <member name="M:WebApplication1.Controllers.liftsController.Put(System.String,WebApplication1.Models.PatchLift)">
+        <member name="M:WebApplication1.Controllers.liftsController.Put(System.String,System.Boolean,System.UInt32,System.UInt32,System.Collections.Generic.List{System.String})">
             <summary>
             Update information about an existing lift
             </summary>
             <param name="liftName">Name of the lift to update</param>
-            <param name="patchLift">Infromation about lift to be updated</param>
+            <param name="isOpen">Is the lift currently working or not</param>
+            <param name="seatsAmount">The amount of seats in the lift to update</param>
+            <param name="liftingTime">The time the lift needs to lift from the beginning to the end</param>
             <returns></returns>
             <response code="200">The lift was successfully updated</response>
             <response code="404">A lift with specified name was not found</response>

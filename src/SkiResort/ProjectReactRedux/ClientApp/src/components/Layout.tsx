@@ -9,10 +9,13 @@ export default class Layout extends React.PureComponent<{}, { children?: React.R
             <React.Fragment>
                 
                 <NavMenu />
+
                 <GlobalStyles />
+
                 <Container>
                     {this.props.children}
                 </Container>
+
             </React.Fragment>
         );
     }
