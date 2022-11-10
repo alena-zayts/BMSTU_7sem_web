@@ -2,13 +2,17 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { ApplicationState } from '../../store';
 import * as UserStore from '../../store/User';
-import MyButton from '../UI/button/MyButton';
-import Container from '../UI/container/Container';
+import UsualButton from '../UI/usualButton/UsualButton';
+//import Container from '../UI/container/Container';
 import InputCell from '../UI/inputCell/InputCell';
 import * as Styles from '../../styles/components'
 import { AccountProps } from './AccountProps'
 import { Redirect } from 'react-router-dom'
 import MyLink from '../UI/link/MyLink';
+import classes from '../App.module.css';
+import buttonClasses from '../../components/UI/usualButton/UsualButton.module.css';
+import { NavLink } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 
 class AccountLogIn extends React.PureComponent<AccountProps, { userEmail: string, userPassword: string }> {
@@ -28,7 +32,7 @@ class AccountLogIn extends React.PureComponent<AccountProps, { userEmail: string
             return <Redirect to='/account/profile' />
         }
         return (
-            <Container>
+            <div className={classes.main_div} >
                 <Styles.HeaderText> LogIn </Styles.HeaderText>
                 <InputCell
                     whatToInput="Email:"
@@ -42,16 +46,25 @@ class AccountLogIn extends React.PureComponent<AccountProps, { userEmail: string
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ ...this.state, userPassword: e.target.value })}
                     type="text"
                 />
-                <MyButton onClick={(event: React.FormEvent<HTMLFormElement>) => this.handleSubmit(event)}>
+                <UsualButton onClick={(event: React.FormEvent<HTMLFormElement>) => this.handleSubmit(event)}>
                     LogIn
-                </MyButton>
-                <Styles.UsualText> Don't have account yet? </Styles.UsualText>
-                <MyLink whereToNavigate={'/account/register'} linkText='Go to registration page' />
+                </UsualButton>
+
+                <div style={{ textAlign: "center", padding: "100px" }}>
+                    {/*style={{ margin: "150px auto auto auto" }}*/}
+                    <Styles.SmallText> Don't have account yet? </Styles.SmallText>
+                    <NavLink tag={Link} to="/account/register">
+                        <Styles.LinkText>Go to registration page</Styles.LinkText>
+                    </NavLink>
+                </div>
+                {/*<NavLink tag={Link} style={{ margin: "0 10px" }} className={buttonClasses.myBtn} to="/account/register">Go to registration page</NavLink>*/}
+                {/*<MyLink whereToNavigate={'/account/register'} linkText='Go to registration page' />*/}
                 {/*<MyButton onClick={(event: React.FormEvent<HTMLFormElement>) => this.redirectToRegster(event)}>*/}
                 {/*    Go to registration page*/}
                 {/*</MyButton>*/}
                 {/*<Link className='btn btn-outline-secondary btn-sm' to={`/account/register`}>Register</Link>*/}
-            </Container>
+                
+            </div>
         );
     }
 }

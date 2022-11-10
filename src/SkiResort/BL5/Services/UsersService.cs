@@ -29,7 +29,7 @@ namespace BL.Services
         public async Task<User> RegisterAsync(uint cardID, string email, string password)
         {
 
-            if (email.Length == 0 || password.Length == 0)
+            if (email == null || password==null || email.Length == 0 || password.Length == 0)
             {
                 throw new UserRegistrationException($"Could't register new user because of incorrect password or email");
             }

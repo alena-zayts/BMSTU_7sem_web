@@ -35,3 +35,24 @@ line-height: 52px;
 
 color: #000000;
 `
+
+export const SmallText = styled.h1`
+font-family: 'Cambay';
+font-style: normal;
+font-weight: 300;
+font-size: 24px;
+line-height: 24px;
+
+color: #000000;
+`
+
+export const LinkText = styled.h1`
+font-family: 'Cambay';
+font-style: normal;
+font-weight: 300;
+font-size: 24px;
+line-height: 24px;
+
+color: blue;
+text-decoration:underline;
+`

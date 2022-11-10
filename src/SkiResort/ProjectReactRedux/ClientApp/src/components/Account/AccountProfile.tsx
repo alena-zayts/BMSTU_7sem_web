@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { ApplicationState } from '../../store';
 import * as UserStore from '../../store/User';
-import MyButton from '../UI/button/MyButton';
-import Container from '../UI/container/Container';
+import UsualButton from '../UI/usualButton/UsualButton';
 import OutputCell from '../UI/outputCell/OutputCell';
 import * as Styles from '../../styles/components'
 import { AccountProps } from './AccountProps'
 import LoadingScreen from '../UI/loadingScreen/LoadingScreen';
+import classes from '../App.module.css';
 
 
 class AccountProfile extends React.PureComponent<AccountProps, { isDataLoading: boolean }> {
@@ -47,7 +47,7 @@ class AccountProfile extends React.PureComponent<AccountProps, { isDataLoading: 
             
         }
         return (
-            <Container>
+            <div className={classes.main_div} >
                 <Styles.HeaderText> Profile </Styles.HeaderText>
                 <OutputCell
                     whatToOutput="Email:"
@@ -65,10 +65,10 @@ class AccountProfile extends React.PureComponent<AccountProps, { isDataLoading: 
                     whatToOutput="CardID:"
                     value={this.props.userInfo.CardID}
                 />
-                <MyButton onClick={(event: React.FormEvent<HTMLFormElement>) => this.props.logOut()}>
+                <UsualButton onClick={(event: React.FormEvent<HTMLFormElement>) => this.props.logOut()}>
                     LogOut
-                </MyButton>
-            </Container>
+                </UsualButton>
+            </div>
         );
     }
 }

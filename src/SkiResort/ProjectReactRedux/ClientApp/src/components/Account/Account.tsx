@@ -12,8 +12,10 @@ class Account extends React.PureComponent<AccountProps> {
 
     render() {
         if (this.props.userToken == undefined) {
+            console.log("from account to /account/login")
             return <Redirect to='/account/login' />
         } else {
+            console.log("from account to /account/profile")
             return <Redirect to='/account/profile' />
         }
     }

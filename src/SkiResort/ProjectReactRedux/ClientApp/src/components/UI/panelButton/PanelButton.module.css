@@ -1,0 +1,32 @@
+﻿@import url(../../App.module.css);
+
+.panelButton {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    flex-direction: row;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    gap: 10px;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background: var(--panelButtonColor);
+    /* TextColor */
+
+    border: 1px solid var(--textColor);
+    border-radius: 10px;
+    font-family: 'Cambay';
+    /*font-style: normal;*/
+    font-weight: 100 !important;
+    font-size: 20px;
+    line-height: 20px;
+    color: antiquewhite !important;
+}
+panelButton:active + .content {
+    background: blue;
+}

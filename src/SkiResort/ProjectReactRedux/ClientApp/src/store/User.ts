@@ -84,7 +84,7 @@ export const actionCreators = {
             })
             .catch(err => {
                 err.text().then((errorMessage: string) => {
-                    alert("Incorrect email or password")
+                    alert("Incorrect email or password" + errorMessage)
                     console.log('error from func', errorMessage)
                     dispatch({ type: 'USER_LOG_IN_FAILED', error: errorMessage })
                 })
@@ -104,17 +104,11 @@ export const actionCreators = {
                 })
                 .catch(err => {
                     err.text().then((errorMessage: string) => {
-                        alert("Couldn't get userInfo")
+                        alert("Couldn't get userInfo" + errorMessage)
                         console.log('error from func', errorMessage)
                         dispatch({ type: 'GET_USER_INFO_FAILED', error: errorMessage })
                     })
                 })
-
-            //fetch('api/account', { method: 'GET', headers: authHeader() })
-            //    .then(response => response.json() as Promise<UserInfo>)
-            //    .then(data => {
-            //        dispatch({ type: 'RECIEVE_USER_INFO', userInfo: data });
-            //    });
         }
     },
     logOut: (): AppThunkAction<KnownAction> => (dispatch) => {
@@ -136,7 +130,7 @@ export const actionCreators = {
             })
             .catch(err => {
                 err.text().then((errorMessage: string) => {
-                    alert("Repeated email i guess")
+                    alert("Repeated email" + errorMessage)
                     console.log('error from func', errorMessage)
                     dispatch({ type: 'USER_REGISTER_FAILED', error: errorMessage })
                 })

@@ -1,18 +1,18 @@
 ﻿import React, { ReactNode } from 'react';
 import * as Styles from '../../../styles/components'
 import PropTypes, { InferProps } from "prop-types";
-import classes from './MyButton.module.css';
+import classes from './PanelButton.module.css';
 
 
-const MyButton: any = ({ children, ...props }: InferProps<typeof MyButton.propTypes>) => {
+const PanelButton: any = ({ children, ...props }: InferProps<typeof PanelButton.propTypes>) => {
     return (
-        <button {...props} className={classes.myBtn}>
+        <button {...props} className={classes.panelButton}>
             {children}
         </button>
     );
 };
 
-MyButton.propTypes = {
+PanelButton.propTypes = {
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
@@ -25,4 +25,4 @@ MyButton.propTypes = {
     )
 };
 
-export default MyButton;
+export default PanelButton;

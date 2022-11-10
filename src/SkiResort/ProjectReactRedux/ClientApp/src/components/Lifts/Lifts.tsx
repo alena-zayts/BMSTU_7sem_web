@@ -6,13 +6,12 @@ import * as LiftsStore from '../../store/Lifts';
 import { LiftsProps } from './LiftsProps'
 import { Redirect } from 'react-router-dom'
 import * as Styles from '../../styles/components'
-import MyButton from '../UI/button/MyButton';
+import UsualButton from '../UI/usualButton/UsualButton';
 import LoadingScreen from '../UI/loadingScreen/LoadingScreen';
 import MyTable from '../UI/table/MyTable';
 import ModalWindow from '../UI/modalWindow/ModalWindow';
 import LiftForm from './LiftForm';
-import Container from '../UI/container/Container';
-
+import classes from '../App.module.css';
 
 class Lifts extends React.PureComponent<LiftsProps, { updateModalWindow: any, addLiftModalVisible: boolean, updateLiftModalVisible: boolean, currentliftName: string, currentisOpen: boolean, currentseatsAmount: number, currentliftingTime: number, currentconnectedSlopeNames: string }> {
     constructor(props: LiftsProps) {
@@ -55,10 +54,10 @@ class Lifts extends React.PureComponent<LiftsProps, { updateModalWindow: any, ad
         }
 
         return (
-            <Container>
-                <MyButton onClick={() => this.setState({ ...this.state, addLiftModalVisible: true })}>
+            <div className={classes.main_div} >
+                <UsualButton onClick={() => this.setState({ ...this.state, addLiftModalVisible: true })}>
                     Add Lift
-                </MyButton>
+                </UsualButton>
 
                 <ModalWindow visible={this.state.addLiftModalVisible} setVisible={(value: boolean) => this.setState({ ...this.state, addLiftModalVisible: value })}>
                     <LiftForm formTitle="Add Lift" liftName="" isOpen={false} seatsAmount={0} liftingTime={0} connectedSlopeNames="" buttonText="Add" buttonAction={this.processAddAction}/> //
@@ -68,7 +67,7 @@ class Lifts extends React.PureComponent<LiftsProps, { updateModalWindow: any, ad
 
                 <Styles.HeaderText> Lifts </Styles.HeaderText>
                 {liftsTable}
-            </Container>
+            </div>
         );
     }
 
@@ -84,11 +83,11 @@ class Lifts extends React.PureComponent<LiftsProps, { updateModalWindow: any, ad
                     lift.QueueTime,
                     lift.ConnectedSlopeNames ? lift.ConnectedSlopeNames.join(" ") : "",
                     <div style={{display: 'flex', padding: "5px" }}>
-                        <MyButton style={{ flex: '1 1 auto', margin: "0 5px" }}  onClick={(event: React.FormEvent<HTMLFormElement>) => this.props.deleteLiftByName(lift.LiftName)}>
+                        <UsualButton style={{ flex: '1 1 auto', margin: "0 5px" }}  onClick={(event: React.FormEvent<HTMLFormElement>) => this.props.deleteLiftByName(lift.LiftName)}>
                             Delete
-                        </MyButton>
+                        </UsualButton>
 
-                        <MyButton style={{ flex: '1 1 auto', margin: "0 5px" }} onClick={(event: React.FormEvent<HTMLFormElement>) => {
+                        <UsualButton style={{ flex: '1 1 auto', margin: "0 5px" }} onClick={(event: React.FormEvent<HTMLFormElement>) => {
                             this.setState({
                                 ...this.state,
                                 updateLiftModalVisible: true,
@@ -99,7 +98,7 @@ class Lifts extends React.PureComponent<LiftsProps, { updateModalWindow: any, ad
                             })
                         }}>
                             Update
-                        </MyButton>
+                        </UsualButton>
                     </div>
                 ]
                 )} />

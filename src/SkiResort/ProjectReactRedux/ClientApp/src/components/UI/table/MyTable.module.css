@@ -27,3 +27,13 @@
 .MyTr:nth-child(even) {
         background-color: var(--backgroundPaleColor);
     }
+
+.block_container {
+    /*text-align: center;*/
+}
+
+.block1, .block2 {
+    display: inline-block;
+    background: red;
+    width: 50%;
+}

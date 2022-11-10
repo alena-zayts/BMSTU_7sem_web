@@ -36,6 +36,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\components\UI\Новая папка\" />
+    <Folder Include="ClientApp\src\assets\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

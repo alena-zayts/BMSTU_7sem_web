@@ -1,10 +1,8 @@
 ﻿import React, { ReactNode } from 'react';
 import * as Styles from '../../styles/components'
 import PropTypes, { InferProps } from "prop-types";
-import classes from './MyButton.module.css';
 import { connect } from 'react-redux';
-import MyButton from '../UI/button/MyButton';
-import Container from '../UI/container/Container';
+import UsualButton from '../UI/usualButton/UsualButton';
 import InputCell from '../UI/inputCell/InputCell';
 import { Redirect } from 'react-router-dom'
 import MyLink from '../UI/link/MyLink';
@@ -13,6 +11,9 @@ import { RouteComponentProps } from 'react-router';
 import * as UserStore from '../../store/User';
 import { ApplicationState } from '../../store';
 import * as LiftsStore from '../../store/Lifts';
+import classes from '../App.module.css';
+import { NavLink } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 interface LiftFormProps {
     liftName: string,
@@ -49,7 +50,7 @@ class LiftForm extends React.PureComponent<LiftFormProps, { liftName: string, is
 
     render() {
         return (
-            <Container>
+            <div className={classes.main_div} >
                 <Styles.HeaderText> {this.props.formTitle} </Styles.HeaderText>
                 <InputCell
                     whatToInput="liftName:"
@@ -81,10 +82,10 @@ class LiftForm extends React.PureComponent<LiftFormProps, { liftName: string, is
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ ...this.state, connectedSlopeNames: e.target.value })}
                     type="text"
                 />
-                <MyButton onClick={(event: React.FormEvent<HTMLFormElement>) => this.handleSubmit(event)}>
+                <UsualButton onClick={(event: React.FormEvent<HTMLFormElement>) => this.handleSubmit(event)}>
                     {this.props.buttonText}
-                </MyButton>
-            </Container>
+                </UsualButton>
+            </div>
         );
     }
 }

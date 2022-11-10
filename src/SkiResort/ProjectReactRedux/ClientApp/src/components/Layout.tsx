@@ -6,15 +6,20 @@ import GlobalStyles from '../styles/global'
 export default class Layout extends React.PureComponent<{}, { children?: React.ReactNode }> {
     public render() {
         return (
+            /*<GlobalStyles />*/
             <React.Fragment>
                 
                 <NavMenu />
 
-                <GlobalStyles />
+                {this.props.children}
 
-                <Container>
-                    {this.props.children}
-                </Container>
+                {/*<div>*/}
+                {/*    {this.props.children}*/}
+                {/*</div>*/}
+
+                {/*<Container>* вылезет вправо/} 
+                {/*    {this.props.children}*/}
+                {/*</Container>*/}
 
             </React.Fragment>
         );
