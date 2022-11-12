@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Container } from 'reactstrap';
+//import { Container } from 'reactstrap';
 import NavMenu from './NavMenu';
-import GlobalStyles from '../styles/global'
+//import GlobalStyles from '../styles/global'
 
 export default class Layout extends React.PureComponent<{}, { children?: React.ReactNode }> {
     public render() {
@@ -11,11 +11,11 @@ export default class Layout extends React.PureComponent<{}, { children?: React.R
                 
                 <NavMenu />
 
-                {this.props.children}
+                {/*{this.props.children}*/}
 
-                {/*<div>*/}
-                {/*    {this.props.children}*/}
-                {/*</div>*/}
+                <div>
+                    {this.props.children}
+                </div>
 
                 {/*<Container>* вылезет вправо/} 
                 {/*    {this.props.children}*/}

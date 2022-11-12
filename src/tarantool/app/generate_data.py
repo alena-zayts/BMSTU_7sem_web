@@ -60,19 +60,23 @@ class User(Table):
     def generate_data(cls, n_unauthorized=10, n_authorized=10, n_ski_patrol=3):
         data = []
 
-        data.append(User(1, 0, 'q', 'q',
+        data.append(User(1, 0, 'a', 'a',
                          PERMISSIONS['admin']).to_json())
+        data.append(User(2, 0, 's', 's',
+                         PERMISSIONS['ski_patrol']).to_json())
+        data.append(User(3, 0, 'u', 'u',
+                         PERMISSIONS['authorized_user']).to_json())
 
         for cur_id in range(n_unauthorized):
-            data.append(User(cur_id + 2, 0, f"a{cur_id + 2}", f"a{cur_id + 2}", PERMISSIONS['unauthorized_user']).to_json())
+            data.append(User(cur_id + 4, 0, f"a{cur_id + 2}", f"a{cur_id + 2}", PERMISSIONS['unauthorized_user']).to_json())
 
         for cur_id in range(n_authorized):
-            data.append(User(cur_id + 2 + n_unauthorized, 0,
+            data.append(User(cur_id + 4 + n_unauthorized, 0,
                              f'authorized_email{cur_id}', f'authorized_password{cur_id}',
                              PERMISSIONS['authorized_user']).to_json())
 
         for cur_id in range(n_ski_patrol):
-            data.append(User(cur_id + 2 + n_unauthorized + n_authorized, 0,
+            data.append(User(cur_id + 4 + n_unauthorized + n_authorized, 0,
                              f'ski_patrol_email{cur_id}',
                              f'ski_patrol_password{cur_id}',
                              PERMISSIONS['ski_patrol']).to_json())

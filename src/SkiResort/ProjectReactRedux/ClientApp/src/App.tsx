@@ -9,7 +9,6 @@ import AccountProfile from './components/Account/AccountProfile';
 import AccountRegister from './components/Account/AccountRegister';
 import Account from './components/Account/Account';
 import { ThemeProvider } from 'styled-components';
-import GlobalStyles from './styles/global'
 import { baseTheme } from './styles/theme';
 import Lifts from './components/Lifts/Lifts';
 

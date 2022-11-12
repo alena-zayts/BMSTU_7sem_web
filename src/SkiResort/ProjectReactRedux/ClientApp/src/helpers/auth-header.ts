@@ -6,8 +6,6 @@
     if (userTokenFromStorage) {
         const userTokenString: string = JSON.parse(userTokenFromStorage);
         requestHeaders.set('Authorization', 'Bearer ' + userTokenString);
-        
-        //return { 'Authorization': 'Bearer ' + userToken };
     }
     return requestHeaders;
 }

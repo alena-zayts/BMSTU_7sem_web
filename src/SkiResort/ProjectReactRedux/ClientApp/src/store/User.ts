@@ -1,3 +1,4 @@
+import { userInfo } from 'os';
 import { Action, Reducer } from 'redux';
 import { AppThunkAction } from '.';
 import authHeader from '../helpers/auth-header';
@@ -93,7 +94,7 @@ export const actionCreators = {
     },
     getUserInfo: (): AppThunkAction<KnownAction> => (dispatch, getState) => {
         const appState = getState();
-        if (appState && appState.user.userInfo == undefined) {
+        if (appState && appState.user.userInfo == undefined && appState.user.userToken) {
             fetch('api/account', { method: 'GET', headers: authHeader() })
                 .then(response => {
                     if (!response.ok) { throw response }
@@ -166,7 +167,9 @@ if (userTokenUnparsed != undefined && userTokenUnparsed != "undefined") {
 console.log('userTokenFromStorage from defaultState')
 console.log(userTokenFromStorage)
 
+
 const defaultState: UserState = {
+    //userInfo: userTokenFromStorage? actionCreators.getUserInfo(): undefined,
     userInfo: undefined,
     userToken: userTokenFromStorage,
     error: undefined,
@@ -174,6 +177,9 @@ const defaultState: UserState = {
 
 export const reducer: Reducer<UserState> = (state: UserState | undefined, incomingAction: Action): UserState => {
     if (state === undefined) {
+        if (userTokenFromStorage) {
+            userInfo 
+        }
         return defaultState;
     }
 

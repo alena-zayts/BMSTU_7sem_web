@@ -4,7 +4,7 @@
 .myTable {
     border-collapse: collapse;
     /*убираем пустые промежутки между ячейками*/
-    border: 3px solid grey;
+    border: 2px solid var(--textColor);
     /*устанавливаем для таблицы внешнюю границу серого цвета толщиной 1px*/
     width: 100%;
 }
@@ -12,14 +12,28 @@
 /*Границы ячеек заголовка каждого столбца задаются для элемента th:*/
 .myTh {
     padding: 10px;
-    border: 10px var(--textColor);
     background: var(--backgroundPaleColor);
+    border-bottom: 2px solid var(--textColor);
+}
+
+.myThLast {
+    padding: 10px;
+    background: var(--backgroundPaleColor);
+    border-bottom: 2px solid var(--textColor);
+    border-left: 1px solid var(--textColor);
+    text-align: center;
 }
 
 .myTd {
     padding: 10px 15px;
-    border: 10px var(--textColor);
 }
+
+.myTdLast {
+    border-left: 1px solid var(--textColor);
+    padding: 10px 15px;
+    text-align: center;
+}
+
 
 .MyTr {
     background-color: var(--backgroundLightColor);
@@ -28,12 +42,26 @@
         background-color: var(--backgroundPaleColor);
     }
 
-.block_container {
-    /*text-align: center;*/
+
+.parent_block_container {
+    text-align: center;
 }
 
-.block1, .block2 {
+.block_container {
     display: inline-block;
+    text-align: left;
+}
+
+.block1 {
+    float: left;
+    margin: 40px;
+}
+
+.block2 {
+    /*display: inline;*/
+    float: left;
+    margin: 40px;
+    /*    display: inline-block;
     background: red;
-    width: 50%;
+    width: 50%;*/
 }

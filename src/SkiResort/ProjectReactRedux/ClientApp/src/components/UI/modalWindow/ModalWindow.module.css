@@ -1,5 +1,13 @@
 ﻿@import url(../../App.module.css);
 
+
+.modalWindowDiv {
+    background: var(--backgroundBrightColor);
+/*    width: 100vw;
+    height: 100vh;*/
+}
+
+
 .modalWindow {
     position: fixed;
     top: 0;

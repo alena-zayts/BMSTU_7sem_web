@@ -2,6 +2,7 @@
 
 .panelButton {
     box-sizing: border-box;
+    /*width: 100%;*/
     display: flex;
     align-items: center;
     align-content: center;
@@ -16,17 +17,50 @@
     left: 50%;
     transform: translate(-50%, 0);
     background: var(--panelButtonColor);
-    /* TextColor */
-
     border: 1px solid var(--textColor);
     border-radius: 10px;
     font-family: 'Cambay';
-    /*font-style: normal;*/
-    font-weight: 100 !important;
-    font-size: 20px;
-    line-height: 20px;
+    font-style: normal;
+    font-weight: 400 !important;
+    font-size: 32px;
+    line-height: 34px;
     color: antiquewhite !important;
+
+    /*    color: var(--textColor);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    flex-direction: row;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    gap: 10px;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background: var(--panelButtonColor);*/
+    /* TextColor */
+    /*border: 1px solid var(--textColor);
+    border-radius: 10px;
+    font-family: 'Cambay';*/
+    /*font-style: normal;*/
+    /*font-weight: 400 !important;
+    font-size: 32px;
+    line-height: 34px;
+    color: antiquewhite !important;
+    margin: 0px 10px 0px 10px;*/
 }
+
+/*style= {
+
+{
+    margin: "0 10px", fontFamily: "Cambay", fontStyle: "normal", fontWeight: "400", fontSize: "32px", lineHeight: "52px", padding: "30px"
+}
+
+}*/
 panelButton:active + .content {
     background: blue;
 }

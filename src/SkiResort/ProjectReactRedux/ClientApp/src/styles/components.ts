@@ -40,8 +40,8 @@ export const SmallText = styled.h1`
 font-family: 'Cambay';
 font-style: normal;
 font-weight: 300;
-font-size: 24px;
-line-height: 24px;
+font-size: 20px;
+line-height: 20px;
 
 color: #000000;
 `

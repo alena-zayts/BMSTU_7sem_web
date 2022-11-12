@@ -130,7 +130,7 @@ namespace ProjectReactRedux.Controllers
                 uint liftID = await _liftsService.AdminAddAutoIncrementLiftAsync(_userID, liftName, isOpen, seatsAmount, liftingTime);
                 foreach (string slopeName in connectedSlopeNames)
                 {
-                    await _liftsSlopeService.AdminAddAutoIncrementLiftSlopeAsync(_userID, liftName, slopeName);
+                    await _liftsSlopeService.AddAutoIncrementLiftSlopeAsync(_userID, liftName, slopeName);
                 }
                 BL.Models.Lift liftBL = await _liftsService.GetLiftInfoAsync(_userID, liftName);
                 Lift liftDTO = new Lift(liftID, liftName, isOpen, seatsAmount, liftingTime);
@@ -233,6 +233,18 @@ namespace ProjectReactRedux.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
+                for (int i = 0; i < connectedSlopeNames.Count; i++)
+                {
+                    string newName = "";
+                    foreach (char c in connectedSlopeNames[i])
+                    {
+                        if (c != ',')
+                        {
+                            newName += c;
+                        }
+                    }
+                    connectedSlopeNames[i] = newName;
+                }
                 await _liftsService.UpdateLiftInfoAsync(_userID, liftName, isOpen, seatsAmount, liftingTime);
                 BL.Models.Lift lift = await _liftsService.GetLiftInfoAsync(_userID, liftName);
                 List<string> existingSlopeNames = new List<string>();
@@ -240,7 +252,7 @@ namespace ProjectReactRedux.Controllers
                 foreach (BL.Models.Slope slope in lift.ConnectedSlopes)
                 {
                     if (!connectedSlopeNames.Contains(slope.SlopeName))
-                        await _liftsSlopeService.AdminDeleteLiftSlopeAsync(_userID, lift.LiftName, slope.SlopeName);
+                        await _liftsSlopeService.DeleteLiftSlopeAsync(_userID, lift.LiftName, slope.SlopeName);
                     else
                         existingSlopeNames.Add(slope.SlopeName);
                 }
@@ -250,7 +262,7 @@ namespace ProjectReactRedux.Controllers
                 {
                     if (!existingSlopeNames.Contains(slopeName))
                     {
-                        await _liftsSlopeService.AdminAddAutoIncrementLiftSlopeAsync(_userID, lift.LiftName, slopeName);
+                        await _liftsSlopeService.AddAutoIncrementLiftSlopeAsync(_userID, lift.LiftName, slopeName);
                     }
                 }
                 return new ContentResult
@@ -331,7 +343,7 @@ namespace ProjectReactRedux.Controllers
             uint _userID = Options.OtherOptions.getUserIDFromToken(Request);
             try
             {
-                uint recordID = await _liftsSlopeService.AdminAddAutoIncrementLiftSlopeAsync(_userID, liftName, slopeName);
+                uint recordID = await _liftsSlopeService.AddAutoIncrementLiftSlopeAsync(_userID, liftName, slopeName);
                 return new ContentResult
                 {
                     StatusCode = 200

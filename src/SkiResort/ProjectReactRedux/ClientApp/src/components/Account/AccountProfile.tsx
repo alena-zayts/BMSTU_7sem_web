@@ -31,43 +31,39 @@ class AccountProfile extends React.PureComponent<AccountProps, { isDataLoading: 
 
     render() {
         if (this.props.userToken == undefined) {
-            //alert('There is no token (it might have expired). Redirecting to logIn page')
             return <Redirect to='/account/login' />
         }
 
         if (this.props.userInfo == undefined) {
             return <LoadingScreen />
-            //if (this.state.isDataLoading) {
-            //    return <LoadingScreen />
-            //}
-            //else {
-            //    alert('There is no userInfo and it is not loading')
-            //    return null
-            //}
             
         }
         return (
             <div className={classes.main_div} >
-                <Styles.HeaderText> Profile </Styles.HeaderText>
-                <OutputCell
-                    whatToOutput="Email:"
-                    value={this.props.userInfo.UserEmail}
-                />
-                {/*<OutputCell*/}
-                {/*    whatToOutput="Password:"*/}
-                {/*    value={this.props.userInfo.Password}*/}
-                {/*/>*/}
-                <OutputCell
-                    whatToOutput="Role:"
-                    value={this.props.userInfo.Role}
-                />
-                <OutputCell
-                    whatToOutput="CardID:"
-                    value={this.props.userInfo.CardID}
-                />
-                <UsualButton onClick={(event: React.FormEvent<HTMLFormElement>) => this.props.logOut()}>
-                    LogOut
-                </UsualButton>
+                <div style={{ padding: "60px 0 0 0" }}>
+                    <Styles.HeaderText> Profile </Styles.HeaderText>
+                </div>
+                <div style={{ padding: "30px 0 0 0" }}>
+                    <OutputCell
+                        whatToOutput="Email:"
+                        value={this.props.userInfo.UserEmail}
+                    />
+                    {/*<OutputCell*/}
+                    {/*    whatToOutput="Password:"*/}
+                    {/*    value={this.props.userInfo.Password}*/}
+                    {/*/>*/}
+                    <OutputCell
+                        whatToOutput="Role:"
+                        value={this.props.userInfo.Role}
+                    />
+                    <OutputCell
+                        whatToOutput="CardID:"
+                        value={this.props.userInfo.CardID}
+                    />
+                    <UsualButton onClick={(event: React.FormEvent<HTMLFormElement>) => this.props.logOut()}>
+                        LogOut
+                    </UsualButton>
+                </div>
             </div>
         );
     }

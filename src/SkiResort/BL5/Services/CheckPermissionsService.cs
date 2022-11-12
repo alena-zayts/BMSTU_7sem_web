@@ -27,7 +27,7 @@ namespace BL.Services
                 }
 
                 // ski_patrol
-                List<string> admin_patrol_only = new List<string> { "MarkMessageReadByUserAsync", "GetMessagesAsync", "GetLiftsSlopesInfoAsync"};
+                List<string> admin_patrol_only = new List<string> { "MarkMessageReadByUserAsync", "GetMessagesAsync", "GetLiftsSlopesInfoAsync", "DeleteLiftSlopeAsync", "AddLiftSlopeAsync", "AddAutoIncrementLiftSlopeAsync" };
 
                 if (admin_patrol_only.Contains(memberName) || memberName.Contains("Update"))
                 {

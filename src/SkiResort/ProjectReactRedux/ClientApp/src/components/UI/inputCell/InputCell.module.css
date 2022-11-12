@@ -23,7 +23,7 @@
 
 .cell {
     display: inline-block; 
-    width: 180px;
+    width: 250px;
     /*background: var(--backgroundLightColor);*/
 }
 

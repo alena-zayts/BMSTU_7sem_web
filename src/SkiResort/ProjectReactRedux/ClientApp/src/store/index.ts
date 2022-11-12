@@ -1,10 +1,12 @@
 import * as Lifts from './Lifts';
 import * as User from './User';
+import * as Messages from './Messages'
 
 
 // The top-level state object
 export interface ApplicationState {
     lifts: Lifts.LiftsState | undefined;
+    messages: Messages.MessagesState | undefined;
     user: User.UserState;
 }
 
@@ -13,6 +15,7 @@ export interface ApplicationState {
 // acts on the corresponding ApplicationState property type.
 export const reducers = {
     lifts: Lifts.reducer,
+    messages: Messages.reducer,
     user: User.reducer,
 };
 
