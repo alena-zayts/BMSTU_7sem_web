@@ -17,8 +17,8 @@ import { LiftsProps } from './LiftsProps'
 
 
 
-//class Lifts extends React.PureComponent<LiftsProps, {searchLiftName: string, updateModalWindow: any, addLiftModalVisible: boolean, updateLiftModalVisible: boolean, currentliftName: string, currentisOpen: boolean, currentseatsAmount: number, currentliftingTime: number, currentconnectedSlopeNames: string }>
-class Lifts extends React.PureComponent<LiftsProps, {}>
+class Lifts extends React.PureComponent<LiftsProps, {searchLiftName: string, updateModalWindow: any, addLiftModalVisible: boolean, updateLiftModalVisible: boolean, currentliftName: string, currentisOpen: boolean, currentseatsAmount: number, currentliftingTime: number, currentconnectedSlopeNames: string }>
+//class Lifts extends React.PureComponent<LiftsProps, {}>
 {
     constructor(props: LiftsProps) {
         super(props);

@@ -1,4 +1,5 @@
 import * as React from 'react';
+//import PureComponent from 'react'
 //import { Container } from 'reactstrap';
 import NavMenu from './NavMenu';
 //import GlobalStyles from '../styles/global'
