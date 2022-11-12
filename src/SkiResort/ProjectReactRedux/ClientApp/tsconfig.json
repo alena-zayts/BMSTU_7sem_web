@@ -1,6 +1,13 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "lib": [
+      "es2015",
+      "dom"
+    ],
+    //"target": "ES6",
+    //"lib": [ "DOM", "ES6", "DOM.Iterable", "ScriptHost", "ES2016.Array.Include" ],
+
     "allowJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -12,10 +19,6 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "lib": [
-      "es2015",
-      "dom"
-    ],
     "skipLibCheck": false,
     "noFallthroughCasesInSwitch": true
   },
