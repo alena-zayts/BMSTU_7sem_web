@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ProjectReactRedux.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ApiController]
@@ -29,8 +29,8 @@ namespace ProjectReactRedux.Controllers
         /// <returns>Information about all messages</returns>
         /// <response code="200" cref="ListOfMessageDTO">Information about all messages</response>
         [Route("")]
-        [Authorize(Roles = "admin, ski_patrol")]
         [HttpGet]
+        [Authorize(Roles = "admin, ski_patrol")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Message>))]
         public async Task<IActionResult> Get()
         {

@@ -13,6 +13,8 @@ import HamburgerButton from './UI/iconButtons/HamburgerButton';
 import AccountButton from './UI/iconButtons/AccountButton';
 import panelButtonClasses from '../components/UI/panelButton/PanelButton.module.css'
 
+
+
 export default class NavMenu extends React.PureComponent<{}, { isOpen: boolean }> {
     public state = {
         isOpen: false
@@ -41,13 +43,20 @@ export default class NavMenu extends React.PureComponent<{}, { isOpen: boolean }
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav navbar>
 
-                            <NavItem style={{
-                                float: "left",
-                                clear: "left",
-                                display: "block"
-                            }}>
-                                <NavLink href="/lifts/" className={panelButtonClasses.panelButton} >Lifts</NavLink>
-                            </NavItem>
+                            <div style={{padding: "10px"}}>
+                                <NavItem>
+                                    <NavLink href="/lifts/" className={panelButtonClasses.panelButton} >Lifts</NavLink>
+                                </NavItem>
+                            </div>
+
+
+                            {localStorage.getItem('userToken') != null &&
+                                <div style={{ padding: "10px" }}>
+                                    <NavItem>
+                                        <NavLink href="/users-messages/" className={panelButtonClasses.panelButton}> Messages </NavLink>
+                                    </NavItem>
+                                </div>
+                            }
 
                       
                         </Nav>

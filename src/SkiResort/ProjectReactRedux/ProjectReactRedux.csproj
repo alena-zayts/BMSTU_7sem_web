@@ -24,6 +24,10 @@
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.14" />
     <PackageReference Include="Microsoft.IdentityModel" Version="7.0.0" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.24.0" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.8.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="Swashbuckle.Core" Version="5.6.0" />
@@ -42,13 +46,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Remove="ClientApp\src\components\Home - Копировать.tsx" />
+    <TypeScriptCompile Remove="ClientApp\src\components\Messages\MessageForm.tsx" />
+    <TypeScriptCompile Remove="ClientApp\src\components\Messages\Messages.tsx" />
+    <TypeScriptCompile Remove="ClientApp\src\components\Messages\MessagesProps.tsx" />
+    <TypeScriptCompile Remove="ClientApp\src\components\PageNotFound.tsx" />
+    <TypeScriptCompile Remove="ClientApp\src\components\UI\iconButtons\MarkButton.tsx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AccessToDB5\AccessToDB5.csproj" />
     <ProjectReference Include="..\BL5\BL5.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="ClientApp\src\assets\" />
-    <Folder Include="ClientApp\src\components\Messages\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

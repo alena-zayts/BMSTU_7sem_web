@@ -29,10 +29,10 @@ const MyTable: any = ({ children, ...props }: InferProps<typeof MyTable.propType
                         <thead>
                             <tr>
                                 {props.headNames.slice(0, -1).map((headName: string) =>
-                                    <th className={classes.myTh}>{headName}</th>
+                                    <th key={headName} className={classes.myTh}>{headName}</th>
                                 )}
                                 {actionsAvailable &&
-                                    <th className={classes.myThLast}>{props.headNames[props.headNames.length - 1]}</th>
+                                    <th key={props.headNames[props.headNames.length - 1]} className={classes.myThLast}>{props.headNames[props.headNames.length - 1]}</th>
                                 }
                             </tr>
                         </thead>
@@ -40,10 +40,10 @@ const MyTable: any = ({ children, ...props }: InferProps<typeof MyTable.propType
                             {props.rows.map((row: Array<any>) =>
                                 <tr className={classes.MyTr} key={row[0]}>
                                     {row.slice(0, -1).map((data: any) =>
-                                        <td className={classes.myTd}>{data}</td>
+                                        <td key={`r${props.rows.indexOf(row)}c${row.indexOf(data)}`} className={classes.myTd}>{data}</td>
                                     )}
                                     {actionsAvailable &&
-                                        <td className={classes.myTdLast}>{row[row.length - 1]}</td>
+                                        <td key={row[row.length - 1]}  className={classes.myTdLast}>{row[row.length - 1]}</td>
                                     }
                                     
 

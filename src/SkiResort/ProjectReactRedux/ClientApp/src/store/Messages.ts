@@ -102,9 +102,9 @@ type KnownAction = GetMessagesRequested | GetMessagesSuccessed | GetMessagesFail
 export const actionCreators = {
     getMessages: (): AppThunkAction<KnownAction> => (dispatch, getState) => {
         const appState = getState();
-        if (appState && appState.messages) {
+       /* if (appState && appState.messages)*/ {
             dispatch({ type: 'GET_MESSAGES_REQUESTED' });
-            fetch('api/messages', { method: 'GET', headers: authHeader()})
+            fetch('api/messages', { headers: authHeader()})
                 .then(response => {
                     if (!response.ok) { throw response }
                     return response.json() as Promise<Message[]>
@@ -115,7 +115,7 @@ export const actionCreators = {
                 .catch(err => {
                     console.log(err)
                     err.text().then((errorMessage: string) => {
-                        alert("Error while getting messagesList\n" + errorMessage)
+                        //alert("Error while getting messagesList\n" + errorMessage)
                         dispatch({ type: 'GET_MESSAGES_FAILED', error: errorMessage })
                     })
                 })
@@ -159,7 +159,7 @@ export const actionCreators = {
     markMessageRead: (messageID: number): AppThunkAction<KnownAction> => (dispatch, getState) => {
         dispatch({ type: 'MARK_MESSAGE_READ_REQUESTED' });
 
-        let query: string = `api/messages?messageID=${messageID}`
+        let query: string = `api/messages/${messageID}`
         fetch(query, { method: 'PATCH', headers: authHeader() })
             .then(response => {
                 if (!response.ok) { throw response }

@@ -57,19 +57,19 @@ class LiftForm extends React.PureComponent<LiftFormProps,
                 <InputCell
                     whatToInput="isOpen:"
                     value={this.state.isOpen}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ ...this.state, isOpen: e.target.value })}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ ...this.state, isOpen: e.target.value as any as boolean })}
                     type="boolean"
                 />
                 <InputCell
                     whatToInput="seatsAmount:"
                     value={this.state.seatsAmount}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ ...this.state, seatsAmount: e.target.value})}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ ...this.state, seatsAmount: e.target.value as any as number })}
                     type="number"
                 />
                 <InputCell
                     whatToInput="liftingTime:"
                     value={this.state.liftingTime}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ ...this.state, liftingTime: e.target.value })}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ ...this.state, liftingTime: e.target.value as any as number })}
                     type="number"
                 />
                 <InputCell

@@ -176,6 +176,7 @@ const defaultState: UserState = {
 };
 
 export const reducer: Reducer<UserState> = (state: UserState | undefined, incomingAction: Action): UserState => {
+    
     if (state === undefined) {
         if (userTokenFromStorage) {
             userInfo 

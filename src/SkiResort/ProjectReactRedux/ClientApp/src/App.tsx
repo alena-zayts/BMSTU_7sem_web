@@ -11,6 +11,8 @@ import Account from './components/Account/Account';
 import { ThemeProvider } from 'styled-components';
 import { baseTheme } from './styles/theme';
 import Lifts from './components/Lifts/Lifts';
+import Messages from './components/Messages/Messages';
+import PageNotFound from './components/PageNotFound';
 
 export default () => (
     <ThemeProvider theme={baseTheme}>
@@ -20,11 +22,15 @@ export default () => (
             <Route exact path='/' component={Home} />
 
             <Route path='/lifts' component={Lifts} />
+            <Route path='/users-messages' component={Messages} />
 
             <Route path='/account' component={Account} />
             <Route path='/account/login' component={AccountLogIn} />
             <Route path='/account/profile' component={AccountProfile} />
             <Route path='/account/register' component={AccountRegister} />
+
+
+            <Route path='*' component={PageNotFound} />
         </Layout>
     </ThemeProvider>
 );

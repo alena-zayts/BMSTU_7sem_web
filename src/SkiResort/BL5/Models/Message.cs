@@ -14,7 +14,7 @@ namespace BL.Models
 
         public Message(uint messageID, uint senderID, uint checkedByID, string text)
         {
-            if (text.Length == 0)
+            if (text == null || text.Length == 0)
             {
                 throw new MessageCreationException("Text of message cannot be empty");
             }
