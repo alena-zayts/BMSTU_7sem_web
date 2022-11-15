@@ -3,6 +3,7 @@ import { Action, Reducer } from 'redux';
 import { AppThunkAction } from '.';
 import authHeader from '../helpers/auth-header';
 
+
 // -----------------
 // STATE - This defines the type of data maintained in the Redux store.
 

@@ -33,7 +33,7 @@ class AccountRegister extends React.PureComponent<AccountProps, { userEmail: str
         return (
             <div className={classes.main_div} >
                 <div style={{ padding: "60px 0 0 0" }}>
-                    <Styles.HeaderText> LogIn </Styles.HeaderText>
+                    <Styles.HeaderText> Register </Styles.HeaderText>
                 </div>
                 <div style={{ padding: "30px 0 0 0" }}>
                     <InputCell

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route } from 'react-router';
+import { Route, Switch } from 'react-router';
 import Layout from './components/Layout';
 import Home from './components/Home';
 
@@ -18,19 +18,22 @@ export default () => (
     <ThemeProvider theme={baseTheme}>
 
         <Layout>
+            {/*<Switch>*/}
+                <Route exact path='/' component={Home} />
 
-            <Route exact path='/' component={Home} />
+                <Route path='/lifts' component={Lifts} />
+                <Route path='/users-messages' component={Messages} />
 
-            <Route path='/lifts' component={Lifts} />
-            <Route path='/users-messages' component={Messages} />
+                
 
             <Route path='/account' component={Account} />
             <Route path='/account/login' component={AccountLogIn} />
             <Route path='/account/profile' component={AccountProfile} />
-            <Route path='/account/register' component={AccountRegister} />
+                <Route path='/account/register' component={AccountRegister} />
 
 
-            <Route path='*' component={PageNotFound} />
+                {/*<Route component={PageNotFound} />*/}
+            {/*</Switch>*/}
         </Layout>
     </ThemeProvider>
 );
