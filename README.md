@@ -1,3 +1,13 @@
+# BMSTU_7sem_web
+7th sem BMSTU, Web
+
+Интерфес к лабораторной 1 (swagger) -- это проект WebApplication 1, к лабораторной 3 -- ProjectReactRedux.
+
+Don't ask me why.
+
+![](img/main.png)
+
+![](img/profile.png)
 
 # Приложение для онлайн-мониторинга состояния объектов горнолыжного курорта.
 
@@ -42,9 +52,9 @@
 ![](docs/imgs/er/er.png)
 
 
-## Figma 
+## [Figma](https://www.figma.com/file/bw5WSTiraT4L7ij0rP0mFV/fig1?node-id=0%3A1)
 
-[Исследование](https://www.figma.com/file/bw5WSTiraT4L7ij0rP0mFV/fig1?node-id=0%3A1)
+
 
 
 

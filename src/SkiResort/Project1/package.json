@@ -1,6 +1,0 @@
-{
-  "devDependencies": {
-    "@types/node": "^18.11.4",
-    "@types/webpack-env": "^1.18.0"
-  }
-}
